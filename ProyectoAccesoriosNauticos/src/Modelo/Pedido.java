@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  *
@@ -9,12 +9,12 @@ import java.util.Calendar;
 public abstract class Pedido {
     //Atributos
     protected int cod;
-    protected Calendar fecha_emision;
-    protected Calendar fecha_recepcion;
+    protected Date fecha_emision;
+    protected Date fecha_recepcion;
     protected double monto_pagar;
 
     //Constructor
-    public Pedido(int cod, Calendar fecha_emision, Calendar fecha_recepcion, double monto_pagar) {
+    public Pedido(int cod, Date fecha_emision, Date fecha_recepcion, double monto_pagar) {
         this.cod = cod;
         this.fecha_emision = fecha_emision;
         this.fecha_recepcion = fecha_recepcion;
@@ -39,19 +39,19 @@ public abstract class Pedido {
         this.cod = cod;
     }
 
-    public Calendar getFecha_emision() {
+    public Date getFecha_emision() {
         return fecha_emision;
     }
 
-    public void setFecha_emision(Calendar fecha_emision) {
+    public void setFecha_emision(Date fecha_emision) {
         this.fecha_emision = fecha_emision;
     }
 
-    public Calendar getFecha_recepcion() {
+    public Date getFecha_recepcion() {
         return fecha_recepcion;
     }
 
-    public void setFecha_recepcion(Calendar fecha_recepcion) {
+    public void setFecha_recepcion(Date fecha_recepcion) {
         this.fecha_recepcion = fecha_recepcion;
     }
 
