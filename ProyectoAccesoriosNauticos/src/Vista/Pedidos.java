@@ -1,7 +1,9 @@
 package Vista;
 
-import Proyecto.AccesoriosNauticos;
+import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Producto;
+import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
@@ -9,8 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,20 +24,20 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Inventario extends JFrame {
+public class Pedidos extends JFrame {
     
     // Atributos
     //ESTRUCTURAS DE CONTROL
     public int ContDescripcion = 0;                                     //Determina la Descripcion que hay que Mostrar
     public List<Producto> Lista = new ArrayList<Producto>();   //Representa la lista de Productos que se muestra en cada Pagina de un Catalogo
     public List<Producto> PLista = AccesoriosNauticos.getBD();   //Representa la lista principal con todos los productos
-    public String Categoria = "Electronicos";                                //Determina la Categoria que se esta Trabajando
+    public String Categoria = "Electrodomesticos";                                //Determina la Categoria que se esta Trabajando
     
         //PANELES DEL LADO DERECHO
     public JPanel PPedido = new JPanel();
     public JPanel PInfo = new JPanel();
     public JPanel PMonto = new JPanel();
-    public JPanel PGestion = new JPanel();
+    public JPanel PFinalizacion = new JPanel();
     public JPanel PArticulos = new JPanel();
 
         //PANELES DEL LADO IXQUIERDO
@@ -63,9 +65,10 @@ public class Inventario extends JFrame {
     public JButton Combustibles = new JButton(new ImageIcon("src/Imagenes/fondo_cat.jpg"));
     public JButton Motores = new JButton(new ImageIcon("src/Imagenes/fondo_cat.jpg"));
     public JButton Miscelaneos = new JButton(new ImageIcon("src/Imagenes/fondo_cat.jpg"));
-    public JButton Gestionar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
+    public JButton Finalizar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
     public JButton Pedidos = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
     public JButton Buscar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
+    public JButton Regresar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
     
         //botones para la ventan de delivery
     public JButton Cancelar=new JButton();      //boton para cancelar delivery
@@ -132,10 +135,7 @@ public class Inventario extends JFrame {
     public JLabel TextoPedido = new JLabel();
     public JLabel EtiquetaPedido = new JLabel(new ImageIcon("src/Imagenes/pedido_blanco.png"));
     public JLabel TextoRegresar = new JLabel();
-    public JLabel TextoActualizar = new JLabel();
-    public JLabel TextoCrear = new JLabel();
-    public JLabel TextoGestionar = new JLabel();
-    public JLabel TextoPagar = new JLabel();
+    public JLabel TextoFinalizar = new JLabel();
     public JLabel TextoBusqueda = new JLabel();
     public JLabel EtiquetaBusqueda = new JLabel(new ImageIcon("src/Imagenes/lupa_80x80.png"));
     public JLabel Falta = new JLabel(new ImageIcon("src/Imagenes/Sin_Articulos.png"));
@@ -187,7 +187,7 @@ public class Inventario extends JFrame {
     public int limite = 0;
     
     // Constructor
-    public Inventario(){
+    public Pedidos(){
         this.setSize(1315, 839); //tamano
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
@@ -223,7 +223,7 @@ public class Inventario extends JFrame {
         this.panelPedido();
         this.panelInfo();
         this.panelGanancia();
-        this.panelGestion();
+        this.panelFinalizacion();
     }
     //Metodo que Gestiona el Panel de Pedidos (Pedidos)
     public void panelPedido() { 
@@ -238,16 +238,14 @@ public class Inventario extends JFrame {
         //Marco Horizontal
         MarcoHArriba.setBounds(220, 100, 1080, 5);                              //Posicion y Dimension
         MarcoHArriba.setBackground(Color.BLACK);                                //Color de Fondo
-
-        //Boton de Pedidos
-        Pedidos.setBounds(0, 0, 270, 100);                                      //Posicion y Dimension
-        Pedidos.setLayout(null);                                                //Borrar Configuracion por Defecto
-        TextoPedido.setText("Pedidos");                                       //Texto
-        TextoPedido.setFont(new Font("Agency FB", Font.PLAIN, 47));           //Estilo y Fuente de Letra
-        TextoPedido.setForeground(Color.WHITE);                               //Color de letra
-        TextoPedido.setBounds(100, 30, 130, 40);                              //Posicion y Dimension
-        EtiquetaPedido.setBounds(10, 10, 110, 70);                             //Posicion y Dimension
-        EtiquetaPedido.setBackground(new Color(255, 255, 255, 0));            //Color de Fondo      
+        
+        //Boton de Regresar
+        Regresar.setBounds(0, 0, 270, 100);                                     //Posicion y Dimension
+        Regresar.setLayout(null);                                               //Borrar Configuracion por Defecto
+        TextoRegresar.setText("Regresar");                                     //Texto
+        TextoRegresar.setFont(new Font("Agency FB", Font.PLAIN, 47));          //Estilo y Fuente de Letra
+        TextoRegresar.setForeground(Color.WHITE);                              //Color de letra
+        TextoRegresar.setBounds(70, 20, 150, 60);                              //Posicion y Dimension       
         
         //Configuraciones de Visibilidad y Agregacion
             //Agregar al Objeto Actual
@@ -257,10 +255,11 @@ public class Inventario extends JFrame {
             //Agregar a Textos y Etiquetas
         Pedidos.add(TextoPedido);
         Pedidos.add(EtiquetaPedido); 
+        Regresar.add(TextoRegresar);
             //Agregar a Panel
-        PPedido.add(Pedidos);
+        PPedido.add(Regresar);
             //Visibilidad
-        PPedido.setVisible(true);
+        Regresar.setVisible(true);
         MarcoHArriba.setVisible(true);
         MarcoVDerecha.setVisible(true);
     }
@@ -345,25 +344,25 @@ public class Inventario extends JFrame {
         PMonto.setVisible(true);
         MarcoHMonto.setVisible(true);
     }
-    //Metodo que Gestiona el Inventario
-    public void panelGestion() {
+    //Metodo que Gestiona la finalizacion
+    public void panelFinalizacion() {
         //Se establece la configuracion del Panel
-        PGestion.setLayout(null);                                          //Borrar Configuracion por Defecto  
-        PGestion.setBounds(1030, 685, 270, 115);                           //Posicion y Dimension
+        PFinalizacion.setLayout(null);                                          //Borrar Configuracion por Defecto  
+        PFinalizacion.setBounds(1030, 685, 270, 115);                           //Posicion y Dimension
         
         //Boton de Gestionar
-        Gestionar.setLayout(null);                                              //Borrar Configuracion por Defecto  
-        Gestionar.setBounds(0, 0, 270, 115);                                    //Posicion y Dimension
+        Finalizar.setLayout(null);                                              //Borrar Configuracion por Defecto  
+        Finalizar.setBounds(0, 0, 270, 115);                                    //Posicion y Dimension
         
         //Texto de Gestionar
-        TextoGestionar.setText("Gestionar");                                   //Texto
-        TextoGestionar.setFont(new Font("Agency FB", Font.PLAIN, 45));         //Estilo y Fuente de Letra
-        TextoGestionar.setBounds(75, 30, 170, 50);                             //Posicion y Dimension
-        TextoGestionar.setForeground(Color.WHITE);                             //Color de Fondo
+        TextoFinalizar.setText("Finalizar");                                   //Texto
+        TextoFinalizar.setFont(new Font("Agency FB", Font.PLAIN, 45));         //Estilo y Fuente de Letra
+        TextoFinalizar.setBounds(75, 30, 170, 50);                             //Posicion y Dimension
+        TextoFinalizar.setForeground(Color.WHITE);                             //Color de Fondo
 
         //Configuraciones de Visibilidad y Agregacion
             //Agregar al Objeto Actual
-        this.add(PGestion);
+        this.add(PFinalizacion);
             //Configuraciones
         /*confPagar();                    
         confActualizarCrear(); 
@@ -374,11 +373,11 @@ public class Inventario extends JFrame {
         configCancelar(); //CANCELAR DELIVERY
         configInformacionRutaContactar(); // Informacion del delivery*/
             //Agregar Texto y Etiquetas
-        Gestionar.add(TextoGestionar);   
+        Finalizar.add(TextoFinalizar);   
             //Agegrar al Panel
-        PGestion.add(Gestionar); 
+        PFinalizacion.add(Finalizar); 
             //Visibilidad
-        PGestion.setVisible(true);
+        PFinalizacion.setVisible(true);
      
     }
     
@@ -531,7 +530,6 @@ public class Inventario extends JFrame {
     public void parteCentro() {
         panelFotoUsuario();
         panelUsuario();
-        //confBarraOpciones();
         panelBusqueda();
     }
     //Metodo que Gestiona el Encabezado de Usuario
@@ -662,15 +660,6 @@ public class Inventario extends JFrame {
         //Imagen "No hay articulos que Mostrar"
         Falta.setBounds(150, 80, 500, 500);
         
-        //Agregamos los Botones de Agregar o Eliminar
-            //Configuraciones
-        confAgregarEliminar(1, Accion1);
-        confAgregarEliminar(2, Accion2);
-        confAgregarEliminar(3, Accion3);
-        confAgregarEliminar(4, Accion4);
-        confAgregarEliminar(5, Accion5);
-        confAgregarEliminar(6, Accion6);
-        
         //Agregando Botones de Informacion
             //Configuraciones
         confInformacion(1, Info1);
@@ -760,38 +749,7 @@ public class Inventario extends JFrame {
         accionCategoria("Jeans", Pantalones);
         accionCategoria("Zapatos", Zapatos);
         accionCategoria("Joggers", Joggers);
-        accionCategoria("Interior", Interior);
-        //Aciones de los Botones de Agregar y Eliminar*/
-        accionEliminar();
-    }
-    //Accion Botones de Agregar y Eliminar
-    public void accionEliminar(){
-        confEliminar(0, Accion1);
-        confEliminar(1, Accion2);
-        confEliminar(2, Accion3);
-        confEliminar(3, Accion4);
-        confEliminar(4, Accion5);
-        confEliminar(5, Accion6);
-    } 
-    //Metodo que Determina el Comportamiento de los Botones Agregar y Eliminar
-    public void confEliminar(int Pos, JButton Accion){
-        ActionListener b = (ActionEvent e) -> {
-            int Valor = JOptionPane.showConfirmDialog(null, "           ¿Estás seguro de querer eliminar el producto " + PLista.get(limite - 6 + Pos).getNombre() + "?", "Advertencia",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-            if (Valor == JOptionPane.YES_OPTION) {
-                PLista.remove(limite - 6 + Pos);
-
-                Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
-                agregarArticulos();
-                deshabilitarBotones();
-
-                Anterior.setEnabled(false);
-                Posterior.setEnabled(true);
-                limite = 6;
-                detPosAnt();
-            }
-        };
-        Accion.addActionListener(b);
+        accionCategoria("Interior", Interior);*/
     }
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
         //Accion del Boton de Informacion
@@ -812,26 +770,6 @@ public class Inventario extends JFrame {
         confImagenes(4, 3, Articulo4);
         confImagenes(5, 4, Articulo5);
         confImagenes(6, 5, Articulo6);
-    }
-    //Configuracion de los Botones de Agregar y Eliminar
-    public void confAgregarEliminar(int Lim, JButton Accion){
-        //Determinamos si es Neceasario Imprimir el Boton, Gracias a la Longitud de la Lista
-        if (Lista.size() >= Lim) {
-            //Determinamos la posicion del Boton
-            if (Lim==1) Accion.setBounds(210, 275, 40, 40);
-            if (Lim==2) Accion.setBounds(465, 275, 40, 40);
-            if (Lim==3) Accion.setBounds(720, 275, 40, 40);
-            if (Lim==4) Accion.setBounds(210, 605, 40, 40);
-            if (Lim==5) Accion.setBounds(465, 605, 40, 40);
-            if (Lim==6) Accion.setBounds(720, 605, 40, 40);
-            //Configuracion del Boton
-            Accion.setIcon(ImagenEquis);
-            Accion.setBackground(new Color(255, 255, 255, 0));
-            Accion.setBorderPainted(false);
-            Accion.setOpaque(false);
-            //Agregar al Panel
-            PArticulos.add(Accion);
-        }
     }
     //Configuracion de los Botones de Informacion
     public void confInformacion(int Lim, JButton Info){
@@ -946,8 +884,18 @@ public class Inventario extends JFrame {
         TCosto.setText("Costo: " + "$" + cos);
         TDisponibles.setText("Disponible: " + dis);
     }
+    // Metodos setters y getters
+    public void actualizar(int cod){
+        Entrada ped = Entrada.buscarEntrada(cod, AccesoriosNauticos.getLista_entradas());
+        limite = 6;
+        PLista = ped.getProductos();
+        Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
+        deshabilitarBotones();
+        agregarArticulos();
+        detPosAnt();
+    }
     
-    //METODOS VARIOS
+    
     //Configuracion que cambia el aspecto general de los botones
     //public void confGeneral(){
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -962,13 +910,13 @@ public class Inventario extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inventario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }*/
 }

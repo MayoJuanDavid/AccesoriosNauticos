@@ -124,4 +124,12 @@ public class Entrada extends Pedido{
         return lista;
     }   
     
+    // Metodo para buscar una entrada
+    public static Entrada buscarEntrada(int cod, List<Entrada> lista){
+        System.out.println(lista);
+        for (Entrada ped: lista)
+            if (ped.cod == cod) return ped;
+        return null;
+    }
+    
 }

@@ -25,6 +25,7 @@ public class Producto {
     private double pvpdetal;
     private double pvp2mayor;
     private double ganancia;
+    private String imagen;
     
     //Constructor
     public Producto(int cod, String nombre, int disponibilidad, double precio_compra, double prentabilidad, double pvpdetal, double pvp2mayor, double ganancia) {
@@ -36,6 +37,7 @@ public class Producto {
         this.pvpdetal = pvpdetal;
         this.pvp2mayor = pvp2mayor;
         this.ganancia = ganancia;
+        this.imagen = "";
     }
 
     //Constructor vacio
@@ -48,6 +50,7 @@ public class Producto {
         this.pvpdetal = 0.00;
         this.pvp2mayor = 0.00;
         this.ganancia = 0.00;
+        this.imagen = "";
     }
     
     //Getters y setters
@@ -113,6 +116,14 @@ public class Producto {
 
     public void setGanancia(double ganancia) {
         this.ganancia = ganancia;
+    }
+    
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
     
     public static Producto getProducto(List<Producto> lista_producto, int cod){

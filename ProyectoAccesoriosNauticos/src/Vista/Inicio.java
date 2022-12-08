@@ -17,7 +17,7 @@ public class Inicio extends javax.swing.JFrame {
     private final String usuario = "admin";
     private final String clave = "admin";
     private Error vError;
-    private Inventario vInventario;
+    private Pedidos vInventario;
     
     /**
      * Creates new form Inicio
@@ -55,16 +55,14 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(2, 54, 92));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logo.jpg"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 270, 160));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCir.png"))); // NOI18N
+        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 270, 160));
 
         usuarioField.setBorder(null);
-        usuarioField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioFieldActionPerformed(evt);
-            }
-        });
-        jPanel1.add(usuarioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 220, 30));
+        usuarioField.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        jPanel1.add(usuarioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 260, 230, 30));
 
         jButton1.setBackground(new java.awt.Color(37, 134, 218));
         jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -76,26 +74,26 @@ public class Inicio extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, 130, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 130, 40));
 
-        jLabel1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Contraseña");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 220, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 230, 20));
 
-        jLabel3.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Usuario");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 240, 220, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 230, 20));
 
-        jLabel4.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Agency FB", 0, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Login");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 270, 50));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 270, 50));
 
         mostrar.setBackground(jPanel1.getBackground());
-        mostrar.setFont(new java.awt.Font("Comic Sans MS", 1, 14)); // NOI18N
+        mostrar.setFont(new java.awt.Font("Agency FB", 0, 24)); // NOI18N
         mostrar.setForeground(new java.awt.Color(255, 255, 255));
         mostrar.setText("Mostrar Contraseña");
         mostrar.addActionListener(new java.awt.event.ActionListener() {
@@ -103,20 +101,16 @@ public class Inicio extends javax.swing.JFrame {
                 mostrarActionPerformed(evt);
             }
         });
-        jPanel1.add(mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 220, -1));
+        jPanel1.add(mostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 230, -1));
 
         claveField.setText("jPasswordField1");
-        jPanel1.add(claveField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 220, 30));
+        jPanel1.add(claveField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 230, 30));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 540));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 480));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void usuarioFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usuarioFieldActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
       
@@ -132,7 +126,7 @@ public class Inicio extends javax.swing.JFrame {
         else if (usuario.equals(this.usuario) && clave.equals(this.clave)){
             this.setVisible(false);
             //TODO : agregar la instancia this en el constructor de la ventana de inventario
-            vInventario = new Inventario();
+            vInventario = new Pedidos();
             vInventario.setVisible(true);
         }else {
             String msj = "";

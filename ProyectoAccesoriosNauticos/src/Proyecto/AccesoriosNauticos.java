@@ -5,33 +5,98 @@ import Modelo.Cliente;
 import Modelo.Entrada;
 import Modelo.Producto;
 import Modelo.Salida;
-import java.io.*;
+import Vista.Inicio;
+import Vista.Inventario;
+import Vista.Pedidos;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class AccesoriosNauticos {
     
     // Variables a utilizar
-    public static List<Producto> lista_productos = new ArrayList<Producto>(); 
-    public static List<Cliente> lista_clientes = new ArrayList<Cliente>(); 
-    public static List<Entrada> lista_entradas = new ArrayList<Entrada>(); 
-    public static List<Salida> lista_salida = new ArrayList<Salida>(); 
+    
+    //// Ventanas
+    private static Inicio Ventana = new Inicio();
+    private static Inventario VInventario = new Inventario();
+    private static Pedidos VPedidos = new Pedidos();
+            
+    //// Listas de datos
+    private static List<Producto> lista_productos = new ArrayList<Producto>(); 
+    private static List<Cliente> lista_clientes = new ArrayList<Cliente>(); 
+    private static List<Entrada> lista_entradas = new ArrayList<Entrada>(); 
+    private static List<Salida> lista_salida = new ArrayList<Salida>(); 
     
     // Programa pricipal
     public static void main (String[] args){
+        lista_productos = getBD();
+        VPedidos.actualizar(3);
+        VPedidos.setVisible(true);
+        
+        
+        /*int lim = 6;
+        int lim_inf = (lista_productos.size() - lim);
+        List<Producto> lista = lista_productos.subList(lim, (lim_inf < 6)? lim + lim_inf: lim + 6);
+        */
+        /*for (Entrada cli: lista_entradas){
+            System.out.println(cli.imprimir());
+            for (Producto prod: cli.getProductos())
+                System.out.println("\t" + prod.imprimir());
+        }*/
+        //Ventana.setVisible(true);
+        // VInventario.setVisible(true);        
+    }
+    
+    // Metodos setters y getters 
+    public static Inicio getVentana() {
+        return Ventana;
+    }
+    public static Inventario getVPrincipal() {
+        return VInventario;
+    }
+    public static List<Producto> getLista_productos() {
+        return lista_productos;
+    }
+    public static List<Cliente> getLista_clientes() {
+        return lista_clientes;
+    }
+    public static List<Entrada> getLista_entradas() {
+        return lista_entradas;
+    }
+    public static List<Salida> getLista_salida() {
+        return lista_salida;
+    }
+
+    public static void setVentana(Inicio Ventana) {
+        AccesoriosNauticos.Ventana = Ventana;
+    }
+    public static void setVPrincipal(Inventario VPrincipal) {
+        AccesoriosNauticos.VInventario = VPrincipal;
+    }
+    public static void setLista_productos(List<Producto> lista_productos) {
+        AccesoriosNauticos.lista_productos = lista_productos;
+    }
+    public static void setLista_clientes(List<Cliente> lista_clientes) {
+        AccesoriosNauticos.lista_clientes = lista_clientes;
+    }
+    public static void setLista_entradas(List<Entrada> lista_entradas) {
+        AccesoriosNauticos.lista_entradas = lista_entradas;
+    }
+    public static void setLista_salida(List<Salida> lista_salida) {
+        AccesoriosNauticos.lista_salida = lista_salida;
+    }
+    
+    // Metodos para llenar los datos y retornar la lista de productos
+    public static List<Producto> getBD(){
         lista_productos = Producto.leer();
         lista_clientes = Cliente.leer();
         lista_entradas = Entrada.leer(lista_productos);
         lista_salida = Salida.leer(lista_productos);
-        
-        /*for (Salida cli: lista_salida){
+
+        /*for (Producto cli: lista_productos){
             System.out.println(cli.imprimir());
-            for (Producto prod: cli.getProductos())
-                System.out.println("\t" + prod.imprimir());
-            System.out.println("");
-            System.out.println("");
         }*/
-            
+        
+        return lista_productos;
     }
+    
 }
