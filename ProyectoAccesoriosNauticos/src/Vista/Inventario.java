@@ -115,10 +115,10 @@ public class Inventario extends JFrame {
     public JLabel TCategoria = new JLabel("Categoría: ");
     public JLabel TCosto = new JLabel("Costo: ");
     public JLabel TDisponibles = new JLabel("Disponibles: ");
-    public JLabel TDescripcion = new JLabel("Descripción: ");
-    public JLabel TDescrip = new JLabel();
-    public JLabel Ganancia = new JLabel("Ganancia: " + 0.0 + "$");
-    public JLabel TSexo = new JLabel("Sexo: ");
+    public JLabel TPRentabilidad = new JLabel("% Rentabilidad: ");
+    public JLabel TPVPDetal = new JLabel("PVP Detallado: ");
+    public JLabel TPVP2Mayor = new JLabel("PVP2 al Mayor: ");
+    public JLabel TGanancia = new JLabel("Ganancia: " + 0.0 + "$");
 
         //IMAGENES DE LOS ARTICULOS
     public JLabel Articulo1 = new JLabel();
@@ -200,7 +200,6 @@ public class Inventario extends JFrame {
         this.accionBotones();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
-        //confGeneral();
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -275,33 +274,33 @@ public class Inventario extends JFrame {
         MarcoHInfo.setBackground(Color.BLACK);
 
         //Texto del Titulo
-        TInformacion.setBounds(32, 60, 210, 50);                                //Posicion y Dimension
+        TInformacion.setBounds(32, 15, 210, 50);                                //Posicion y Dimension
         TInformacion.setFont(new Font("Agency FB", 0, 45));                     //Estilo y Fuente de Letra
         //Texto del Codigo
-        TCodigo.setBounds(20, 130, 220, 35);                                    //Posicion y Dimension
+        TCodigo.setBounds(20, 75, 220, 35);                                     //Posicion y Dimension
         TCodigo.setFont(new Font("Agency FB", 0, 30));                          //Estilo y Fuente de Letra
         //Texto del Nombre
-        TNombre.setBounds(20, 190, 220, 35);                                    //Posicion y Dimension
+        TNombre.setBounds(20, 125, 220, 35);                                    //Posicion y Dimension
         TNombre.setFont(new Font("Agency FB", 0, 30));                          //Estilo y Fuente de Letra
         //Texto de la Categoria 
-        TCategoria.setBounds(20, 250, 220, 35);                                 //Posicion y Dimension
+        TCategoria.setBounds(20, 175, 220, 35);                                 //Posicion y Dimension
         TCategoria.setFont(new Font("Agency FB", 0, 30));                       //Estilo y Fuente de Letra
         //Texto del Costo
-        TCosto.setBounds(20, 310, 220, 35);                                     //Posicion y Dimension
+        TCosto.setBounds(20, 225, 220, 35);                                     //Posicion y Dimension
         TCosto.setFont(new Font("Agency FB", 0, 30));                           //Estilo y Fuente de Letra
         //Texto de Disponibles
-        TDisponibles.setBounds(20, 370, 220, 35);                               //Posicion y Dimension
+        TDisponibles.setBounds(20, 275, 220, 35);                               //Posicion y Dimension
         TDisponibles.setFont(new Font("Agency FB", 0, 30));                     //Estilo y Fuente de Letra
-        //Texto de la Descripcion
-        /*TDescripcion.setBounds(20, 420, 220, 50);                               //Posicion y Dimension
-        TDescripcion.setFont(new Font("Agency FB", 0, 30));                     //Estilo y Fuente de Letra*/
-        //Boton de los Detalles de la Descripcion
-        /*Detalles.setBounds(140, 440, 20, 20);                                   //Posicion y Dimension
-        Detalles.setBackground(Color.WHITE);                                    //Color de Fondo
-        Detalles.setIcon(new ImageIcon("src/Imagenes/Flecha_20x20.png"));       //Imagen
-        Detalles.setBorder(null);                                               //Borde*/
-        //confDescripcion();                                                      //Configuracion
-        
+        //Texto de % Rentabilidad
+        TPRentabilidad.setBounds(20, 325, 220, 35);                             //Posicion y Dimension
+        TPRentabilidad.setFont(new Font("Agency FB", 0, 30));                   //Estilo y Fuente de Letra
+        //Texto de PVP Detallado
+        TPVPDetal.setBounds(20, 375, 220, 35);                                  //Posicion y Dimension
+        TPVPDetal.setFont(new Font("Agency FB", 0, 30));                        //Estilo y Fuente de Letra
+        //Texto de PVP2 al Mayor
+        TPVP2Mayor.setBounds(20, 425, 220, 35);                                 //Posicion y Dimension
+        TPVP2Mayor.setFont(new Font("Agency FB", 0, 30));                       //Estilo y Fuente de Letra
+
         //Configuraciones de Visibilidad y Agregacion
             //Agregar a Objeto actual
         this.add(MarcoHInfo);
@@ -314,8 +313,9 @@ public class Inventario extends JFrame {
         PInfo.add(TCategoria);
         PInfo.add(TCosto);
         PInfo.add(TDisponibles);
-        PInfo.add(TDescripcion);
-        PInfo.add(TSexo);
+        PInfo.add(TPRentabilidad);
+        PInfo.add(TPVP2Mayor);
+        PInfo.add(TPVPDetal);
             //Visibilidad
         PInfo.setVisible(true);
         MarcoHInfo.setVisible(true);
@@ -331,16 +331,16 @@ public class Inventario extends JFrame {
         MarcoHMonto.setBackground(Color.BLACK);
         
         //Texo del Monto            
-        Ganancia.setBounds(10, 14, 250, 50);                                      //Posicion y Dimension
-        Ganancia.setFont(new Font("Agency FB", 0, 40));                           //Estilo y Fuente de Letra
-        Ganancia.setForeground(new Color(0, 102, 0));                             //Color de Letra
+        TGanancia.setBounds(10, 14, 250, 50);                                      //Posicion y Dimension
+        TGanancia.setFont(new Font("Agency FB", 0, 40));                           //Estilo y Fuente de Letra
+        TGanancia.setForeground(new Color(0, 102, 0));                             //Color de Letra
         
         //Configuraciones de Visibilidad y Agregacion
             //Agregar al Objeto Actual
         this.add(MarcoHMonto);
         this.add(PMonto);
             //Agregar al Panel
-        PMonto.add(Ganancia);
+        PMonto.add(TGanancia);
             //Visibilidad
         PMonto.setVisible(true);
         MarcoHMonto.setVisible(true);
@@ -381,33 +381,6 @@ public class Inventario extends JFrame {
         PGestion.setVisible(true);
      
     }
-    
-    //Configuracion de la Descripcion
-    /*public void confDescripcion() {
-        ActionListener descrip = (ActionEvent e) -> {
-            switch (ContDescripcion) {
-                case 1:
-                    JOptionPane.showMessageDialog(null, Lista.get(0).getDescripcion());
-                    break;
-                case 2:
-                    JOptionPane.showMessageDialog(null, Lista.get(1).getDescripcion());
-                    break;
-                case 3:
-                    JOptionPane.showMessageDialog(null, Lista.get(2).getDescripcion());
-                    break;
-                case 4:
-                    JOptionPane.showMessageDialog(null, Lista.get(3).getDescripcion());
-                    break;
-                case 5:
-                    JOptionPane.showMessageDialog(null, Lista.get(4).getDescripcion());
-                    break;
-                case 6:
-                    JOptionPane.showMessageDialog(null, Lista.get(5).getDescripcion());
-                    break;
-            }
-        };
-        Detalles.addActionListener(descrip);
-    }*/
     
     //LADO IZQUIERDO
     //Metodo que Gestiona la Parte Izquierda de la Ventana
@@ -701,7 +674,7 @@ public class Inventario extends JFrame {
         limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
-        //detPosAnt();
+        detPosAnt();
         
         //Boton Anterior
         Anterior.setBounds(1, 25, 23, 635);                                     //Posicion y Dimension  
@@ -732,6 +705,8 @@ public class Inventario extends JFrame {
     //ACCIONES BOTONES
     //Metodo que Gestiona las Acciones de todos los Botones
     public void accionBotones() {
+        // Accion del boton pedidos
+        accionPedidos(Pedidos);
         //Panel Centro
         /*accionIniciar();
         accionCerrar();
@@ -763,6 +738,14 @@ public class Inventario extends JFrame {
         accionCategoria("Interior", Interior);
         //Aciones de los Botones de Agregar y Eliminar*/
         accionEliminar();
+    }
+    //Accion del boton de pedidos
+     public void accionPedidos(JButton Accion){
+        ActionListener b = (ActionEvent e) -> {
+            this.setVisible(false);
+            AccesoriosNauticos.getVVPedidos().setVisible(true);
+        };
+        Accion.addActionListener(b);
     }
     //Accion Botones de Agregar y Eliminar
     public void accionEliminar(){
@@ -797,8 +780,9 @@ public class Inventario extends JFrame {
         //Accion del Boton de Informacion
         ActionListener Acccion = (ActionEvent e) -> {
             ContDescripcion = Lim;
-            actualizarInfo(Lista.get(Pos).getCod(), Lista.get(Pos).getNombre(), "",
-                    Lista.get(Pos).getPrecio_compra(), Lista.get(Pos).getDisponibilidad());
+            Producto prod = Lista.get(Pos);
+            actualizarInfo(prod.getCod(), prod.getNombre(), "", prod.getPrecio_compra(), prod.getDisponibilidad(),
+                    prod.getPrentabilidad(), prod.getPvpdetal(), prod.getPvp2mayor(), prod.getGanancia());
         };
         Info.addActionListener(Acccion);
     }
@@ -865,7 +849,6 @@ public class Inventario extends JFrame {
             if (!Lista.get(Pos).getImagen().equals("")) Imagen.setIcon(new ImageIcon("src/Imagenes/foto camisas" + Lista.get(Pos).getImagen() + ".png"));
             else {
                 Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
-                
             }
             Imagen.setVisible(true);
         }else Imagen.setVisible(false);
@@ -937,14 +920,19 @@ public class Inventario extends JFrame {
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
     public void detPosAnt(){
         if (limite >= PLista.size()) Posterior.setEnabled(false);
+        else Posterior.setEnabled(true);
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
-    public void actualizarInfo(int cod, String nom, String cate, double cos, int dis) {
+    public void actualizarInfo(int cod, String nom, String cate, double cos, int dis, double prent, double pvpd, double pvpm, double ganancia) {
         TCodigo.setText("Codigo: " + cod);
         TNombre.setText("Nombre: " + nom);
         TCategoria.setText("Categoria: " + cate);
         TCosto.setText("Costo: " + "$" + cos);
         TDisponibles.setText("Disponible: " + dis);
+        TPRentabilidad.setText("% Rentabilidad: " + (prent*100) + "%");
+        TPVP2Mayor.setText("PVP2 al Mayor: " + pvpm + "$");
+        TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
+        TGanancia.setText("Ganancia: " + ganancia + "$");
     }
     
     //METODOS VARIOS

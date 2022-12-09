@@ -19,20 +19,18 @@ import sun.security.util.Length;
 public class Entrada extends Pedido{
     //Atributos
     private String proovedor;
-    private ArrayList <Producto> Productos;
+    
     
     //Constructor
     public Entrada(int cod, Date fecha_emision, Date fecha_recepcion, double monto_pagar, String proveedor) {
         super(cod, fecha_emision, fecha_recepcion, monto_pagar);
         this.proovedor = proveedor;
-        this.Productos = new ArrayList<Producto>();
     }
 
     //Constructor vacio
     public Entrada() {
         super();
         this.proovedor = null;
-        this.Productos = null;
     }
     
     //Getters y setters
@@ -42,14 +40,6 @@ public class Entrada extends Pedido{
 
     public void setProovedor(String proovedor) {
         this.proovedor = proovedor;
-    }
-
-    public void setProductos(Producto prod) {
-        this.Productos.add(prod);
-    }
-
-    public ArrayList<Producto> getProductos() {
-        return Productos;
     }
 
     public String imprimir(){
@@ -76,11 +66,14 @@ public class Entrada extends Pedido{
             fileentrada = new File(".\\src\\Proyecto\\Entradas.txt");
             filer = new FileReader(fileentrada);
             bufferr = new BufferedReader(filer);
+            // Variables para fecha
             
             // Guardar todos los registros
             while((registro=bufferr.readLine())!=null){
                 atrregistros = registro.split(",");
                 listentrada = new ArrayList<String>(Arrays.asList(atrregistros));
+                // Verificamos si hay una fecha que ingresar
+                //if (listentrada.get(1) == "") 
                 // Conertimos los datos y agregamos el objeto Productos
                 lista.add(new Entrada(
                         Integer.parseInt(listentrada.get(0)),
@@ -122,14 +115,5 @@ public class Entrada extends Pedido{
             System.out.println("Ha ocurido un error con el archivo: " + e);
         }
         return lista;
-    }   
-    
-    // Metodo para buscar una entrada
-    public static Entrada buscarEntrada(int cod, List<Entrada> lista){
-        System.out.println(lista);
-        for (Entrada ped: lista)
-            if (ped.cod == cod) return ped;
-        return null;
-    }
-    
+    }      
 }

@@ -3,11 +3,13 @@ package Proyecto;
 // Paquetes a utilizar
 import Modelo.Cliente;
 import Modelo.Entrada;
+import Modelo.Pedido;
 import Modelo.Producto;
 import Modelo.Salida;
 import Vista.Inicio;
 import Vista.Inventario;
 import Vista.Pedidos;
+import Vista.VerPedidos;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +21,20 @@ public class AccesoriosNauticos {
     private static Inicio Ventana = new Inicio();
     private static Inventario VInventario = new Inventario();
     private static Pedidos VPedidos = new Pedidos();
+    private static VerPedidos VVPedidos = new VerPedidos();
             
     //// Listas de datos
     private static List<Producto> lista_productos = new ArrayList<Producto>(); 
     private static List<Cliente> lista_clientes = new ArrayList<Cliente>(); 
+    private static List<Pedido> lista_pedidos = new ArrayList<Pedido>();
     private static List<Entrada> lista_entradas = new ArrayList<Entrada>(); 
     private static List<Salida> lista_salida = new ArrayList<Salida>(); 
     
     // Programa pricipal
     public static void main (String[] args){
         lista_productos = getBD();
-        VPedidos.actualizar(3);
-        VPedidos.setVisible(true);
+        /*VPedidos.actualizar(3);
+        VPedidos.setVisible(true);*/
         
         
         /*int lim = 6;
@@ -43,7 +47,7 @@ public class AccesoriosNauticos {
                 System.out.println("\t" + prod.imprimir());
         }*/
         //Ventana.setVisible(true);
-        // VInventario.setVisible(true);        
+        VInventario.setVisible(true);        
     }
     
     // Metodos setters y getters 
@@ -65,6 +69,19 @@ public class AccesoriosNauticos {
     public static List<Salida> getLista_salida() {
         return lista_salida;
     }
+    public static List<Pedido> getLista_pedidos() {
+        return lista_pedidos;
+    }
+    public static Inventario getVInventario() {
+        return VInventario;
+    }
+    public static Pedidos getVPedidos() {
+        return VPedidos;
+    }
+    public static VerPedidos getVVPedidos() {
+        return VVPedidos;
+    }
+    
 
     public static void setVentana(Inicio Ventana) {
         AccesoriosNauticos.Ventana = Ventana;
@@ -84,6 +101,9 @@ public class AccesoriosNauticos {
     public static void setLista_salida(List<Salida> lista_salida) {
         AccesoriosNauticos.lista_salida = lista_salida;
     }
+    public static void setLista_pedidos(List<Pedido> lista_pedidos) {
+        AccesoriosNauticos.lista_pedidos = lista_pedidos;
+    }
     
     // Metodos para llenar los datos y retornar la lista de productos
     public static List<Producto> getBD(){
@@ -91,6 +111,7 @@ public class AccesoriosNauticos {
         lista_clientes = Cliente.leer();
         lista_entradas = Entrada.leer(lista_productos);
         lista_salida = Salida.leer(lista_productos);
+        lista_pedidos = Pedido.generarListaPedidos(lista_entradas, lista_salida);
 
         /*for (Producto cli: lista_productos){
             System.out.println(cli.imprimir());

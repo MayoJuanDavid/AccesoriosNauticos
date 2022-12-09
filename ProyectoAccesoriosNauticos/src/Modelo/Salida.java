@@ -18,38 +18,26 @@ import java.util.List;
 public class Salida extends Pedido{
     //Atributos
     private double ganancia;
-    private ArrayList <Producto> Productos;
 
     //Constructor
     public Salida(int cod, Date fecha_emision, Date fecha_recepcion, double monto_pagar, double ganancia) {
         super(cod, fecha_emision, fecha_recepcion, monto_pagar);
         this.ganancia = ganancia;
-        this.Productos = new ArrayList<Producto>();
     }
 
     //Constructor vacio
     public Salida() {
         super();
         this.ganancia = 0.00;
-        this.Productos = null;
     }
     
     //Getters y setters
     public double getGanancia() {
         return ganancia;
     }
-
     public void setGanancia(double ganancia) {
         this.ganancia = ganancia;
-    }
-
-    public ArrayList<Producto> getProductos() {
-        return Productos;
-    }
-
-    public void setProductos(Producto prod) {
-        this.Productos.add(prod);
-    }    
+    }  
     
     // Imprimir datos
     public String imprimir(){
