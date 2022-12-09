@@ -57,7 +57,7 @@ public class Agregar extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCir.png"))); // NOI18N
-        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 30, 200, 170));
+        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 200, 170));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -187,40 +187,40 @@ public class Agregar extends javax.swing.JFrame {
         jPanel1.add(AlarmaBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 190, 40));
 
         nombretitulo.setText("Total Ventas:");
-        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 70, 20));
+        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 20));
 
         Codigotitulo.setText("Total Gastos:");
-        jPanel1.add(Codigotitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 70, 20));
+        jPanel1.add(Codigotitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, 20));
 
         separador3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 160, 10));
+        jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 140, 10));
 
         separador4.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, 160, 10));
+        jPanel1.add(separador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 140, 10));
 
         infoNombre.setText("ejemplo");
-        jPanel1.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 90, -1));
+        jPanel1.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 140, -1));
 
         infoCodigo.setText("ejemplo");
-        jPanel1.add(infoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, 90, -1));
+        jPanel1.add(infoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 140, -1));
 
         nombretitulo1.setText("Inversion Inicial:");
-        jPanel1.add(nombretitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 90, 20));
+        jPanel1.add(nombretitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 100, 20));
 
-        Codigotitulo1.setText("Compras en transito:");
-        jPanel1.add(Codigotitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 110, 20));
+        Codigotitulo1.setText("Compras en Transito:");
+        jPanel1.add(Codigotitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 130, 20));
 
         separador5.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 140, 10));
+        jPanel1.add(separador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 120, 10));
 
         separador6.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 120, 10));
+        jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 100, 10));
 
         infoNombre1.setText("ejemplo");
-        jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, 90, -1));
+        jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 120, -1));
 
         infoCodigo1.setText("ejemplo");
-        jPanel1.add(infoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 90, -1));
+        jPanel1.add(infoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 100, -1));
 
         CodigoDelProducto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         CodigoDelProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N

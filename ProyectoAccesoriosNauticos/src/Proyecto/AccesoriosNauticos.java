@@ -10,6 +10,7 @@ import Vista.Inicio;
 import Vista.Inventario;
 import Vista.Pedidos;
 import Vista.VerPedidos;
+import Vista.VisualizarProducto;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class AccesoriosNauticos {
     private static Inventario VInventario = new Inventario();
     private static Pedidos VPedidos = new Pedidos();
     private static VerPedidos VVPedidos = new VerPedidos();
+    private static VisualizarProducto VVProductos = new VisualizarProducto();
             
     //// Listas de datos
     private static List<Producto> lista_productos = new ArrayList<Producto>(); 
@@ -81,7 +83,9 @@ public class AccesoriosNauticos {
     public static VerPedidos getVVPedidos() {
         return VVPedidos;
     }
-    
+    public static VisualizarProducto getVVProductos() {
+        return VVProductos;
+    }
 
     public static void setVentana(Inicio Ventana) {
         AccesoriosNauticos.Ventana = Ventana;

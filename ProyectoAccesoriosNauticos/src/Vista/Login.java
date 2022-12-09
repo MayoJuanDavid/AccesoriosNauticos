@@ -130,7 +130,7 @@ public class Login extends javax.swing.JFrame {
         bg.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
 
         Login.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        Login.setText("Log-In");
+        Login.setText("Inicio de Sesión");
         bg.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
 
         Usuario.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N

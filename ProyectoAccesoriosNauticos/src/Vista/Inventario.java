@@ -707,6 +707,8 @@ public class Inventario extends JFrame {
     public void accionBotones() {
         // Accion del boton pedidos
         accionPedidos(Pedidos);
+        // Accion del boton buscar producto
+        accionBuscarProducto(Buscar);
         //Panel Centro
         /*accionIniciar();
         accionCerrar();
@@ -776,6 +778,7 @@ public class Inventario extends JFrame {
         };
         Accion.addActionListener(b);
     }
+    //Metodo para configurar la accion de los botones de info
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
         //Accion del Boton de Informacion
         ActionListener Acccion = (ActionEvent e) -> {
@@ -783,6 +786,15 @@ public class Inventario extends JFrame {
             Producto prod = Lista.get(Pos);
             actualizarInfo(prod.getCod(), prod.getNombre(), "", prod.getPrecio_compra(), prod.getDisponibilidad(),
                     prod.getPrentabilidad(), prod.getPvpdetal(), prod.getPvp2mayor(), prod.getGanancia());
+        };
+        Info.addActionListener(Acccion);
+    }
+    //Metodo para la accion de buscar producto
+    public void accionBuscarProducto(JButton Info) {
+        //Accion del Boton de Informacion
+        ActionListener Acccion = (ActionEvent e) -> {
+            AccesoriosNauticos.getVInventario().setVisible(false);
+            AccesoriosNauticos.getVVProductos().setVisible(true);
         };
         Info.addActionListener(Acccion);
     }
