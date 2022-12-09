@@ -5,6 +5,8 @@ import java.awt.Color;
 public class Login extends javax.swing.JFrame {
     
     int xMouse, yMouse;
+    private String usuario = "admin";
+    private String clave = "admin";
     
     public Login() {
         initComponents();
@@ -180,6 +182,11 @@ public class Login extends javax.swing.JFrame {
         loginBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         loginBtnTxt.setText("ENTRAR");
         loginBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginBtnTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                loginBtnTxtFocusGained(evt);
+            }
+        });
         loginBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 loginBtnTxtMouseClicked(evt);
@@ -275,12 +282,30 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_passTxtMousePressed
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
-        javax.swing.JOptionPane.showMessageDialog(this, "Intento de login con los datos:\nUsuario: " + userTxt.getText() + "\nContraseña: " + String.valueOf(passTxt.getPassword()), "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        
+        if (userTxt.getText().equals("") || passTxt.getText().equals("")) {
+            new Error("No pueden haber campos vacios", this);
+        }else{
+            if (!userTxt.getText().equals(usuario)){
+                new Error("Usuario incorrecto",this);
+            }else if(!passTxt.getText().equals(clave)){
+                new Error("Clave invalida",this);
+            }else {
+                Inventario i = new Inventario();
+                i.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
     private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passTxtActionPerformed
+
+    private void loginBtnTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginBtnTxtFocusGained
+       
+    }//GEN-LAST:event_loginBtnTxtFocusGained
 
     /**
      * @param args the command line arguments
