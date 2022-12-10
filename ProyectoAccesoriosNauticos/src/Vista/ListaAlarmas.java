@@ -2,27 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Vista;
+package com.inicio;
 
-import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 
 /**
  *
  * @author Windows 10
  */
-public class Gestionar extends javax.swing.JFrame {
+public class ListaAlarmas extends javax.swing.JFrame {
 
     int xMouse,yMouse;
-    public Gestionar() {
+    public ListaAlarmas() {
         initComponents();
-        this.setLocationRelativeTo(null); // medio de la pantalla
-        this.setResizable(false); //no se puede modificas
-        this.setTitle("Accesorios Nauticos System");
-        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
     }
 
     /**
@@ -34,55 +26,37 @@ public class Gestionar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        BAgregar = new javax.swing.JButton();
-        BAlarma = new javax.swing.JButton();
-        Logo = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
+        Logo = new javax.swing.JLabel();
+        Titulo = new javax.swing.JLabel();
         nombretitulo = new javax.swing.JLabel();
-        separador3 = new javax.swing.JSeparator();
-        infoNombre = new javax.swing.JLabel();
+        Codigotitulo = new javax.swing.JLabel();
         nombretitulo1 = new javax.swing.JLabel();
         Codigotitulo1 = new javax.swing.JLabel();
-        separador5 = new javax.swing.JSeparator();
-        separador6 = new javax.swing.JSeparator();
-        infoNombre1 = new javax.swing.JLabel();
-        infoCodigo1 = new javax.swing.JLabel();
-        CodigoDelProducto = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList4 = new javax.swing.JList<>();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        jLabel1.setText("jLabel1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
         setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        BAgregar.setBackground(new java.awt.Color(37, 134, 218));
-        BAgregar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        BAgregar.setText("AGREGAR PRODUCTO");
-        BAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BAgregarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, 40));
-
-        BAlarma.setBackground(new java.awt.Color(37, 134, 218));
-        BAlarma.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        BAlarma.setForeground(new java.awt.Color(255, 255, 255));
-        BAlarma.setText("ESTABLECER ALARMA");
-        BAlarma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BAlarmaActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BAlarma, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 230, -1, 40));
-
-        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCir.png"))); // NOI18N
-        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 200, 170));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -139,67 +113,102 @@ public class Gestionar extends javax.swing.JFrame {
             .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
 
-        nombretitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        nombretitulo.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo.setText("Total Ventas:");
-        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, 20));
+        Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/LogoCir.png"))); // NOI18N
+        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 200, 170));
 
-        separador3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 60, 10));
+        Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        Titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/images/favicon.png"))); // NOI18N
+        Titulo.setText("Alarmas");
+        jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 350, 30));
 
-        infoNombre.setForeground(new java.awt.Color(153, 153, 153));
-        infoNombre.setText("0.0$");
-        jPanel1.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 60, -1));
+        nombretitulo.setText("Nombre:");
+        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 50, 20));
 
-        nombretitulo1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        nombretitulo1.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo1.setText("Inversion Inicial:");
-        jPanel1.add(nombretitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 150, 20));
+        Codigotitulo.setText("Codigo:");
+        jPanel1.add(Codigotitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 100, 50, 20));
 
-        Codigotitulo1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        Codigotitulo1.setForeground(new java.awt.Color(153, 153, 153));
-        Codigotitulo1.setText("Compras en Transito:");
-        jPanel1.add(Codigotitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 190, 20));
+        nombretitulo1.setText("Unidades Minimas:");
+        jPanel1.add(nombretitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 110, 20));
 
-        separador5.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 60, 10));
+        Codigotitulo1.setText("Fecha:");
+        jPanel1.add(Codigotitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 100, 50, 20));
 
-        separador6.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 60, 10));
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(jList1);
 
-        infoNombre1.setForeground(new java.awt.Color(153, 153, 153));
-        infoNombre1.setText("0.0$");
-        jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 60, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, 100, -1));
 
-        infoCodigo1.setForeground(new java.awt.Color(153, 153, 153));
-        infoCodigo1.setText("0.0$");
-        jPanel1.add(infoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 60, -1));
+        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList2);
 
-        CodigoDelProducto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        CodigoDelProducto.setForeground(new java.awt.Color(153, 153, 153));
-        CodigoDelProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
-        CodigoDelProducto.setText("Gestion de Sistema");
-        jPanel1.add(CodigoDelProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, 30));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        jList3.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList3);
+
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+
+        jList4.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jList4);
+
+        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, -1, -1));
+
+        jButton2.setBackground(new java.awt.Color(0, 134, 190));
+        jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("VOLVER AL MENU");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 310, -1, 40));
+
+        jButton3.setBackground(new java.awt.Color(0, 134, 190));
+        jButton3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("ELIMINAR ALARMA");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-        AccesoriosNauticos.getVInventario().setVisible(true);
-        AccesoriosNauticos.getVGestionar().setVisible(false);
+        System.exit(0);
     }//GEN-LAST:event_exitTxtMouseClicked
 
     private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
@@ -223,17 +232,13 @@ public class Gestionar extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    //Accion de crea producto
-    private void BAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAgregarActionPerformed
-        this.setVisible(false);
-        AccesoriosNauticos.getVAProducto().setVisible(true);
-    }//GEN-LAST:event_BAgregarActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    //Accion de establecer alarma
-    private void BAlarmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAlarmaActionPerformed
-        this.setVisible(false);
-        AccesoriosNauticos.getVAlarma().setVisible(true);
-    }//GEN-LAST:event_BAlarmaActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,41 +257,45 @@ public class Gestionar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlarmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlarmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlarmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListaAlarmas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gestionar().setVisible(true);
+                new ListaAlarmas().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BAgregar;
-    private javax.swing.JButton BAlarma;
-    private javax.swing.JLabel CodigoDelProducto;
+    private javax.swing.JLabel Codigotitulo;
     private javax.swing.JLabel Codigotitulo1;
     private javax.swing.JLabel Logo;
+    private javax.swing.JLabel Titulo;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel infoCodigo1;
-    private javax.swing.JLabel infoNombre;
-    private javax.swing.JLabel infoNombre1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
+    private javax.swing.JList<String> jList4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel nombretitulo;
     private javax.swing.JLabel nombretitulo1;
-    private javax.swing.JSeparator separador3;
-    private javax.swing.JSeparator separador5;
-    private javax.swing.JSeparator separador6;
     // End of variables declaration//GEN-END:variables
 }

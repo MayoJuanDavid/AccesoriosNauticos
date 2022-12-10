@@ -203,7 +203,7 @@ public class Inventario extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                int Valor = JOptionPane.showConfirmDialog(null, "           ¿Estás seguro de querer salir del Sistema?", "Advertencia",
+                int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir del Sistema?", "Advertencia",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (Valor == JOptionPane.YES_OPTION) {
                     System.exit(0);

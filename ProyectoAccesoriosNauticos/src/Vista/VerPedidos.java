@@ -69,6 +69,7 @@ public class VerPedidos extends javax.swing.JFrame {
         BDelante = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         favicon = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,26 +80,26 @@ public class VerPedidos extends javax.swing.JFrame {
 
         LVPedidos.setBackground(new java.awt.Color(102, 102, 102));
         LVPedidos.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        LVPedidos.setForeground(new java.awt.Color(204, 204, 204));
+        LVPedidos.setForeground(new java.awt.Color(153, 153, 153));
         LVPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         LVPedidos.setText("Gestionar Pedidos");
         LVPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LVPedidos.setPreferredSize(new java.awt.Dimension(200, 16));
 
         LFechaP.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        LFechaP.setForeground(new java.awt.Color(204, 204, 204));
+        LFechaP.setForeground(new java.awt.Color(153, 153, 153));
         LFechaP.setText("Fecha de Emisión:");
 
         LCodigo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        LCodigo.setForeground(new java.awt.Color(204, 204, 204));
+        LCodigo.setForeground(new java.awt.Color(153, 153, 153));
         LCodigo.setText("Código: ");
 
         LFechaL.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        LFechaL.setForeground(new java.awt.Color(204, 204, 204));
+        LFechaL.setForeground(new java.awt.Color(153, 153, 153));
         LFechaL.setText("Fecha de Recepción:");
 
         TipoPedido.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        TipoPedido.setForeground(new java.awt.Color(204, 204, 204));
+        TipoPedido.setForeground(new java.awt.Color(153, 153, 153));
         TipoPedido.setText("Tipo de Pedido:");
 
         jButton1.setBackground(new java.awt.Color(37, 134, 218));
@@ -111,19 +112,19 @@ public class VerPedidos extends javax.swing.JFrame {
             }
         });
 
-        ICodigo.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        ICodigo.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         ICodigo.setForeground(new java.awt.Color(153, 153, 153));
         ICodigo.setText(" ");
 
-        IFechaP.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        IFechaP.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         IFechaP.setForeground(new java.awt.Color(153, 153, 153));
         IFechaP.setText(" ");
 
-        ITipoP.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        ITipoP.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         ITipoP.setForeground(new java.awt.Color(153, 153, 153));
         ITipoP.setText(" ");
 
-        IFechaL.setFont(new java.awt.Font("Roboto", 0, 18)); // NOI18N
+        IFechaL.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         IFechaL.setForeground(new java.awt.Color(153, 153, 153));
         IFechaL.setText(" ");
 
@@ -159,7 +160,7 @@ public class VerPedidos extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(37, 134, 218));
         jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("CREAR PEDIDO");
+        jButton2.setText("CREAR ENTRADA");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -167,9 +168,19 @@ public class VerPedidos extends javax.swing.JFrame {
         });
 
         favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
-        favicon.setForeground(new java.awt.Color(204, 204, 204));
+        favicon.setForeground(new java.awt.Color(153, 153, 153));
         favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
         favicon.setText("Visualización");
+
+        jButton3.setBackground(new java.awt.Color(37, 134, 218));
+        jButton3.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(255, 255, 255));
+        jButton3.setText("CREAR SALIDA");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -192,28 +203,30 @@ public class VerPedidos extends javax.swing.JFrame {
                                 .addComponent(TipoPedido)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(ITipoP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addComponent(LCodigo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(ICodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                    .addGap(148, 148, 148)
-                                    .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(LCodigo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ICodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(favicon))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(LVPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)))
                 .addComponent(LIcono)
                 .addGap(18, 18, 18))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(158, 158, 158)
+                .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,30 +244,27 @@ public class VerPedidos extends javax.swing.JFrame {
                                 .addComponent(ICodigo))
                             .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(LFechaP)
-                                    .addComponent(IFechaP))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(LFechaL)
-                                    .addComponent(IFechaL))
-                                .addGap(8, 8, 8)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(TipoPedido)
-                                    .addComponent(ITipoP))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                            .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LFechaP)
+                            .addComponent(IFechaP))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LFechaL)
+                            .addComponent(IFechaL))
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TipoPedido)
+                            .addComponent(ITipoP)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(LIcono)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BDelante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
@@ -301,6 +311,10 @@ public class VerPedidos extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     // Metodo para actualizar los datos del pedido
     public void actualizarInfo(Pedido ped){
@@ -368,6 +382,7 @@ public class VerPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel favicon;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

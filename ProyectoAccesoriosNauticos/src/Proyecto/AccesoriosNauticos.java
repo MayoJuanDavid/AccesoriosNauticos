@@ -6,15 +6,17 @@ import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
 import Modelo.Salida;
+import Vista.AgregarProducto;
+import Vista.Alarma;
+import Vista.Gestionar;
 import Vista.Inicio;
 import Vista.Inventario;
+import Vista.Login;
 import Vista.Pedidos;
 import Vista.VerPedidos;
 import Vista.VisualizarProducto;
-import com.inicio.Gestionar;
 import java.util.ArrayList;
 import java.util.List;
-import Vista.Login;
 
 public class AccesoriosNauticos {
     
@@ -27,6 +29,8 @@ public class AccesoriosNauticos {
     private static VerPedidos VVPedidos = new VerPedidos();
     private static VisualizarProducto VVProductos = new VisualizarProducto();
     private static Gestionar VGestionar = new Gestionar();
+    private static AgregarProducto VAProducto = new AgregarProducto();
+    private static Alarma VAlarma = new Alarma();
             
     //// Listas de datos
     private static List<Producto> lista_productos = new ArrayList<Producto>(); 
@@ -52,7 +56,7 @@ public class AccesoriosNauticos {
                 System.out.println("\t" + prod.imprimir());
         }*/
         //Ventana.setVisible(true);
-        Ventana.setVisible(true);        
+        VInventario.setVisible(true);        
     }
     
     // Metodos setters y getters 
@@ -92,7 +96,13 @@ public class AccesoriosNauticos {
     public static Gestionar getVGestionar() {
         return VGestionar;
     }
-
+    public static AgregarProducto getVAProducto() {
+        return VAProducto;
+    }
+    public static Alarma getVAlarma() {
+        return VAlarma;
+    }
+    
 
     public static void setVentana(Login Ventana) {
         AccesoriosNauticos.Ventana = Ventana;
