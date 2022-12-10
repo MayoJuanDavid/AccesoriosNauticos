@@ -14,13 +14,14 @@ import Vista.VisualizarProducto;
 import com.inicio.Gestionar;
 import java.util.ArrayList;
 import java.util.List;
+import Vista.Login;
 
 public class AccesoriosNauticos {
     
     // Variables a utilizar
     
     //// Ventanas
-    private static Inicio Ventana = new Inicio();
+    private static Login Ventana = new Login();
     private static Inventario VInventario = new Inventario();
     private static Pedidos VPedidos = new Pedidos();
     private static VerPedidos VVPedidos = new VerPedidos();
@@ -51,11 +52,11 @@ public class AccesoriosNauticos {
                 System.out.println("\t" + prod.imprimir());
         }*/
         //Ventana.setVisible(true);
-        VInventario.setVisible(true);        
+        Ventana.setVisible(true);        
     }
     
     // Metodos setters y getters 
-    public static Inicio getVentana() {
+    public static Login getVentana() {
         return Ventana;
     }
     public static Inventario getVPrincipal() {
@@ -92,8 +93,8 @@ public class AccesoriosNauticos {
         return VGestionar;
     }
 
-    
-    public static void setVentana(Inicio Ventana) {
+
+    public static void setVentana(Login Ventana) {
         AccesoriosNauticos.Ventana = Ventana;
     }
     public static void setVPrincipal(Inventario VPrincipal) {

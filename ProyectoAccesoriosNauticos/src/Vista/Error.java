@@ -62,7 +62,7 @@ public class Error extends javax.swing.JFrame {
         jPanel1.add(msjError, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 350, 70));
 
         jButton1.setBackground(new java.awt.Color(2, 54, 92));
-        jButton1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Aceptar");
         jButton1.setBorder(null);

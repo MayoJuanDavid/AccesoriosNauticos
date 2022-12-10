@@ -5,6 +5,8 @@ import java.awt.Color;
 public class Login extends javax.swing.JFrame {
     
     int xMouse, yMouse;
+    private String usuario = "admin";
+    private String clave = "admin";
     
     public Login() {
         initComponents();
@@ -15,7 +17,6 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
-        jButton2 = new javax.swing.JButton();
         logo = new javax.swing.JLabel();
         titulo = new javax.swing.JLabel();
         titulo2 = new javax.swing.JLabel();
@@ -31,6 +32,8 @@ public class Login extends javax.swing.JFrame {
         Contrasena = new javax.swing.JLabel();
         passTxt = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
+        loginBtn = new javax.swing.JPanel();
+        loginBtnTxt = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -39,18 +42,6 @@ public class Login extends javax.swing.JFrame {
 
         bg.setBackground(new java.awt.Color(255, 255, 255));
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton2.setBackground(new java.awt.Color(37, 134, 218));
-        jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("ACCEDER");
-        jButton2.setToolTipText("");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        bg.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 120, -1));
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoAccesorios.png"))); // NOI18N
@@ -178,15 +169,41 @@ public class Login extends javax.swing.JFrame {
                 passTxtMousePressed(evt);
             }
         });
-        passTxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passTxtActionPerformed(evt);
-            }
-        });
         bg.add(passTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 410, 30));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         bg.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 410, 20));
+
+        loginBtn.setBackground(new java.awt.Color(0, 134, 190));
+
+        loginBtnTxt.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
+        loginBtnTxt.setForeground(new java.awt.Color(255, 255, 255));
+        loginBtnTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        loginBtnTxt.setText("ENTRAR");
+        loginBtnTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        loginBtnTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                loginBtnTxtFocusGained(evt);
+            }
+        });
+        loginBtnTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loginBtnTxtMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout loginBtnLayout = new javax.swing.GroupLayout(loginBtn);
+        loginBtn.setLayout(loginBtnLayout);
+        loginBtnLayout.setHorizontalGroup(
+            loginBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+        );
+        loginBtnLayout.setVerticalGroup(
+            loginBtnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(loginBtnTxt, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        bg.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 130, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -249,13 +266,27 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_passTxtMousePressed
 
-    private void passTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passTxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passTxtActionPerformed
+    private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
+        
+        if (userTxt.getText().equals("") || passTxt.getText().equals("")) {
+            new Error("No pueden haber campos vacios", this);
+        }else{
+            if (!userTxt.getText().equals(usuario)){
+                new Error("Usuario incorrecto",this);
+            }else if(!passTxt.getText().equals(clave)){
+                new Error("Clave invalida",this);
+            }else {
+                Inventario i = new Inventario();
+                i.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+        
+    }//GEN-LAST:event_loginBtnTxtMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void loginBtnTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_loginBtnTxtFocusGained
+       
+    }//GEN-LAST:event_loginBtnTxtFocusGained
 
     /**
      * @param args the command line arguments
@@ -303,9 +334,10 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel exitTxt;
     private javax.swing.JLabel favicon;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JPanel loginBtn;
+    private javax.swing.JLabel loginBtnTxt;
     private javax.swing.JLabel logo;
     private javax.swing.JPasswordField passTxt;
     private javax.swing.JLabel titulo;
