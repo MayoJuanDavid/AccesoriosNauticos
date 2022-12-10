@@ -67,6 +67,8 @@ public class VerPedidos extends javax.swing.JFrame {
         IFechaL = new javax.swing.JLabel();
         BAtras = new javax.swing.JButton();
         BDelante = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        favicon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,30 +79,30 @@ public class VerPedidos extends javax.swing.JFrame {
 
         LVPedidos.setBackground(new java.awt.Color(102, 102, 102));
         LVPedidos.setFont(new java.awt.Font("Roboto", 1, 36)); // NOI18N
-        LVPedidos.setForeground(new java.awt.Color(102, 102, 102));
+        LVPedidos.setForeground(new java.awt.Color(204, 204, 204));
         LVPedidos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LVPedidos.setText("Visualizar Pedidos");
+        LVPedidos.setText("Gestionar Pedidos");
         LVPedidos.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         LVPedidos.setPreferredSize(new java.awt.Dimension(200, 16));
 
         LFechaP.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        LFechaP.setForeground(new java.awt.Color(102, 102, 102));
+        LFechaP.setForeground(new java.awt.Color(204, 204, 204));
         LFechaP.setText("Fecha de Emisión:");
 
         LCodigo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        LCodigo.setForeground(new java.awt.Color(102, 102, 102));
+        LCodigo.setForeground(new java.awt.Color(204, 204, 204));
         LCodigo.setText("Código: ");
 
         LFechaL.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        LFechaL.setForeground(new java.awt.Color(102, 102, 102));
+        LFechaL.setForeground(new java.awt.Color(204, 204, 204));
         LFechaL.setText("Fecha de Recepción:");
 
         TipoPedido.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        TipoPedido.setForeground(new java.awt.Color(102, 102, 102));
+        TipoPedido.setForeground(new java.awt.Color(204, 204, 204));
         TipoPedido.setText("Tipo de Pedido:");
 
         jButton1.setBackground(new java.awt.Color(37, 134, 218));
-        jButton1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("VER PRODUCTOS");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -154,6 +156,21 @@ public class VerPedidos extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(37, 134, 218));
+        jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("CREAR PEDIDO");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        favicon.setForeground(new java.awt.Color(204, 204, 204));
+        favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
+        favicon.setText("Visualización");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -164,33 +181,37 @@ public class VerPedidos extends javax.swing.JFrame {
                         .addGap(43, 43, 43)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(LCodigo)
-                                .addGap(18, 18, 18)
-                                .addComponent(ICodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(TipoPedido)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(LFechaP)
-                                    .addComponent(LFechaL))
+                                .addComponent(LFechaL)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ITipoP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(IFechaP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(IFechaL, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE))
+                                .addComponent(IFechaL, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(LFechaP)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(IFechaP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TipoPedido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ITipoP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(LCodigo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(ICodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGap(148, 148, 148)
+                                    .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(favicon))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(LVPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(20, 20, 20)))))
+                        .addComponent(LVPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)))
                 .addComponent(LIcono)
                 .addGap(18, 18, 18))
         );
@@ -199,33 +220,42 @@ public class VerPedidos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(LIcono))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
+                        .addGap(21, 21, 21)
                         .addComponent(LVPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LCodigo)
-                            .addComponent(ICodigo))
+                        .addGap(11, 11, 11)
+                        .addComponent(favicon)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LFechaP)
-                            .addComponent(IFechaP))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(LCodigo)
+                                .addComponent(ICodigo))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(LFechaL)
-                            .addComponent(IFechaL))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TipoPedido)
-                            .addComponent(ITipoP))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(32, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(LFechaP)
+                                    .addComponent(IFechaP))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(LFechaL)
+                                    .addComponent(IFechaL))
+                                .addGap(8, 8, 8)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TipoPedido)
+                                    .addComponent(ITipoP))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BAtras, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(BDelante, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(LIcono)))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -245,7 +275,6 @@ public class VerPedidos extends javax.swing.JFrame {
     // Boton para ver los productos de un pedido
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Actualizamos los datos de la ventana pedidos
-        System.out.println(lista_pedido.get(indice).getProductos());
         AccesoriosNauticos.getVPedidos().actualizar(lista_pedido.get(indice).getCod());
         // Modificamos la visualizacion
         this.setVisible(false);
@@ -267,6 +296,11 @@ public class VerPedidos extends javax.swing.JFrame {
         BAtras.setEnabled(true);
         actualizarInfo(lista_pedido.get(indice));
     }//GEN-LAST:event_BDelanteActionPerformed
+
+    //Accion de crear un pedido
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Metodo para actualizar los datos del pedido
     public void actualizarInfo(Pedido ped){
@@ -331,7 +365,9 @@ public class VerPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel LIcono;
     private javax.swing.JLabel LVPedidos;
     private javax.swing.JLabel TipoPedido;
+    private javax.swing.JLabel favicon;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

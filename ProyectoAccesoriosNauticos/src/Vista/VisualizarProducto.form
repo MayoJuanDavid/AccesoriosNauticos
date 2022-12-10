@@ -80,6 +80,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Roboto" size="24" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/favicon.png"/>
             </Property>
@@ -172,6 +175,9 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="24" style="1"/>
             </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
+            </Property>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagenes/favicon.png"/>
             </Property>
@@ -192,7 +198,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Ingrese el codigo del producto"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -214,7 +220,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Nombre:"/>
           </Properties>
@@ -230,7 +236,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Codigo:"/>
           </Properties>
@@ -246,7 +252,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Unidades:"/>
           </Properties>
@@ -262,7 +268,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="cc" green="cc" red="cc" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Precio:"/>
           </Properties>
@@ -338,7 +344,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -353,7 +359,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -368,7 +374,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>
@@ -383,7 +389,7 @@
               <Font name="Roboto" size="12" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="67" green="67" red="67" type="rgb"/>
+              <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
           </Properties>
           <Constraints>

@@ -57,6 +57,7 @@ public class Salida extends Pedido{
         File filesalida = null;
         FileReader filer = null;
         BufferedReader bufferr = null;
+        BufferedReader buffersalida = null;
         Producto prod = null;
         
         // Manejo de archivos
@@ -88,9 +89,9 @@ public class Salida extends Pedido{
                 // Leer archivo de las entradas
                 filesalida = new File(".\\src\\Proyecto\\SalProd.txt");
                 filer = new FileReader(filesalida);
-                bufferr = new BufferedReader(filer);   
+                buffersalida = new BufferedReader(filer);   
                 // Guardar todos los registros
-                while((registro=bufferr.readLine())!=null){
+                while((registro=buffersalida.readLine())!=null){
                     atrregistros = registro.split(",");
                     listsalida = new ArrayList<String>(Arrays.asList(atrregistros));
                     // Verificamos si e producto es de 
@@ -101,7 +102,7 @@ public class Salida extends Pedido{
                     }
                 }
                 
-                bufferr.close();
+                buffersalida.close();
             }
             return lista;
             

@@ -11,6 +11,7 @@ import Vista.Inventario;
 import Vista.Pedidos;
 import Vista.VerPedidos;
 import Vista.VisualizarProducto;
+import com.inicio.Gestionar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class AccesoriosNauticos {
     private static Pedidos VPedidos = new Pedidos();
     private static VerPedidos VVPedidos = new VerPedidos();
     private static VisualizarProducto VVProductos = new VisualizarProducto();
+    private static Gestionar VGestionar = new Gestionar();
             
     //// Listas de datos
     private static List<Producto> lista_productos = new ArrayList<Producto>(); 
@@ -43,7 +45,7 @@ public class AccesoriosNauticos {
         int lim_inf = (lista_productos.size() - lim);
         List<Producto> lista = lista_productos.subList(lim, (lim_inf < 6)? lim + lim_inf: lim + 6);
         */
-        /*for (Entrada cli: lista_entradas){
+        /*for (Salida cli: lista_salida){
             System.out.println(cli.imprimir());
             for (Producto prod: cli.getProductos())
                 System.out.println("\t" + prod.imprimir());
@@ -86,7 +88,11 @@ public class AccesoriosNauticos {
     public static VisualizarProducto getVVProductos() {
         return VVProductos;
     }
+    public static Gestionar getVGestionar() {
+        return VGestionar;
+    }
 
+    
     public static void setVentana(Inicio Ventana) {
         AccesoriosNauticos.Ventana = Ventana;
     }
@@ -107,6 +113,14 @@ public class AccesoriosNauticos {
     }
     public static void setLista_pedidos(List<Pedido> lista_pedidos) {
         AccesoriosNauticos.lista_pedidos = lista_pedidos;
+    }
+    public static void setVVProductos() {
+        AccesoriosNauticos.VVProductos = new VisualizarProducto();
+    }
+    
+    public static void eliminarProducto(int indice){
+        AccesoriosNauticos.lista_productos.remove(indice);
+        VVProductos = new VisualizarProducto();
     }
     
     // Metodos para llenar los datos y retornar la lista de productos

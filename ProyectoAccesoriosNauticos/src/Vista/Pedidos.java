@@ -204,7 +204,7 @@ public class Pedidos extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                int Valor = JOptionPane.showConfirmDialog(null, "           ¿Estás seguro de querer salir del Sistema?", "Advertencia",
+                int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer salir del Sistema?", "Advertencia",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (Valor == JOptionPane.YES_OPTION) {
                     System.exit(0);
@@ -697,35 +697,8 @@ public class Pedidos extends JFrame {
     public void accionBotones() {
         // Accion de regresar
         accionRegresar(Regresar);
-        //Panel Centro
-        /*accionIniciar();
-        accionCerrar();
-        accionPed();
-        accionBuscar();
-        accionProv();
-        accionUber();
-        accionInfoP();
-        //Panel Derecha
-        accionCatalogo(2, Carrito);
-        accionReg();
-        accionCatalogo(3, Gestionar);
-        accionCrear();
-        accionPagar();
-        accionActualizar();
-        accionPedidoEmp();
-        accionDelivery();
-        accionEnviado();
-        accionCancelar();
-        //Panel Izquierda
-        accionInfo();
-        accionRuta();
-        accionContactar();
-        //Acciones de las Categorias
-        accionCategoria("Camisas", Camisas);
-        accionCategoria("Jeans", Pantalones);
-        accionCategoria("Zapatos", Zapatos);
-        accionCategoria("Joggers", Joggers);
-        accionCategoria("Interior", Interior);*/
+        // Accion del boton buscar producto
+        accionBuscarProducto(Buscar);
     }
     //Acciones de los botones de informacion
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
@@ -746,6 +719,15 @@ public class Pedidos extends JFrame {
             AccesoriosNauticos.getVVPedidos().setVisible(true);
         };
         Regresar.addActionListener(Acccion);
+    }
+    //Metodo para la accion de buscar producto
+    public void accionBuscarProducto(JButton Info) {
+        //Accion del Boton de Informacion
+        ActionListener Acccion = (ActionEvent e) -> {
+            AccesoriosNauticos.getVPedidos().setVisible(false);
+            AccesoriosNauticos.getVVProductos().setVisible(true);
+        };
+        Info.addActionListener(Acccion);
     }
     
     //METODOS DE FUNCIONALIDAD
@@ -811,7 +793,6 @@ public class Pedidos extends JFrame {
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Posterior
     public void cambioDePaginaF() {
         Lista = PLista.subList(limite, ((PLista.size() - limite) < 6)? limite + (PLista.size() - limite): limite + 6);
-        System.out.println(Lista.size());
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
@@ -881,7 +862,6 @@ public class Pedidos extends JFrame {
         Pedido ped = Pedido.buscarPedido(cod, AccesoriosNauticos.getLista_pedidos());
         limite = 6;
         PLista = ped.getProductos();
-        System.out.println("Longitud lista: " + PLista.size());
         Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
         deshabilitarBotones();
         agregarArticulos();

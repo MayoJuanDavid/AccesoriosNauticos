@@ -709,35 +709,8 @@ public class Inventario extends JFrame {
         accionPedidos(Pedidos);
         // Accion del boton buscar producto
         accionBuscarProducto(Buscar);
-        //Panel Centro
-        /*accionIniciar();
-        accionCerrar();
-        accionPed();
-        accionBuscar();
-        accionProv();
-        accionUber();
-        accionInfoP();
-        //Panel Derecha
-        accionCatalogo(2, Carrito);
-        accionReg();
-        accionCatalogo(3, Gestionar);
-        accionCrear();
-        accionPagar();
-        accionActualizar();
-        accionPedidoEmp();
-        accionDelivery();
-        accionEnviado();
-        accionCancelar();
-        //Panel Izquierda
-        accionInfo();
-        accionRuta();
-        accionContactar();
-        //Acciones de las Categorias
-        accionCategoria("Camisas", Camisas);
-        accionCategoria("Jeans", Pantalones);
-        accionCategoria("Zapatos", Zapatos);
-        accionCategoria("Joggers", Joggers);
-        accionCategoria("Interior", Interior);
+        // Accion del boton de gestionar
+        accionGestioar(Gestionar);
         //Aciones de los Botones de Agregar y Eliminar*/
         accionEliminar();
     }
@@ -764,7 +737,8 @@ public class Inventario extends JFrame {
             int Valor = JOptionPane.showConfirmDialog(null, "           ¿Estás seguro de querer eliminar el producto " + PLista.get(limite - 6 + Pos).getNombre() + "?", "Advertencia",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (Valor == JOptionPane.YES_OPTION) {
-                PLista.remove(limite - 6 + Pos);
+                AccesoriosNauticos.eliminarProducto(limite- 6 + Pos);
+                PLista = AccesoriosNauticos.getLista_productos();
 
                 Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
                 agregarArticulos();
@@ -774,6 +748,9 @@ public class Inventario extends JFrame {
                 Posterior.setEnabled(true);
                 limite = 6;
                 detPosAnt();
+                // Mostrar mensaje de confirmacion
+                JOptionPane.showMessageDialog(null, "¡¡El producto se ha eliminado con exito!!", "Confirmacion",
+                JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
             }
         };
         Accion.addActionListener(b);
@@ -795,6 +772,15 @@ public class Inventario extends JFrame {
         ActionListener Acccion = (ActionEvent e) -> {
             AccesoriosNauticos.getVInventario().setVisible(false);
             AccesoriosNauticos.getVVProductos().setVisible(true);
+        };
+        Info.addActionListener(Acccion);
+    }
+    //Metodo para la accion del boton de gestionar
+    public void accionGestioar(JButton Info) {
+        //Accion del Boton de Informacion
+        ActionListener Acccion = (ActionEvent e) -> {
+            AccesoriosNauticos.getVInventario().setVisible(false);
+            AccesoriosNauticos.getVGestionar().setVisible(true);
         };
         Info.addActionListener(Acccion);
     }
@@ -881,7 +867,6 @@ public class Inventario extends JFrame {
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Posterior
     public void cambioDePaginaF() {
         Lista = PLista.subList(limite, ((PLista.size() - limite) < 6)? limite + (PLista.size() - limite): limite + 6);
-        System.out.println(Lista.size());
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
@@ -919,15 +904,6 @@ public class Inventario extends JFrame {
             Accion.setVisible(true);
             Info.setVisible(true);
         }
-        /*else if (ContBusqueda == 4 || ContBusqueda == 5){
-            Accion.setVisible(false);
-            Info.setVisible(true);
-        }else{
-            Accion.setVisible(true);
-            Info.setVisible(true);
-        }
-        if (ContBusqueda==1) Accion.setIcon(ImagenMas);
-        else Accion.setIcon(ImagenEquis);*/
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
     public void detPosAnt(){
@@ -945,6 +921,14 @@ public class Inventario extends JFrame {
         TPVP2Mayor.setText("PVP2 al Mayor: " + pvpm + "$");
         TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
         TGanancia.setText("Ganancia: " + ganancia + "$");
+    }
+    //Metodo para actualizar la lista de productos
+    public void actualizarListaProd(){
+        PLista = AccesoriosNauticos.getLista_productos();
+        Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
+        detPosAnt();
+        agregarArticulos();
+        deshabilitarBotones();
     }
     
     //METODOS VARIOS

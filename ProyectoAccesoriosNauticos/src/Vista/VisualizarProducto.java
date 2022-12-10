@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -37,14 +38,6 @@ public class VisualizarProducto extends javax.swing.JFrame {
         this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
-        //Configuramos las acciones al salir
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                AccesoriosNauticos.getVVProductos().setVisible(false);
-                AccesoriosNauticos.getVInventario().setVisible(true); 
-            }
-        });
     }
 
     /**
@@ -100,6 +93,7 @@ public class VisualizarProducto extends javax.swing.JFrame {
         bg.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 200, 170));
 
         Producto.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
+        Producto.setForeground(new java.awt.Color(204, 204, 204));
         Producto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
         Producto.setText("Producto");
         bg.add(Producto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, 30));
@@ -162,13 +156,14 @@ public class VisualizarProducto extends javax.swing.JFrame {
         bg.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
 
         CodigoDelProducto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CodigoDelProducto.setForeground(new java.awt.Color(204, 204, 204));
         CodigoDelProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
         CodigoDelProducto.setText("Codigo del Producto");
         bg.add(CodigoDelProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, 30));
 
         CodigoEntrante.setBackground(new java.awt.Color(255, 255, 255));
         CodigoEntrante.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        CodigoEntrante.setForeground(new java.awt.Color(103, 103, 103));
+        CodigoEntrante.setForeground(new java.awt.Color(153, 153, 153));
         CodigoEntrante.setText("Ingrese el codigo del producto");
         CodigoEntrante.setBorder(null);
         CodigoEntrante.addActionListener(new java.awt.event.ActionListener() {
@@ -179,22 +174,22 @@ public class VisualizarProducto extends javax.swing.JFrame {
         bg.add(CodigoEntrante, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 230, 30));
 
         nombretitulo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        nombretitulo.setForeground(new java.awt.Color(103, 103, 103));
+        nombretitulo.setForeground(new java.awt.Color(204, 204, 204));
         nombretitulo.setText("Nombre:");
         bg.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 50, 20));
 
         Codigotitulo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        Codigotitulo.setForeground(new java.awt.Color(103, 103, 103));
+        Codigotitulo.setForeground(new java.awt.Color(204, 204, 204));
         Codigotitulo.setText("Codigo:");
         bg.add(Codigotitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 50, 20));
 
         unidadestitulo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        unidadestitulo.setForeground(new java.awt.Color(103, 103, 103));
+        unidadestitulo.setForeground(new java.awt.Color(204, 204, 204));
         unidadestitulo.setText("Unidades:");
         bg.add(unidadestitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 60, 20));
 
         PrecioTitulo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        PrecioTitulo.setForeground(new java.awt.Color(103, 103, 103));
+        PrecioTitulo.setForeground(new java.awt.Color(204, 204, 204));
         PrecioTitulo.setText("Precio:");
         bg.add(PrecioTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 40, 20));
 
@@ -214,19 +209,19 @@ public class VisualizarProducto extends javax.swing.JFrame {
         bg.add(separador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 50, 10));
 
         infoPrecio.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        infoPrecio.setForeground(new java.awt.Color(103, 103, 103));
+        infoPrecio.setForeground(new java.awt.Color(153, 153, 153));
         bg.add(infoPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 40, 20));
 
         infoNombre.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        infoNombre.setForeground(new java.awt.Color(103, 103, 103));
+        infoNombre.setForeground(new java.awt.Color(153, 153, 153));
         bg.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 190, 20));
 
         infoCodigo.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        infoCodigo.setForeground(new java.awt.Color(103, 103, 103));
+        infoCodigo.setForeground(new java.awt.Color(153, 153, 153));
         bg.add(infoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 280, 60, 20));
 
         infoUnidades.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        infoUnidades.setForeground(new java.awt.Color(103, 103, 103));
+        infoUnidades.setForeground(new java.awt.Color(153, 153, 153));
         bg.add(infoUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 40, 20));
 
         BEliminar.setBackground(new java.awt.Color(37, 134, 218));
@@ -319,6 +314,24 @@ public class VisualizarProducto extends javax.swing.JFrame {
     
     // Accion de Elimnar
     private void BEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BEliminarActionPerformed
+        // Verificamos si realmente lo quiere eliminar
+        int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer eliminar el producto \n" + prod.getNombre() + "?", "Advertencia",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (Valor == JOptionPane.YES_OPTION) {
+            for (int i = 0; i < lista_productos.size();i++){
+                if (lista_productos.get(i).getCod() == codigo) {
+                    AccesoriosNauticos.eliminarProducto(i);
+                    AccesoriosNauticos.getVInventario().actualizarListaProd();
+                    lista_productos = AccesoriosNauticos.getLista_productos();
+                    break;
+                }
+            }
+            this.setVisible(false);
+            AccesoriosNauticos.setVVProductos();
+            AccesoriosNauticos.getVVProductos().setVisible(true);
+            JOptionPane.showMessageDialog(null, "¡¡El producto se ha eliminado con exito!!", "Confirmacion",
+                JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+        }
         
     }//GEN-LAST:event_BEliminarActionPerformed
 
@@ -341,9 +354,9 @@ public class VisualizarProducto extends javax.swing.JFrame {
             // Verificamos si se consiguio
             if (prod != null)
             // Actualizamos los datos
-            actualizarDatos(prod);
+                actualizarDatos(prod);
             else
-            JOptionPane.showMessageDialog(null, "El producto buscado no existe", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El producto buscado no existe", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
         }catch(Exception ex){
             JOptionPane.showMessageDialog(null, "Debe de colocar un código numérico válido para poder buscar", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
         }

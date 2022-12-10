@@ -4,17 +4,25 @@
  */
 package com.inicio;
 
+import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 
 /**
  *
  * @author Windows 10
  */
-public class Agregar extends javax.swing.JFrame {
+public class Gestionar extends javax.swing.JFrame {
 
     int xMouse,yMouse;
-    public Agregar() {
+    public Gestionar() {
         initComponents();
+        this.setLocationRelativeTo(null); // medio de la pantalla
+        this.setResizable(false); //no se puede modificas
+        this.setTitle("Accesorios Nauticos System");
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
     }
 
     /**
@@ -27,14 +35,12 @@ public class Agregar extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        BAgregar = new javax.swing.JButton();
+        BAlarma = new javax.swing.JButton();
         Logo = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
-        AgregarBt = new javax.swing.JPanel();
-        AgregarTxt = new javax.swing.JLabel();
-        AlarmaBt = new javax.swing.JPanel();
-        AlarmaTxt = new javax.swing.JLabel();
         nombretitulo = new javax.swing.JLabel();
         Codigotitulo = new javax.swing.JLabel();
         separador3 = new javax.swing.JSeparator();
@@ -56,8 +62,30 @@ public class Agregar extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        BAgregar.setBackground(new java.awt.Color(37, 134, 218));
+        BAgregar.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        BAgregar.setForeground(new java.awt.Color(255, 255, 255));
+        BAgregar.setText("AGREGAR PRODUCTO");
+        BAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BAgregarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, -1, -1));
+
+        BAlarma.setBackground(new java.awt.Color(37, 134, 218));
+        BAlarma.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        BAlarma.setForeground(new java.awt.Color(255, 255, 255));
+        BAlarma.setText("ESTABLECER ALARMA");
+        BAlarma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BAlarmaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BAlarma, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 260, -1, -1));
+
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCir.png"))); // NOI18N
-        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 200, 170));
+        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 200, 170));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -116,79 +144,11 @@ public class Agregar extends javax.swing.JFrame {
 
         jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 550, 40));
 
-        AgregarBt.setBackground(new java.awt.Color(0, 134, 190));
-
-        AgregarTxt.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
-        AgregarTxt.setForeground(new java.awt.Color(255, 255, 255));
-        AgregarTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AgregarTxt.setText("AGREGAR PRODUCTO");
-        AgregarTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        AgregarTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AgregarTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                AgregarTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                AgregarTxtMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout AgregarBtLayout = new javax.swing.GroupLayout(AgregarBt);
-        AgregarBt.setLayout(AgregarBtLayout);
-        AgregarBtLayout.setHorizontalGroup(
-            AgregarBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(AgregarTxt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        AgregarBtLayout.setVerticalGroup(
-            AgregarBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AgregarBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(AgregarTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1.add(AgregarBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 180, 40));
-
-        AlarmaBt.setBackground(new java.awt.Color(0, 134, 190));
-
-        AlarmaTxt.setFont(new java.awt.Font("Roboto Condensed", 1, 14)); // NOI18N
-        AlarmaTxt.setForeground(new java.awt.Color(255, 255, 255));
-        AlarmaTxt.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        AlarmaTxt.setText("ESTABLECER ALARMA");
-        AlarmaTxt.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        AlarmaTxt.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                AlarmaTxtMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                AlarmaTxtMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                AlarmaTxtMouseExited(evt);
-            }
-        });
-
-        javax.swing.GroupLayout AlarmaBtLayout = new javax.swing.GroupLayout(AlarmaBt);
-        AlarmaBt.setLayout(AlarmaBtLayout);
-        AlarmaBtLayout.setHorizontalGroup(
-            AlarmaBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AlarmaBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(AlarmaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        AlarmaBtLayout.setVerticalGroup(
-            AlarmaBtLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AlarmaBtLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(AlarmaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel1.add(AlarmaBt, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 260, 190, 40));
-
+        nombretitulo.setForeground(new java.awt.Color(204, 204, 204));
         nombretitulo.setText("Total Ventas:");
         jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 80, 20));
 
+        Codigotitulo.setForeground(new java.awt.Color(204, 204, 204));
         Codigotitulo.setText("Total Gastos:");
         jPanel1.add(Codigotitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 90, 20));
 
@@ -198,15 +158,19 @@ public class Agregar extends javax.swing.JFrame {
         separador4.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(separador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 140, 10));
 
-        infoNombre.setText("ejemplo");
+        infoNombre.setForeground(new java.awt.Color(153, 153, 153));
+        infoNombre.setText("0.0$");
         jPanel1.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 140, -1));
 
-        infoCodigo.setText("ejemplo");
+        infoCodigo.setForeground(new java.awt.Color(153, 153, 153));
+        infoCodigo.setText("0.0$");
         jPanel1.add(infoCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 140, -1));
 
+        nombretitulo1.setForeground(new java.awt.Color(204, 204, 204));
         nombretitulo1.setText("Inversion Inicial:");
         jPanel1.add(nombretitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 100, 20));
 
+        Codigotitulo1.setForeground(new java.awt.Color(204, 204, 204));
         Codigotitulo1.setText("Compras en Transito:");
         jPanel1.add(Codigotitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 130, 20));
 
@@ -216,13 +180,16 @@ public class Agregar extends javax.swing.JFrame {
         separador6.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 100, 10));
 
-        infoNombre1.setText("ejemplo");
+        infoNombre1.setForeground(new java.awt.Color(153, 153, 153));
+        infoNombre1.setText("0.0$");
         jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, 120, -1));
 
-        infoCodigo1.setText("ejemplo");
+        infoCodigo1.setForeground(new java.awt.Color(153, 153, 153));
+        infoCodigo1.setText("0.0$");
         jPanel1.add(infoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 100, -1));
 
         CodigoDelProducto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CodigoDelProducto.setForeground(new java.awt.Color(204, 204, 204));
         CodigoDelProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
         CodigoDelProducto.setText("Gestion de Sistema");
         jPanel1.add(CodigoDelProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, 30));
@@ -242,7 +209,8 @@ public class Agregar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-        System.exit(0);
+        AccesoriosNauticos.getVInventario().setVisible(true);
+        AccesoriosNauticos.getVGestionar().setVisible(false);
     }//GEN-LAST:event_exitTxtMouseClicked
 
     private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
@@ -266,29 +234,15 @@ public class Agregar extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    private void AgregarTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarTxtMouseClicked
+    //Accion de crea producto
+    private void BAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAgregarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarTxtMouseClicked
+    }//GEN-LAST:event_BAgregarActionPerformed
 
-    private void AgregarTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarTxtMouseEntered
+    //Accion de establecer alarma
+    private void BAlarmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAlarmaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarTxtMouseEntered
-
-    private void AgregarTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AgregarTxtMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AgregarTxtMouseExited
-
-    private void AlarmaTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlarmaTxtMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AlarmaTxtMouseClicked
-
-    private void AlarmaTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlarmaTxtMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AlarmaTxtMouseEntered
-
-    private void AlarmaTxtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlarmaTxtMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AlarmaTxtMouseExited
+    }//GEN-LAST:event_BAlarmaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,29 +261,27 @@ public class Agregar extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Agregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Agregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Agregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Agregar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Gestionar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Agregar().setVisible(true);
+                new Gestionar().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AgregarBt;
-    private javax.swing.JLabel AgregarTxt;
-    private javax.swing.JPanel AlarmaBt;
-    private javax.swing.JLabel AlarmaTxt;
+    private javax.swing.JButton BAgregar;
+    private javax.swing.JButton BAlarma;
     private javax.swing.JLabel CodigoDelProducto;
     private javax.swing.JLabel Codigotitulo;
     private javax.swing.JLabel Codigotitulo1;
