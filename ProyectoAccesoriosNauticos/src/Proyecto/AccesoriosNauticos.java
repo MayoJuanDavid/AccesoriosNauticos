@@ -52,7 +52,7 @@ public class AccesoriosNauticos {
                 System.out.println("\t" + prod.imprimir());
         }*/
         //Ventana.setVisible(true);
-        Ventana.setVisible(true);        
+        VInventario.setVisible(true);        
     }
     
     // Metodos setters y getters 

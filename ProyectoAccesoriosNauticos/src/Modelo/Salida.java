@@ -7,7 +7,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -105,7 +104,6 @@ public class Salida extends Pedido{
                 buffersalida.close();
             }
             return lista;
-            
         } catch (Exception e) {
             System.out.println("Ha ocurido un error con el archivo: " + e);
         }
