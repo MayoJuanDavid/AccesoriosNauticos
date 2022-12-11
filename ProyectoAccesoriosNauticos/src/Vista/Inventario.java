@@ -773,7 +773,7 @@ public class Inventario extends JFrame {
             AccesoriosNauticos.getVInventario().setVisible(false);
             AccesoriosNauticos.getVVProductos().setVisible(true);
         };
-        Info.addActionListener(Acccion);
+        Info.addActionListener(Acccion); 
     }
     //Metodo para la accion del boton de gestionar
     public void accionGestioar(JButton Info) {
