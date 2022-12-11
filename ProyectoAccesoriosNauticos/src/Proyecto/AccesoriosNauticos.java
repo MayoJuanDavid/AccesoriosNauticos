@@ -12,7 +12,6 @@ import Vista.AsignarProd;
 import Vista.CrearEntrada;
 import Vista.CrearSalida;
 import Vista.Gestionar;
-import Vista.Inicio;
 import Vista.Inventario;
 import Vista.Login;
 import Vista.Pedidos;
