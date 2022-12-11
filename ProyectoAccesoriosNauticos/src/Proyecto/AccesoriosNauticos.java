@@ -1,6 +1,9 @@
 package Proyecto;
 
 // Paquetes a utilizar
+import Controlador.ControladorArchivo;
+import Controlador.ControladorPedido;
+import Controlador.ControladorProducto;
 import Modelo.Cliente;
 import Modelo.Entrada;
 import Modelo.Pedido;
@@ -218,7 +221,7 @@ public class AccesoriosNauticos {
     public static List<Producto> getProductosNoPedEntrada(){
         List<Producto> lista = new ArrayList<Producto>();
         for (Producto p: lista_productos){
-            if (!Producto.buscarProducto(NEntrada.getProductos(), p.getCod())){
+            if (!ControladorProducto.buscarProducto(NEntrada.getProductos(), p.getCod())){
                 lista.add(p);
             }
         }
@@ -228,7 +231,7 @@ public class AccesoriosNauticos {
     public static List<Producto> getProductosNoPedSalida(){
         List<Producto> lista = new ArrayList<Producto>();
         for (Producto p: lista_productos){
-            if (!Producto.buscarProducto(NSalida.getProductos(), p.getCod()))
+            if (!ControladorProducto.buscarProducto(NSalida.getProductos(), p.getCod()))
                 lista.add(p);
         }
         return lista;
@@ -267,15 +270,17 @@ public class AccesoriosNauticos {
     
     // Metodos para llenar los datos y retornar la lista de productos
     public static List<Producto> getBD(){
-        lista_productos = Producto.leer();
-        lista_clientes = Cliente.leer();
-        lista_entradas = Entrada.leer(lista_productos);
-        lista_salida = Salida.leer(lista_productos);
-        lista_pedidos = Pedido.generarListaPedidos(lista_entradas, lista_salida);
-
-        /*for (Producto cli: lista_productos){
-            System.out.println(cli.imprimir());
-        }*/
+        
+        //Instanciamos el controlador de archivos
+        ControladorArchivo ctrlArchivo = new ControladorArchivo();
+        // Se instancia el controlador de Pedidos
+        ControladorPedido ctrlPedido = new ControladorPedido();
+        
+        lista_productos = ctrlArchivo.leerArchivoProducto();
+        lista_clientes = ctrlArchivo.leerArchivoCliente();
+        lista_entradas = ctrlArchivo.leerArchivoEntrada(lista_productos);
+        lista_salida = ctrlArchivo.leerArchivoSalida(lista_productos);
+        lista_pedidos = ctrlPedido.generarListaPedidos(lista_entradas, lista_salida);
         
         return lista_productos;
     }

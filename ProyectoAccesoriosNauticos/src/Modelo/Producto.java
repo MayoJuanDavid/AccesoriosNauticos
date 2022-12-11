@@ -1,13 +1,8 @@
 package Modelo;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Producto {
@@ -150,56 +145,5 @@ public class Producto {
                 "\tPRent: " + this.prentabilidad + "\tPvpD: " + this.pvpdetal + "\tPvp2: " + this.pvp2mayor + "\tGanancia: " + this.ganancia; 
     }
     
-    public static List<Producto> leer(){
-        // Variales a utilizar
-        List<Producto> lista = new ArrayList<Producto>();
-        String registro = "";
-        String[] atrregistros = null;
-        ArrayList<String> listproductos = null;
-        File fileproducto = null;
-        FileReader filer = null;
-        BufferedReader bufferr = null;
-        
-        // Manejo de archivos
-        try { 
-            // Archivos y buffer
-            fileproducto = new File(".\\src\\Proyecto\\Productos.txt");
-            filer = new FileReader(fileproducto);
-            bufferr = new BufferedReader(filer);
-            
-            // Guardar todos los registros
-            while((registro=bufferr.readLine())!=null){
-                atrregistros = registro.split(",");
-                listproductos = new ArrayList<String>(Arrays.asList(atrregistros));
-                // Conertimos los datos y agregamos el objeto Producto
-                lista.add(new Producto(
-                        Integer.parseInt(listproductos.get(0)),
-                        listproductos.get(1),
-                        Integer.parseInt(listproductos.get(2)),
-                        Double.parseDouble(listproductos.get(3)),
-                        Double.parseDouble(listproductos.get(4)),
-                        Double.parseDouble(listproductos.get(5)),
-                        Double.parseDouble(listproductos.get(6)),
-                        Double.parseDouble(listproductos.get(7)),
-                        listproductos.get(8)
-                ));
-            }
-            
-            // Cerrar el archivo
-            bufferr.close();
-            return lista;
-            
-        } catch (Exception e) {
-            System.out.println("Ha ocurido un error con el archivo: " + e);
-        }
-        return lista;
-    }    
-    
-    public static boolean buscarProducto(List<Producto> lista, int cod){
-        for (Producto p: lista){
-            if (p.getCod() == cod) return true;
-        }
-        return false;
-    }
     
 }

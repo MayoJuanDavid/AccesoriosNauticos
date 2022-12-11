@@ -59,17 +59,5 @@ public class AlarmaObj {
     public void setUnidades(int n){
         unidades = n;
     }
-    
-    // Metodos
-    
-    //Metodo para verficar si la alarma se debe disparar
-    
-    public int esVencida(){
-        // si el objeto fecha es menor que el argumento devuelve -1
-        // si el objeto fecha es mayor que el argumento devuelve 1
-        // si son iguales devuelve 0
-        return new Date().compareTo(fecha);
-    }
-    
-    
+     
 }

@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ControladorPedido;
 import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -899,7 +900,7 @@ public class Pedidos extends JFrame {
     }
     // Metodos setters y getters
     public void actualizar(int cod, List<Pedido> lista){
-        pedido = Pedido.buscarPedido(cod, lista);
+        pedido = ControladorPedido.buscarPedido(cod, lista);
         limite = 6;
         PLista = pedido.getProductos();
         PListaAux = PLista;
