@@ -6,9 +6,17 @@ package Controlador;
 
 import Modelo.Entrada;
 import Modelo.Pedido;
+import Modelo.Producto;
 import Modelo.Salida;
+import Vista.CrearEntrada;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,6 +41,59 @@ public class ControladorPedido {
         for (Pedido ped: list_pedidos)
             if (ped.getCod() == codigo) return ped;
         return null;
+    }
+    
+    public static List<Producto> getProductosNoPedSalida(List<Producto> lista_productos, Salida NSalida){
+        List<Producto> lista = new ArrayList<Producto>();
+        for (Producto p: lista_productos){
+            if (!ControladorProducto.buscarProducto(NSalida.getProductos(), p.getCod())){
+                lista.add(p);
+            }
+        }
+        return lista;
+    }
+    
+    public static List<Producto> getProductosNoPedEntrada(List<Producto> lista_productos, Entrada NEntrada){
+        List<Producto> lista = new ArrayList<Producto>();
+        for (Producto p: lista_productos){
+            if (!ControladorProducto.buscarProducto(NEntrada.getProductos(), p.getCod())){
+                lista.add(p);
+            }
+        }
+        return lista;
+    }
+    
+    public static void finalizarPedido(List<Pedido> lista_pedidos, int cod){
+        for (Pedido p: lista_pedidos){
+            if (p.getCod() == cod){
+                //// Fecha
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String date = dateFormat.format(new Date());
+                System.out.println("Se ha actualizado con exito");
+                // Modificamos los datos de fecha
+                try {
+                    p.setFecha_recepcion(dateFormat.parse(date.toString()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
+                }  
+                System.out.println(p.getFecha_recepcion());
+            }
+        }
+    }
+    
+    public static Entrada insertarProductoDeEntrada(Entrada NEntrada, Producto prod){
+        NEntrada.setProductos(prod);
+        return NEntrada;
+    }
+    
+    public static Salida insertarProductoDeSalida(Salida NSalida, Producto prod){
+        NSalida.setProductos(prod);
+        return NSalida;
+    }
+    
+    public static List<Pedido> AgregarPedido(Pedido ped, List<Pedido> lista_pedidos){
+        lista_pedidos.add(ped);
+        return lista_pedidos;
     }
     
 }
