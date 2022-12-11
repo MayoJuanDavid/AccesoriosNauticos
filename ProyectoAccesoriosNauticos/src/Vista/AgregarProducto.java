@@ -273,8 +273,6 @@ public class AgregarProducto extends javax.swing.JFrame {
                 new Mensaje("Producto: "+ nombre+ " agregado exitosamente!",jButton2, "Producto agregado!").setVisible(true);
                 
                 limpiar();
-                AccesoriosNauticos.setVPrincipal();
-                AccesoriosNauticos.setVVProductos();
                 break;
                 
             case 1:

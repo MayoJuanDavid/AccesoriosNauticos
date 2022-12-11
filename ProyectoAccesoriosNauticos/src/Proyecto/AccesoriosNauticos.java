@@ -182,7 +182,7 @@ public class AccesoriosNauticos {
     
     // Metodos de eliminacion    
     public static void eliminarProducto(int indice){
-        AccesoriosNauticos.lista_productos.remove(indice);
+        ControladorProducto.eliminarProducto(indice, lista_productos);
         VVProductos = new VisualizarProducto();
     }
     public static void eliminarNPedido(){
@@ -201,8 +201,7 @@ public class AccesoriosNauticos {
         NEntrada.setProovedor(proveedor);
     }
     public static List<Pedido> insertarPedido(Pedido ped){
-        lista_pedidos.add(ped);
-        return lista_pedidos;
+        return ControladorPedido.AgregarPedido(ped, lista_pedidos);
     }
     public static void insertarEntrada(Entrada ped){
         lista_entradas.add(ped);
@@ -210,62 +209,35 @@ public class AccesoriosNauticos {
     
     // Metodo para devolver los productos de una categoria
     public static List<Producto> getListaCategoria(String cat, List<Producto> l_productos){
-        List <Producto> lista = new ArrayList<Producto>();
-        for (Producto l: l_productos){
-            if (l.getCategoria().equalsIgnoreCase(cat))
-                lista.add(l);
-        }
-        return lista;
+        return ControladorProducto.getListaCategoria(cat, l_productos);
     }
     // Metodo para devolver una lista de productos que no estan en una entrada
     public static List<Producto> getProductosNoPedEntrada(){
-        List<Producto> lista = new ArrayList<Producto>();
-        for (Producto p: lista_productos){
-            if (!ControladorProducto.buscarProducto(NEntrada.getProductos(), p.getCod())){
-                lista.add(p);
-            }
-        }
-        return lista;
+        return ControladorPedido.getProductosNoPedEntrada(lista_productos, NEntrada);
     }
+    
     // Metodo para devolver una lista de productos que no estan en una salida
     public static List<Producto> getProductosNoPedSalida(){
-        List<Producto> lista = new ArrayList<Producto>();
-        for (Producto p: lista_productos){
-            if (!ControladorProducto.buscarProducto(NSalida.getProductos(), p.getCod()))
-                lista.add(p);
-        }
-        return lista;
+        return ControladorPedido.getProductosNoPedSalida(lista_productos, NSalida);
     }
     // Metodo para finalizar un pedido
     public static void finalizarPedido(int cod){
-        for (Pedido p: lista_pedidos){
-            if (p.getCod() == cod){
-                //// Fecha
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String date = dateFormat.format(new Date());
-                System.out.println("Se ha actualizado con exito");
-                // Modificamos los datos de fecha
-                try {
-                    p.setFecha_recepcion(dateFormat.parse(date.toString()));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
-                }  
-                System.out.println(p.getFecha_recepcion());
-            }
-        }
+        ControladorPedido.finalizarPedido(lista_pedidos, cod);
     }
     
     // Metodo que modifica el producto
     
     public static void modificarProducto(int indice, Producto modif){
-        Producto p = AccesoriosNauticos.lista_productos.get(indice);
-        AccesoriosNauticos.lista_productos.set(indice, modif);
+        lista_productos = ControladorProducto.ModificarProducto(indice, modif, lista_productos);
     }
     
     // Metodo que agrega un produto
     
     public static void agregarProducto(Producto p){
-        lista_productos.add(p);
+        lista_productos = ControladorProducto.AgregarProducto(p, lista_productos);
+        VVProductos = new VisualizarProducto();
+        VInventario.actualizarListaProd();
+        
     }
     
     // Metodos para llenar los datos y retornar la lista de productos
