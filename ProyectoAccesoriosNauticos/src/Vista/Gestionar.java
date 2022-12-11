@@ -4,8 +4,14 @@
  */
 package Vista;
 
+import Modelo.Entrada;
+import Modelo.Pedido;
+import Modelo.Producto;
+import Modelo.Salida;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -23,6 +29,28 @@ public class Gestionar extends javax.swing.JFrame {
         this.setTitle("Accesorios Nauticos System");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
+        
+        // Establecemos los indicadores
+        //// Variables a utilizar
+        List<Pedido> lista_pedido = AccesoriosNauticos.getLista_pedidos();
+        double total_ventas = 0.0, compra_tarnsito = 0.0;
+        Salida sal = new Salida();
+        Entrada ent = new Entrada();
+        //// Total de venta
+        for (Pedido p: lista_pedido){
+            if (p instanceof Salida){
+                sal = (Salida)p;
+                total_ventas+= sal.getGanancia();
+            }else{
+                ent = (Entrada)p;
+                if (ent.getFecha_recepcion() == null){
+                    for (Producto prod: ent.getProductos()) compra_tarnsito += prod.getPrecio_compra();
+                }
+            }
+        }
+        // Actualizamos los datos
+        TComprasTransito.setText(compra_tarnsito + "$");
+        TTotalVentas.setText(total_ventas + "$");
     }
 
     /**
@@ -43,13 +71,13 @@ public class Gestionar extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         nombretitulo = new javax.swing.JLabel();
         separador3 = new javax.swing.JSeparator();
-        infoNombre = new javax.swing.JLabel();
+        TTotalVentas = new javax.swing.JLabel();
         nombretitulo1 = new javax.swing.JLabel();
         Codigotitulo1 = new javax.swing.JLabel();
         separador5 = new javax.swing.JSeparator();
         separador6 = new javax.swing.JSeparator();
         infoNombre1 = new javax.swing.JLabel();
-        infoCodigo1 = new javax.swing.JLabel();
+        TComprasTransito = new javax.swing.JLabel();
         CodigoDelProducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,12 +175,12 @@ public class Gestionar extends javax.swing.JFrame {
         jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 130, 20));
 
         separador3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 60, 10));
+        jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 90, 10));
 
-        infoNombre.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        infoNombre.setForeground(new java.awt.Color(153, 153, 153));
-        infoNombre.setText("0.0$");
-        jPanel1.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 60, -1));
+        TTotalVentas.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        TTotalVentas.setForeground(new java.awt.Color(153, 153, 153));
+        TTotalVentas.setText("0.0$");
+        jPanel1.add(TTotalVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 90, -1));
 
         nombretitulo1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo1.setForeground(new java.awt.Color(153, 153, 153));
@@ -165,20 +193,20 @@ public class Gestionar extends javax.swing.JFrame {
         jPanel1.add(Codigotitulo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 190, 20));
 
         separador5.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 60, 10));
+        jPanel1.add(separador5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 110, 10));
 
         separador6.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 60, 10));
+        jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 90, 10));
 
         infoNombre1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         infoNombre1.setForeground(new java.awt.Color(153, 153, 153));
-        infoNombre1.setText("0.0$");
-        jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 60, -1));
+        infoNombre1.setText("4081.85$");
+        jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 110, -1));
 
-        infoCodigo1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        infoCodigo1.setForeground(new java.awt.Color(153, 153, 153));
-        infoCodigo1.setText("0.0$");
-        jPanel1.add(infoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 60, -1));
+        TComprasTransito.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        TComprasTransito.setForeground(new java.awt.Color(153, 153, 153));
+        TComprasTransito.setText("0.0$");
+        jPanel1.add(TComprasTransito, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 90, -1));
 
         CodigoDelProducto.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         CodigoDelProducto.setForeground(new java.awt.Color(153, 153, 153));
@@ -279,11 +307,11 @@ public class Gestionar extends javax.swing.JFrame {
     private javax.swing.JLabel CodigoDelProducto;
     private javax.swing.JLabel Codigotitulo1;
     private javax.swing.JLabel Logo;
+    private javax.swing.JLabel TComprasTransito;
+    private javax.swing.JLabel TTotalVentas;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
-    private javax.swing.JLabel infoCodigo1;
-    private javax.swing.JLabel infoNombre;
     private javax.swing.JLabel infoNombre1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel nombretitulo;

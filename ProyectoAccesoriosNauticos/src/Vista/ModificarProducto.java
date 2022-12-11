@@ -7,6 +7,9 @@ package Vista;
 import java.awt.Color;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -24,13 +27,17 @@ public class ModificarProducto extends javax.swing.JFrame {
         initComponents();
     }
     
-    
     public ModificarProducto(Producto p, VisualizarProducto padre){
        
         this.padre = padre;
         this.producto = p;
         this.padre.setVisible(false);
         initComponents();
+        this.setLocationRelativeTo(null); // medio de la pantalla
+        this.setResizable(false); //no se puede modificas
+        this.setTitle("Accesorios Nauticos System");
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
         setCampos();
 
     }
@@ -51,7 +58,7 @@ public class ModificarProducto extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         nombretitulo = new javax.swing.JLabel();
-        tipoField = new javax.swing.JComboBox<>();
+        tipoField = new javax.swing.JComboBox<String>();
         nombretitulo2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         nombreField = new javax.swing.JTextField();
@@ -68,7 +75,6 @@ public class ModificarProducto extends javax.swing.JFrame {
         nombretitulo7 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         nombretitulo8 = new javax.swing.JLabel();
-        nombretitulo9 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
         precioField = new javax.swing.JTextField();
         unidadesField = new javax.swing.JTextField();
@@ -145,10 +151,10 @@ public class ModificarProducto extends javax.swing.JFrame {
             .addComponent(exitBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 40));
+        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 40));
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCir.png"))); // NOI18N
-        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 200, 170));
+        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 200, 170));
 
         nombretitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo.setForeground(new java.awt.Color(153, 153, 153));
@@ -158,7 +164,7 @@ public class ModificarProducto extends javax.swing.JFrame {
         tipoField.setEditable(true);
         tipoField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         tipoField.setForeground(new java.awt.Color(153, 153, 153));
-        tipoField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Electronicos", "Seguridad", "Vehiculos", "Combustible", "Miscelaneos" }));
+        tipoField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Electronico", "Seguridad", "Motor", "Combustible", "Miscelaneo" }));
         tipoField.setAutoscrolls(true);
         tipoField.setBorder(null);
         tipoField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -184,11 +190,10 @@ public class ModificarProducto extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 460, 120, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 120, 40));
 
         nombreField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         nombreField.setForeground(new java.awt.Color(153, 153, 153));
-        nombreField.setText("Ingrese nombre");
         nombreField.setBorder(null);
         nombreField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -203,133 +208,120 @@ public class ModificarProducto extends javax.swing.JFrame {
         nombretitulo3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo3.setForeground(new java.awt.Color(153, 153, 153));
         nombretitulo3.setText("Ganancia:");
-        jPanel1.add(nombretitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, 90, 20));
+        jPanel1.add(nombretitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, 90, 20));
 
         gananciaField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         gananciaField.setForeground(new java.awt.Color(153, 153, 153));
-        gananciaField.setText("Ingrese ganancia");
         gananciaField.setBorder(null);
         gananciaField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gananciaFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(gananciaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, 130, 20));
+        jPanel1.add(gananciaField, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 50, 20));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 450, 120, 20));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 50, 20));
 
         nombretitulo4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo4.setForeground(new java.awt.Color(153, 153, 153));
         nombretitulo4.setText("Precio:");
-        jPanel1.add(nombretitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 80, 20));
+        jPanel1.add(nombretitulo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 80, 20));
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 190, 20));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, 50, 20));
 
         nombretitulo5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo5.setForeground(new java.awt.Color(153, 153, 153));
         nombretitulo5.setText("Unidades disponibles:");
-        jPanel1.add(nombretitulo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 210, 20));
+        jPanel1.add(nombretitulo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 210, 20));
 
         nombretitulo6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo6.setForeground(new java.awt.Color(153, 153, 153));
         nombretitulo6.setText("Precio Detal:");
-        jPanel1.add(nombretitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 210, 20));
+        jPanel1.add(nombretitulo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 120, 20));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 250, 120, 20));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 70, 20));
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 140, 20));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 70, 20));
 
         nombretitulo7.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo7.setForeground(new java.awt.Color(153, 153, 153));
         nombretitulo7.setText("Precio al mayor:");
-        jPanel1.add(nombretitulo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 210, 20));
+        jPanel1.add(nombretitulo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 150, 20));
 
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 160, 20));
+        jPanel1.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 280, 70, 20));
 
         nombretitulo8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo8.setForeground(new java.awt.Color(153, 153, 153));
         nombretitulo8.setText("Rentabilidad:");
-        jPanel1.add(nombretitulo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 140, 20));
-
-        nombretitulo9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        nombretitulo9.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo9.setText("Rentabilidad:");
-        jPanel1.add(nombretitulo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 210, 20));
+        jPanel1.add(nombretitulo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 140, 20));
 
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 140, 20));
+        jPanel1.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, 50, 20));
 
         precioField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         precioField.setForeground(new java.awt.Color(153, 153, 153));
-        precioField.setText("Ingrese precio");
         precioField.setBorder(null);
         precioField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(precioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 180, 20));
+        jPanel1.add(precioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 220, 50, 20));
 
         unidadesField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         unidadesField.setForeground(new java.awt.Color(153, 153, 153));
-        unidadesField.setText("Ingrese unidades");
         unidadesField.setBorder(null);
         unidadesField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unidadesFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(unidadesField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 120, 20));
+        jPanel1.add(unidadesField, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 70, 20));
 
         precioDetalField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         precioDetalField.setForeground(new java.awt.Color(153, 153, 153));
-        precioDetalField.setText("Ingrese precio detal");
         precioDetalField.setBorder(null);
         precioDetalField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioDetalFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(precioDetalField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 150, 20));
+        jPanel1.add(precioDetalField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 70, 20));
 
         precioMayorField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         precioMayorField.setForeground(new java.awt.Color(153, 153, 153));
-        precioMayorField.setText("Ingrese precio al mayor");
         precioMayorField.setBorder(null);
         precioMayorField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioMayorFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(precioMayorField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 330, 170, 20));
+        jPanel1.add(precioMayorField, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 70, 20));
 
         rentabilidadField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         rentabilidadField.setForeground(new java.awt.Color(153, 153, 153));
-        rentabilidadField.setText("Ingrese rentabilidad");
         rentabilidadField.setBorder(null);
         rentabilidadField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rentabilidadFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(rentabilidadField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 380, 160, 20));
+        jPanel1.add(rentabilidadField, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 50, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -370,76 +362,81 @@ public class ModificarProducto extends javax.swing.JFrame {
     // boton que modifica el producto
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        String nombre = nombreField.getText();
+        int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer modificar el Producto?", "Advertencia",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (Valor == JOptionPane.YES_OPTION) {
+            String nombre = nombreField.getText();
 
-        String precio = precioField.getText();
-        String unidades = unidadesField.getText();
-        String preciodetal = precioDetalField.getText();
-        String preciomayor = precioMayorField.getText();
-        String rentabilidad = rentabilidadField.getText();
-        String ganancia = gananciaField.getText();
-        
+            String precio = precioField.getText();
+            String unidades = unidadesField.getText();
+            String preciodetal = precioDetalField.getText();
+            String preciomayor = precioMayorField.getText();
+            String rentabilidad = rentabilidadField.getText();
+            String ganancia = gananciaField.getText();
 
-        if (!nombre.equals(producto.getNombre()) && !nombre.isEmpty()) {
-            producto.setNombre(nombre);
-        }
-        
-        if (!precio.equals(String.valueOf(producto.getPrecio_compra())) && !precio.isEmpty() ) {
-            if (isNumeric(precio,true)){
-                producto.setPrecio_compra(Double.parseDouble(precio));
-            }else{
-                //mostrar error
+            if (!nombre.equals(producto.getNombre()) && !nombre.isEmpty()) {
+                producto.setNombre(nombre);
             }
-        }
 
-        if (!unidades.equals(String.valueOf(producto.getDisponibilidad())) && !unidades.isEmpty()) {
-            if (isNumeric(unidades,false)){
-                producto.setDisponibilidad(Integer.parseInt(unidades));
-            }else{
-                
+            if (!precio.equals(String.valueOf(producto.getPrecio_compra())) && !precio.isEmpty() ) {
+                if (isNumeric(precio,true)){
+                    producto.setPrecio_compra(Double.parseDouble(precio));
+                }else{
+                    
+                }
             }
-        }
 
-        if (!preciodetal.equals(String.valueOf(producto.getPvpdetal())) && !preciodetal.isEmpty()) {
-            if (isNumeric(preciodetal,true)){
-                producto.setPvpdetal(Double.parseDouble(preciodetal));
-            }else{
-                
-            }
-        }
+            if (!unidades.equals(String.valueOf(producto.getDisponibilidad())) && !unidades.isEmpty()) {
+                if (isNumeric(unidades,false)){
+                    producto.setDisponibilidad(Integer.parseInt(unidades));
+                }else{
 
-        if (!preciomayor.equals(String.valueOf(producto.getPvp2mayor()))  && !preciomayor.isEmpty()) {
-            if (isNumeric(preciomayor,true)){
-                producto.setPvp2mayor(Double.parseDouble(preciomayor));
-            }else{
-                
+                }
             }
-        }
 
-        if (!rentabilidad.equals(String.valueOf(producto.getPrentabilidad())) && !rentabilidad.isEmpty()) {
-            if (isNumeric(rentabilidad, true)){
-                producto.setPrentabilidad(Double.parseDouble(rentabilidad));
-            }else{
-                
-            }
-        }
+            if (!preciodetal.equals(String.valueOf(producto.getPvpdetal())) && !preciodetal.isEmpty()) {
+                if (isNumeric(preciodetal,true)){
+                    producto.setPvpdetal(Double.parseDouble(preciodetal));
+                }else{
 
-        if (!ganancia.equals(String.valueOf(producto.getGanancia()))  && !ganancia.isEmpty()) {
-            if (isNumeric(ganancia,true)) {
-                producto.setGanancia(Double.parseDouble(ganancia));
-            }else{
-                
+                }
             }
-        }
-        
-        
-        
-        for (int i = 0; i < AccesoriosNauticos.getLista_productos().size();i++){
-            if (producto.getCod() == AccesoriosNauticos.getLista_productos().get(i).getCod()){
-                AccesoriosNauticos.modificarProducto(i, producto);
+
+            if (!preciomayor.equals(String.valueOf(producto.getPvp2mayor()))  && !preciomayor.isEmpty()) {
+                if (isNumeric(preciomayor,true)){
+                    producto.setPvp2mayor(Double.parseDouble(preciomayor));
+                }else{
+
+                }
             }
+
+            if (!rentabilidad.equals(String.valueOf(producto.getPrentabilidad())) && !rentabilidad.isEmpty()) {
+                if (isNumeric(rentabilidad, true)){
+                    producto.setPrentabilidad(Double.parseDouble(rentabilidad));
+                }else{
+
+                }
+            }
+
+            if (!ganancia.equals(String.valueOf(producto.getGanancia()))  && !ganancia.isEmpty()) {
+                if (isNumeric(ganancia,true)) {
+                    producto.setGanancia(Double.parseDouble(ganancia));
+                }else{
+
+                }
+            }
+
+            for (int i = 0; i < AccesoriosNauticos.getLista_productos().size();i++){
+                if (producto.getCod() == AccesoriosNauticos.getLista_productos().get(i).getCod()){
+                    AccesoriosNauticos.modificarProducto(i, producto);
+                }
+            }
+            
+            JOptionPane.showMessageDialog(null, "¡¡Se ha modificado el producto de forma exitosa!!", "Confirmacion",
+                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
         }
+        AccesoriosNauticos.setVVProductos();
+        this.padre = AccesoriosNauticos.getVVProductos();
         
         this.dispose();
         this.padre.setVisible(true);
@@ -576,7 +573,6 @@ public class ModificarProducto extends javax.swing.JFrame {
     private javax.swing.JLabel nombretitulo6;
     private javax.swing.JLabel nombretitulo7;
     private javax.swing.JLabel nombretitulo8;
-    private javax.swing.JLabel nombretitulo9;
     private javax.swing.JTextField precioDetalField;
     private javax.swing.JTextField precioField;
     private javax.swing.JTextField precioMayorField;
