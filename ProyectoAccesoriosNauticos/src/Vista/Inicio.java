@@ -16,7 +16,7 @@ public class Inicio extends javax.swing.JFrame {
     */
     private final String usuario = "admin";
     private final String clave = "admin";
-    private Error vError;
+    private Mensaje vError;
     private Pedidos vInventario;
     
     /**
@@ -119,7 +119,7 @@ public class Inicio extends javax.swing.JFrame {
         
         // Si no se colocan datos indicar al usuario
         if (usuario.equals("") || clave.equals("")) {
-            vError = new Error("No pueden haber campos vacíos", this);
+            vError = new Mensaje("No pueden haber campos vacíos", jButton1,"ERROR!!");
             vError.setVisible(true);
             this.setVisible(false);
         }
@@ -135,7 +135,7 @@ public class Inicio extends javax.swing.JFrame {
             }else{
                 msj = "La contraseña es incorrecta!";
             }
-            vError = new Error(msj,this);
+            vError = new Mensaje(msj,jButton1,"ERROR!!");
             this.setVisible(false);
         }
         

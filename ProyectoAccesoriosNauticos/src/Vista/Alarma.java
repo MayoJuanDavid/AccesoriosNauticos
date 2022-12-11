@@ -9,15 +9,24 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import Modelo.AlarmaObj;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JLabel;
 
 /**
  *
  * @author Windows 10
  */
 public class Alarma extends javax.swing.JFrame {
-
+    
+    private AlarmaObj alarma;
+    
     int xMouse,yMouse;
     public Alarma() {
+
         initComponents();
         //Configuraciones
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -44,15 +53,15 @@ public class Alarma extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         nombretitulo = new javax.swing.JLabel();
-        userTxt = new javax.swing.JTextField();
         nombretitulo2 = new javax.swing.JLabel();
         userTxt1 = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         nombretitulo3 = new javax.swing.JLabel();
         userTxt2 = new javax.swing.JTextField();
-        jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
+        userTxt = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -152,32 +161,18 @@ public class Alarma extends javax.swing.JFrame {
 
         nombretitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo.setText("Nombre:");
-        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 120, 20));
-
-        userTxt.setBackground(new java.awt.Color(255, 255, 255));
-        userTxt.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        userTxt.setForeground(new java.awt.Color(153, 153, 153));
-        userTxt.setText("Ingrese nombre");
-        userTxt.setBorder(null);
-        jPanel1.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 170, 20));
+        nombretitulo.setText("Nombre Producto:");
+        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 170, 20));
 
         nombretitulo2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo2.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo2.setText("Fecha (dd/mm/aa):");
-        jPanel1.add(nombretitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 170, 20));
+        nombretitulo2.setText("Fecha (dd/mm/aaaa):");
+        jPanel1.add(nombretitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 200, 20));
 
-        userTxt1.setBackground(new java.awt.Color(255, 255, 255));
         userTxt1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         userTxt1.setForeground(new java.awt.Color(153, 153, 153));
-        userTxt1.setText("Ingrese fecha");
         userTxt1.setBorder(null);
-        userTxt1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userTxt1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(userTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 140, 120, 20));
+        jPanel1.add(userTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 120, 20));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 180, 0));
@@ -187,21 +182,24 @@ public class Alarma extends javax.swing.JFrame {
         nombretitulo3.setText("Unidades Minimas:");
         jPanel1.add(nombretitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 170, 20));
 
-        userTxt2.setBackground(new java.awt.Color(255, 255, 255));
         userTxt2.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         userTxt2.setForeground(new java.awt.Color(153, 153, 153));
-        userTxt2.setText("Ingrese Unidades");
         userTxt2.setBorder(null);
-        jPanel1.add(userTxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 120, 20));
-
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 180, 20));
+        jPanel1.add(userTxt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 120, 20));
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, 130, 20));
+        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 140, 20));
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 130, 20));
+        jPanel1.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 140, 20));
+
+        userTxt.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        userTxt.setForeground(new java.awt.Color(153, 153, 153));
+        userTxt.setBorder(null);
+        jPanel1.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 140, 30));
+
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, 140, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,9 +217,50 @@ public class Alarma extends javax.swing.JFrame {
 
     // Accion para agregar una alarma
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        // Obtencion de los datos de los campos de la vista
+        String nombre = userTxt.getText();
+        String fecha =  userTxt1.getText();
+        String unidades =  userTxt2.getText();
+        // Si algun campo esta vacio enviar error
+        if (nombre.equals("") || fecha.equals("") || unidades.equals("")){
+            new Mensaje("No pueden haber campos vacios", jButton3,"ERROR!!");
+             userTxt.setText("");
+             userTxt1.setText("");
+             userTxt2.setText("");
+           // Si todos los campos estan llenos validar que la fecha y las unidades sean correctos
+        }else{
+            if (!validarFecha(fecha)){
+                new Mensaje("El formato de la fecha no es correcto o no esta entre 2022 y 2099", jButton3,"ERROR!!");
+                userTxt.setText("");
+                userTxt1.setText("");
+                userTxt2.setText("");
+            // valido las unidades
+            }else if(!isNumeric(unidades)){
+                new Mensaje("Las unidades minimas deben ser numericas",jButton3,"ERROR!!");
+                userTxt.setText("");
+                userTxt1.setText("");
+                userTxt2.setText("");
+            // cuando todo esta correcto crear la alarma
+            }else {
+                // se formatea la fecha para guardarla
+                DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+                
+                try {
+                    Date fechaObj = formato.parse(fecha);
+                    alarma = new AlarmaObj(nombre,fechaObj,Integer.parseInt(unidades));
+                    new Mensaje("Se ha agregado la alarma correctamente!!",jButton3,"Alarma Agregada exitosamente");
+                    userTxt.setText("");
+                    userTxt1.setText("");
+                    userTxt2.setText("");
+                } catch (ParseException ex) {}
+            }
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    public AlarmaObj getAlarma(){
+        return alarma;
+    }
+    
     // Accion para ver la lista de alarmas
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JOptionPane.showMessageDialog(null, "Esta funcionalidad esta en mantenimiento", "Advertencia", JOptionPane.WARNING_MESSAGE);
@@ -254,10 +293,24 @@ public class Alarma extends javax.swing.JFrame {
         AccesoriosNauticos.getVGestionar().setVisible(true);
     }//GEN-LAST:event_exitTxtMouseClicked
 
-    private void userTxt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxt1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userTxt1ActionPerformed
+    
+    public static boolean validarFecha(String date) {
+        return date.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((20[2-9][2-9])|(209[0-9])|(2100))$");
+    }
 
+    
+    public static boolean isNumeric(String s){
+        
+        try {
+            Integer.parseInt(s);
+            return true;
+        }
+        catch (NumberFormatException ex){
+            return false;
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -275,14 +328,15 @@ public class Alarma extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Alarma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlarmaObj.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Alarma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlarmaObj.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Alarma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlarmaObj.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Alarma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlarmaObj.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -302,8 +356,8 @@ public class Alarma extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JLabel nombretitulo;
