@@ -7,6 +7,7 @@ package Vista;
 import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
+import Modelo.Salida;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
 import java.text.DateFormat;
@@ -24,12 +25,12 @@ import javax.swing.JOptionPane;
  *
  * @author Windows 10
  */
-public class CrearEntrada extends javax.swing.JFrame {
+public class CrearSalida extends javax.swing.JFrame {
 
     /**
      * Creates new form CrearPedido
      */
-    public CrearEntrada() {
+    public CrearSalida() {
         initComponents();
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
@@ -50,13 +51,10 @@ public class CrearEntrada extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         Titulo = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
-        nombretitulo = new javax.swing.JLabel();
-        separador3 = new javax.swing.JSeparator();
         jButton6 = new javax.swing.JButton();
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
-        IProveedor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,30 +64,22 @@ public class CrearEntrada extends javax.swing.JFrame {
         Titulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Titulo.setForeground(new java.awt.Color(153, 153, 153));
         Titulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
-        Titulo.setText("Agregar Entrada");
+        Titulo.setText("Agregar Salida");
         jPanel1.add(Titulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 260, 30));
 
         Logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/LogoCir.png"))); // NOI18N
-        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 200, 170));
-
-        nombretitulo.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        nombretitulo.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo.setText("Proovedor:");
-        jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 110, 20));
-
-        separador3.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 160, 10));
+        jPanel1.add(Logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 200, 170));
 
         jButton6.setBackground(new java.awt.Color(0, 134, 190));
         jButton6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("CREAR ENTRADA");
+        jButton6.setText("CREAR SALIDA");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 190, -1, 40));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 180, 40));
 
         exitBtn.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -132,15 +122,7 @@ public class CrearEntrada extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 40));
-
-        IProveedor.setBackground(new java.awt.Color(255, 255, 255));
-        IProveedor.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        IProveedor.setForeground(new java.awt.Color(153, 153, 153));
-        IProveedor.setText("Ingrese el Proveedor");
-        IProveedor.setToolTipText("");
-        IProveedor.setBorder(null);
-        jPanel1.add(IProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 160, 30));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 180, 40));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,7 +134,7 @@ public class CrearEntrada extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -164,37 +146,31 @@ public class CrearEntrada extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (Valor == JOptionPane.YES_OPTION) {
             // Variables a utilizar
-            String proveedor = IProveedor.getText();
-            Entrada entrada = AccesoriosNauticos.getNEntrada();
+            Salida salida = AccesoriosNauticos.getNSalida();
             List<Pedido> lista_ped = AccesoriosNauticos.getLista_pedidos();
             int codigo = lista_ped.get(lista_ped.size() - 1).getCod() + 1;
-            // Verificamos si los datos son correctos
-            if (IProveedor.getText().length() == 0 || IProveedor.getText().equalsIgnoreCase("Ingrese el Proveedor")){
-                JOptionPane.showMessageDialog(null, "Ingrese un nombre de proveedor válido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
-            }else if (entrada.getProductos().size() == 0){
+            if (salida.getProductos().size() == 0){
                 JOptionPane.showMessageDialog(null, "Debe de ingresar al menos un producto en el pedido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
             }else{
                 //// Fecha
                 DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String date = dateFormat.format(new Date());
-                // Modificamos los datos de proveedor
-                entrada.setProovedor(proveedor);
                 // Modificamos los datos de codigo
-                entrada.setCod(codigo);
+                salida.setCod(codigo);
                 // Modificamos los datos de fecha
                 try {
-                    entrada.setFecha_emision(dateFormat.parse(date.toString()));
+                    salida.setFecha_emision(dateFormat.parse(date.toString()));
                 } catch (ParseException ex) {
-                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(CrearSalida.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                // Modificamos los datos de monto a pagar
-                double monto = 0.0;
-                for (Producto prod: entrada.getProductos()){
-                    monto += prod.getPrecio_compra();
+                // Modificamos los datos de ganancia
+                double ganancia = 0.0;
+                for (Producto prod: salida.getProductos()){
+                    ganancia += prod.getGanancia();
                 }
-                entrada.setMonto_pagar(monto);
+                salida.setGanancia(ganancia);
                 // Ingresamos el pedido a la lista de pedidos
-                lista_ped = AccesoriosNauticos.insertarPedido(entrada);                  
+                lista_ped = AccesoriosNauticos.insertarPedido(salida);                  
                 // Mostramos el mensaje de confirmacion
                 JOptionPane.showMessageDialog(null, "¡¡Se ha creado el pedido de forma exitosa!!", "Confirmacion",
                     JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
@@ -202,10 +178,9 @@ public class CrearEntrada extends javax.swing.JFrame {
                 this.setVisible(false);                
                 // Actualizamos las vistas de pedidos
                 AccesoriosNauticos.setVVPedidos();
-                AccesoriosNauticos.setVCEntrada();
-                AccesoriosNauticos.setVAProd(); 
+                AccesoriosNauticos.setVCSalida();
+                AccesoriosNauticos.setVAProd();
                 AccesoriosNauticos.eliminarNPedido();
-                
                 // Dirigimos a ver pedidos
                 AccesoriosNauticos.getVVPedidos().setVisible(true);
             }
@@ -250,26 +225,25 @@ public class CrearEntrada extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrearEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrearEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrearEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrearEntrada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CrearSalida.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CrearEntrada().setVisible(true);
+                new CrearSalida().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField IProveedor;
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel Titulo;
     private javax.swing.JPanel exitBtn;
@@ -277,7 +251,5 @@ public class CrearEntrada extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel nombretitulo;
-    private javax.swing.JSeparator separador3;
     // End of variables declaration//GEN-END:variables
 }

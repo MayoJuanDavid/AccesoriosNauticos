@@ -8,11 +8,14 @@ package Vista;
 
 import Modelo.Entrada;
 import Modelo.Pedido;
+import Modelo.Producto;
+import Modelo.Salida;
 import Proyecto.AccesoriosNauticos;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -24,8 +27,8 @@ import javax.swing.JOptionPane;
  */
 public class VerPedidos extends javax.swing.JFrame {
 
-    private List<Pedido> lista_pedido = AccesoriosNauticos.getLista_pedidos();
-    private int indice = 0;
+    private List<Pedido> lista_pedido;
+    private int indice;
     
     public VerPedidos() {
         initComponents();
@@ -41,6 +44,8 @@ public class VerPedidos extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
         BAtras.setEnabled(false);
+        indice = 0;
+        lista_pedido = AccesoriosNauticos.getLista_pedidos();          
         actualizarInfo(lista_pedido.get(indice));
     }
 
@@ -70,6 +75,8 @@ public class VerPedidos extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         favicon = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
+        TGanProvee = new javax.swing.JLabel();
+        IGanProvee = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -182,6 +189,14 @@ public class VerPedidos extends javax.swing.JFrame {
             }
         });
 
+        TGanProvee.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        TGanProvee.setForeground(new java.awt.Color(153, 153, 153));
+        TGanProvee.setText("Ganancia:");
+
+        IGanProvee.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        IGanProvee.setForeground(new java.awt.Color(153, 153, 153));
+        IGanProvee.setText(" ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -199,18 +214,24 @@ public class VerPedidos extends javax.swing.JFrame {
                                 .addComponent(LFechaP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(IFechaP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(favicon)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(TipoPedido)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ITipoP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(LCodigo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ICodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(74, 74, 74)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(favicon))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(TipoPedido)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ITipoP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(TGanProvee))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(LCodigo)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ICodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(74, 74, 74)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IGanProvee, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(LVPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -254,7 +275,9 @@ public class VerPedidos extends javax.swing.JFrame {
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TipoPedido)
-                            .addComponent(ITipoP)))
+                            .addComponent(ITipoP)
+                            .addComponent(TGanProvee)
+                            .addComponent(IGanProvee)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
                         .addComponent(LIcono)))
@@ -285,7 +308,7 @@ public class VerPedidos extends javax.swing.JFrame {
     // Boton para ver los productos de un pedido
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Actualizamos los datos de la ventana pedidos
-        AccesoriosNauticos.getVPedidos().actualizar(lista_pedido.get(indice).getCod());
+        AccesoriosNauticos.getVPedidos().actualizar(lista_pedido.get(indice).getCod(), lista_pedido);
         // Modificamos la visualizacion
         this.setVisible(false);
         AccesoriosNauticos.getVPedidos().setVisible(true);
@@ -309,11 +332,15 @@ public class VerPedidos extends javax.swing.JFrame {
 
     //Accion de crear un pedido
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        AccesoriosNauticos.getVAProd().setTipo(1);
+        AccesoriosNauticos.getVCEntrada().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        AccesoriosNauticos.getVAProd().setTipo(2);
+        AccesoriosNauticos.getVCSalida().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Metodo para actualizar los datos del pedido
@@ -323,12 +350,24 @@ public class VerPedidos extends javax.swing.JFrame {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         // Aqui usamos la instancia formatter para darle el formato a la fecha. Es importante ver que el resultado es un string.
         String fechaETexto = formatter.format(ped.getFecha_emision());
-        String fechaRTexto = formatter.format(ped.getFecha_recepcion());
+        Date fecha_re = ped.getFecha_recepcion();
+        String fechaRTexto = (fecha_re == null) ? "": formatter.format(fecha_re);
+        
         
         ICodigo.setText("" + ped.getCod());
         IFechaP.setText(fechaETexto);
         IFechaL.setText(fechaRTexto);
         ITipoP.setText((ped instanceof Entrada)? "Entrada": "Salida");
+        
+        if (ped instanceof Entrada){
+            TGanProvee.setText("Proveedor: ");
+            Entrada entrada = (Entrada) ped;
+            IGanProvee.setText("" + entrada.getProovedor());
+        }else{
+            TGanProvee.setText("Ganancia: ");
+            Salida salida = (Salida) ped;
+            IGanProvee.setText("" + salida.getGanancia() + "$");
+        }
     }
     
     /**
@@ -372,12 +411,14 @@ public class VerPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel ICodigo;
     private javax.swing.JLabel IFechaL;
     private javax.swing.JLabel IFechaP;
+    private javax.swing.JLabel IGanProvee;
     private javax.swing.JLabel ITipoP;
     private javax.swing.JLabel LCodigo;
     private javax.swing.JLabel LFechaL;
     private javax.swing.JLabel LFechaP;
     private javax.swing.JLabel LIcono;
     private javax.swing.JLabel LVPedidos;
+    private javax.swing.JLabel TGanProvee;
     private javax.swing.JLabel TipoPedido;
     private javax.swing.JLabel favicon;
     private javax.swing.JButton jButton1;

@@ -358,7 +358,7 @@ public class Inventario extends JFrame {
         //Texto de Gestionar
         TextoGestionar.setText("Gestionar");                                   //Texto
         TextoGestionar.setFont(new Font("Agency FB", Font.PLAIN, 45));         //Estilo y Fuente de Letra
-        TextoGestionar.setBounds(75, 30, 170, 50);                             //Posicion y Dimension
+        TextoGestionar.setBounds(70, 30, 170, 50);                             //Posicion y Dimension
         TextoGestionar.setForeground(Color.WHITE);                             //Color de Fondo
 
         //Configuraciones de Visibilidad y Agregacion
@@ -711,7 +711,7 @@ public class Inventario extends JFrame {
         accionBuscarProducto(Buscar);
         // Accion del boton de gestionar
         accionGestioar(Gestionar);
-        //Aciones de los Botones de Agregar y Eliminar*/
+        //Aciones de los Botones de Agregar y Eliminar
         accionEliminar();
     }
     //Accion del boton de pedidos

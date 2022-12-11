@@ -8,6 +8,9 @@ import Modelo.Producto;
 import Modelo.Salida;
 import Vista.AgregarProducto;
 import Vista.Alarma;
+import Vista.AsignarProd;
+import Vista.CrearEntrada;
+import Vista.CrearSalida;
 import Vista.Gestionar;
 import Vista.Inicio;
 import Vista.Inventario;
@@ -31,6 +34,9 @@ public class AccesoriosNauticos {
     private static Gestionar VGestionar = new Gestionar();
     private static AgregarProducto VAProducto = new AgregarProducto();
     private static Alarma VAlarma = new Alarma();
+    private static CrearEntrada VCEntrada = new CrearEntrada();
+    private static CrearSalida VCSalida = new CrearSalida();
+    private static AsignarProd VAProd = new AsignarProd();
             
     //// Listas de datos
     private static List<Producto> lista_productos = new ArrayList<Producto>(); 
@@ -38,6 +44,10 @@ public class AccesoriosNauticos {
     private static List<Pedido> lista_pedidos = new ArrayList<Pedido>();
     private static List<Entrada> lista_entradas = new ArrayList<Entrada>(); 
     private static List<Salida> lista_salida = new ArrayList<Salida>(); 
+    
+    // Variables de pedidos y productosnuevos
+    private static Entrada NEntrada = new Entrada();
+    private static Salida NSalida = new Salida();
     
     // Programa pricipal
     public static void main (String[] args){
@@ -50,7 +60,7 @@ public class AccesoriosNauticos {
         int lim_inf = (lista_productos.size() - lim);
         List<Producto> lista = lista_productos.subList(lim, (lim_inf < 6)? lim + lim_inf: lim + 6);
         */
-        /*for (Salida cli: lista_salida){
+        /*for (Pedido cli: lista_pedido){
             System.out.println(cli.imprimir());
             for (Producto prod: cli.getProductos())
                 System.out.println("\t" + prod.imprimir());
@@ -59,7 +69,7 @@ public class AccesoriosNauticos {
         VInventario.setVisible(true);        
     }
     
-    // Metodos setters y getters 
+    // Metodos getters 
     public static Login getVentana() {
         return Ventana;
     }
@@ -102,14 +112,25 @@ public class AccesoriosNauticos {
     public static Alarma getVAlarma() {
         return VAlarma;
     }
+    public static CrearEntrada getVCEntrada() {
+        return VCEntrada;
+    }
+    public static AsignarProd getVAProd() {
+        return VAProd;
+    }
+    public static Entrada getNEntrada() {
+        return NEntrada;
+    }
+    public static Salida getNSalida() {
+        return NSalida;
+    }
+    public static CrearSalida getVCSalida() {
+        return VCSalida;
+    }
     
-
-    public static void setVentana(Login Ventana) {
-        AccesoriosNauticos.Ventana = Ventana;
-    }
-    public static void setVPrincipal(Inventario VPrincipal) {
-        AccesoriosNauticos.VInventario = VPrincipal;
-    }
+    
+    // Metodos setter
+    //// Listas
     public static void setLista_productos(List<Producto> lista_productos) {
         AccesoriosNauticos.lista_productos = lista_productos;
     }
@@ -125,13 +146,79 @@ public class AccesoriosNauticos {
     public static void setLista_pedidos(List<Pedido> lista_pedidos) {
         AccesoriosNauticos.lista_pedidos = lista_pedidos;
     }
+    //// Vistas
+    public static void setVentana() {
+        AccesoriosNauticos.Ventana = new Login();
+    }
+    public static void setVPrincipal() {
+        AccesoriosNauticos.VInventario = new Inventario();
+    }
     public static void setVVProductos() {
         AccesoriosNauticos.VVProductos = new VisualizarProducto();
     }
+    public static void setVVPedidos() {
+        AccesoriosNauticos.VVPedidos = new VerPedidos();
+    }
+    public static void setVCEntrada() {
+        AccesoriosNauticos.VCEntrada = new CrearEntrada();
+    }
+    public static void setVCSalida() {
+        AccesoriosNauticos.VCSalida = new CrearSalida();
+    }
+    public static void setVAProd() {
+        AccesoriosNauticos.VAProd = new AsignarProd();
+    }
+    public static void setVPedidos() {
+        AccesoriosNauticos.VPedidos = new Pedidos();
+    }
     
+    // Metodos de eliminacion    
     public static void eliminarProducto(int indice){
         AccesoriosNauticos.lista_productos.remove(indice);
         VVProductos = new VisualizarProducto();
+    }
+    public static void eliminarNPedido(){
+        NEntrada = new Entrada();
+        NSalida = new Salida();
+    }
+    
+    // Metodos para modificar los pedidos
+    public static void insertarProdEntrada(Producto prod){
+       NEntrada.setProductos(prod);
+    }
+    public static void insertarProdSalida(Producto prod){
+       NSalida.setProductos(prod);
+    }
+    public static void insertarProveedor(String proveedor){
+        NEntrada.setProovedor(proveedor);
+    }
+    public static List<Pedido> insertarPedido(Pedido ped){
+        lista_pedidos.add(ped);
+        return lista_pedidos;
+    }
+    public static void insertarEntrada(Entrada ped){
+        lista_entradas.add(ped);
+    }
+    
+    // Metodo para devolver una lista de productos que no estan en una entrada
+    public static List<Producto> getProductosNoPedEntrada(){
+        List<Producto> lista = new ArrayList<Producto>();
+        System.out.println(NEntrada.getProductos());
+        for (Producto p: lista_productos){
+            if (!Producto.buscarProducto(NEntrada.getProductos(), p.getCod())){
+                lista.add(p);
+            }
+        }
+        return lista;
+    }
+    // Metodo para devolver una lista de productos que no estan en una salida
+    public static List<Producto> getProductosNoPedSalida(){
+        List<Producto> lista = new ArrayList<Producto>();
+        for (Producto p: lista_productos){
+            if (!Producto.buscarProducto(NSalida.getProductos(), p.getCod()))
+                lista.add(p);
+        }
+        return lista;
     }
     
     // Metodos para llenar los datos y retornar la lista de productos

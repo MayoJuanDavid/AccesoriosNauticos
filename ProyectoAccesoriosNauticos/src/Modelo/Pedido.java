@@ -31,7 +31,7 @@ public abstract class Pedido {
         this.fecha_emision = null;
         this.fecha_recepcion = null;
         this.monto_pagar = 0.00;
-        this.Productos = null;
+        this.Productos = new ArrayList<Producto>();
     }
 
     
@@ -68,6 +68,9 @@ public abstract class Pedido {
     public void setProductos(Producto prod) {
         this.Productos.add(prod);
     }
+    
+    // Metodo de impresion
+    public abstract String imprimir();
     
     // Metodos de funcionalidad
     // Retornamos una lista de pedidos con las entradas y las salidas

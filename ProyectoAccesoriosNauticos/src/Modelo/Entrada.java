@@ -44,14 +44,16 @@ public class Entrada extends Pedido{
 
     public String imprimir(){
         return "Cod: " + this.cod + "\tFEmision: " + this.fecha_emision.getDate() + "/" + (this.fecha_emision.getMonth()+1) + "/" + (this.fecha_emision.getYear()+1900) +
-                "\tFRecepcion: " + this.fecha_recepcion.getDate() + "/" + (this.fecha_recepcion.getMonth()+1) + "/" + (this.fecha_recepcion.getYear()+1900) + 
+                "\tFRecepcion: " + ((this.fecha_recepcion != null)? this.fecha_recepcion.getDate(): "null") + "/" + 
+                ((this.fecha_recepcion != null)? this.fecha_recepcion.getMonth()+1: "null") + "/" + 
+                ((this.fecha_recepcion != null)? this.fecha_recepcion.getYear()+1900: "null") + 
                 "\tMPagar: " + this.monto_pagar + "\tProveedor: " + this.proovedor; 
     }
     
     public static List<Entrada> leer(List<Producto> lista_productos){
         // Variales a utilizar
         List<Entrada> lista = new ArrayList<Entrada>();
-        DateFormat formateador= new SimpleDateFormat("dd/MM/yy");
+        DateFormat formateador= new SimpleDateFormat("dd/MM/yyyy");
         String registro = "";
         String[] atrregistros = null;
         ArrayList<String> listentrada = null;

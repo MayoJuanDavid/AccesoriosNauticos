@@ -24,21 +24,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Pedidos extends JFrame {
+public class AsignarProd extends JFrame {
     
     // Atributos
     //ESTRUCTURAS DE CONTROL
-    public int ContDescripcion = 0;                                             //Determina la Descripcion que hay que Mostrar
-    public List<Producto> Lista = new ArrayList<Producto>();                    //Representa la lista de Productos que se muestra en cada Pagina de un Catalogo
-    public List<Producto> PLista = new ArrayList<Producto>();                   //Representa la lista principal con todos los productos
-    public List<Pedido> PPedLista = new ArrayList<Pedido>();                    //Lista de pedidos
-    public String Categoria = "Electrodomesticos";                              //Determina la Categoria que se esta Trabajando
+    public int ContDescripcion = 0;                                     //Determina la Descripcion que hay que Mostrar
+    public List<Producto> Lista = new ArrayList<Producto>();   //Representa la lista de Productos que se muestra en cada Pagina de un Catalogo
+    public List<Producto> PLista = new ArrayList<Producto>();   //Representa la lista principal con todos los productos
+    public List<Pedido> PPedLista = new ArrayList<Pedido>();      //Lista de pedidos
+    public String Categoria = "Electrodomesticos";                                //Determina la Categoria que se esta Trabajando
+    public int tipopedido = 0;
     
         //PANELES DEL LADO DERECHO
     public JPanel PPedido = new JPanel();
     public JPanel PInfo = new JPanel();
     public JPanel PMonto = new JPanel();
-    public JPanel PFinalizacion = new JPanel();
+    public JPanel PAProducto = new JPanel();
     public JPanel PArticulos = new JPanel();
 
         //PANELES DEL LADO IXQUIERDO
@@ -66,7 +67,7 @@ public class Pedidos extends JFrame {
     public JButton Combustibles = new JButton(new ImageIcon("src/Imagenes/fondo_cat.jpg"));
     public JButton Motores = new JButton(new ImageIcon("src/Imagenes/fondo_cat.jpg"));
     public JButton Miscelaneos = new JButton(new ImageIcon("src/Imagenes/fondo_cat.jpg"));
-    public JButton Finalizar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
+    public JButton AProducto = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
     public JButton Pedidos = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
     public JButton Buscar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
     public JButton Regresar = new JButton(new ImageIcon("src/Imagenes/fondo.jpg"));
@@ -136,7 +137,7 @@ public class Pedidos extends JFrame {
     public JLabel TextoPedido = new JLabel();
     public JLabel EtiquetaPedido = new JLabel(new ImageIcon("src/Imagenes/pedido_blanco.png"));
     public JLabel TextoRegresar = new JLabel();
-    public JLabel TextoFinalizar = new JLabel();
+    public JLabel TextoAProducto = new JLabel();
     public JLabel TextoBusqueda = new JLabel();
     public JLabel EtiquetaBusqueda = new JLabel(new ImageIcon("src/Imagenes/lupa_80x80.png"));
     public JLabel Falta = new JLabel(new ImageIcon("src/Imagenes/Sin_Articulos.png"));
@@ -188,14 +189,15 @@ public class Pedidos extends JFrame {
     public int limite = 0;
     
     // Constructor
-    public Pedidos(){
+    public AsignarProd(){
         this.setSize(1315, 839); //tamano
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
         this.setTitle("Accesorios Nauticos System");
-        this.setLayout(null);
-        PLista = AccesoriosNauticos.getLista_productos();    
+        limite = 0;
+        PLista = AccesoriosNauticos.getLista_productos();
         PPedLista = AccesoriosNauticos.getLista_pedidos();     
+        this.setLayout(null);
         this.parteDerecha();
         this.parteIzquierda();
         this.parteCentro();
@@ -225,7 +227,7 @@ public class Pedidos extends JFrame {
         this.panelPedido();
         this.panelInfo();
         this.panelGanancia();
-        this.panelFinalizacion();
+        this.panelAProdcuto();
     }
     //Metodo que Gestiona el Panel de Pedidos (Pedidos)
     public void panelPedido() { 
@@ -348,30 +350,40 @@ public class Pedidos extends JFrame {
         MarcoHMonto.setVisible(true);
     }
     //Metodo que Gestiona la finalizacion
-    public void panelFinalizacion() {
+    public void panelAProdcuto() {
         //Se establece la configuracion del Panel
-        PFinalizacion.setLayout(null);                                          //Borrar Configuracion por Defecto  
-        PFinalizacion.setBounds(1030, 685, 270, 115);                           //Posicion y Dimension
+        PAProducto.setLayout(null);                                          //Borrar Configuracion por Defecto  
+        PAProducto.setBounds(1030, 685, 270, 115);                           //Posicion y Dimension
         
         //Boton de Gestionar
-        Finalizar.setLayout(null);                                              //Borrar Configuracion por Defecto  
-        Finalizar.setBounds(0, 0, 270, 115);                                    //Posicion y Dimension
+        AProducto.setLayout(null);                                              //Borrar Configuracion por Defecto  
+        AProducto.setBounds(0, 0, 270, 115);                                    //Posicion y Dimension
         
         //Texto de Gestionar
-        TextoFinalizar.setText("Finalizar");                                   //Texto
-        TextoFinalizar.setFont(new Font("Agency FB", Font.PLAIN, 45));         //Estilo y Fuente de Letra
-        TextoFinalizar.setBounds(75, 30, 170, 50);                             //Posicion y Dimension
-        TextoFinalizar.setForeground(Color.WHITE);                             //Color de Fondo
+        TextoAProducto.setText("Agregar Producto");                            //Texto
+        TextoAProducto.setFont(new Font("Agency FB", Font.PLAIN, 39));         //Estilo y Fuente de Letra
+        TextoAProducto.setBounds(22, 30, 230, 50);                             //Posicion y Dimension
+        TextoAProducto.setForeground(Color.WHITE);                             //Color de Fondo
 
         //Configuraciones de Visibilidad y Agregacion
             //Agregar al Objeto Actual
-        this.add(PFinalizacion);
+        this.add(PAProducto);
+            //Configuraciones
+        /*confPagar();                    
+        confActualizarCrear(); 
+        confPedidos(); // VER PEDIDOS DE LE EMPRESA
+        confDeliverys(); //VER DELIVERIES PARA EL UBER
+        configEnviado();
+        
+        configCancelar(); //CANCELAR DELIVERY
+        configInformacionRutaContactar(); // Informacion del delivery*/
             //Agregar Texto y Etiquetas
-        Finalizar.add(TextoFinalizar);   
+        AProducto.add(TextoAProducto);   
             //Agegrar al Panel
-        PFinalizacion.add(Finalizar); 
+        PAProducto.add(AProducto); 
             //Visibilidad
-        PFinalizacion.setVisible(true);
+        PAProducto.setVisible(true);
+     
     }
         
     //LADO IZQUIERDO
@@ -617,7 +629,7 @@ public class Pedidos extends JFrame {
     //Metodo que Gestiona los Articulos que se colocan en el Catalogo
     public void panelArticulos() {
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
-        Lista = PLista.subList(0, 6);
+        Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
         
         //Se establece la configuracion del Panel
         PArticulos.setLayout(null);
@@ -625,6 +637,14 @@ public class Pedidos extends JFrame {
         
         //Imagen "No hay articulos que Mostrar"
         Falta.setBounds(150, 80, 500, 500);
+        
+        //Agregamos los Botones de Agregar o Eliminar
+        confAgregarEliminar(1, Accion1);
+        confAgregarEliminar(2, Accion2);
+        confAgregarEliminar(3, Accion3);
+        confAgregarEliminar(4, Accion4);
+        confAgregarEliminar(5, Accion5);
+        confAgregarEliminar(6, Accion6);
         
         //Agregando Botones de Informacion
             //Configuraciones
@@ -642,6 +662,8 @@ public class Pedidos extends JFrame {
         confiBotonesinfo(4, 3, Info4);
         confiBotonesinfo(5, 4, Info5);
         confiBotonesinfo(6, 5, Info6);
+        
+        
         
         //Agregando los articulos
         agregarArticulos();
@@ -691,6 +713,8 @@ public class Pedidos extends JFrame {
         accionRegresar(Regresar);
         // Accion del boton buscar producto
         accionBuscarProducto(Buscar);
+        // Accion de agregar
+        accionAgregar();
     }
     //Acciones de los botones de informacion
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
@@ -708,7 +732,8 @@ public class Pedidos extends JFrame {
         //Accion del Boton de Informacion
         ActionListener Acccion = (ActionEvent e) -> {
             this.setVisible(false);
-            AccesoriosNauticos.getVVPedidos().setVisible(true);
+            if (tipopedido == 1) AccesoriosNauticos.getVCEntrada().setVisible(true);
+            else AccesoriosNauticos.getVCSalida().setVisible(true);
         };
         Regresar.addActionListener(Acccion);
     }
@@ -721,8 +746,71 @@ public class Pedidos extends JFrame {
         };
         Info.addActionListener(Acccion);
     }
+    //Accion Botones de Agregar y Eliminar
+    public void accionAgregar(){
+        confAgregar(0, Accion1);
+        confAgregar(1, Accion2);
+        confAgregar(2, Accion3);
+        confAgregar(3, Accion4);
+        confAgregar(4, Accion5);
+        confAgregar(5, Accion6);
+    }
+    //Metodo que Determina el Comportamiento de los Botones Agregar y Eliminar
+    public void confAgregar(int Pos, JButton Accion){
+        ActionListener b = (ActionEvent e) -> {
+            int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer agregar el producto\n" + PLista.get(limite - 6 + Pos).getNombre() + "?", "Advertencia",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (Valor == JOptionPane.YES_OPTION) {
+                if (tipopedido == 1){ 
+                    AccesoriosNauticos.insertarProdEntrada(PLista.get(limite- 6 + Pos));
+                    PLista = AccesoriosNauticos.getProductosNoPedEntrada();
+                }
+                if (tipopedido == 2) {
+                    AccesoriosNauticos.insertarProdSalida(PLista.get(limite- 6 + Pos));
+                    PLista = AccesoriosNauticos.getProductosNoPedSalida();
+                }
+                
+                Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
+                agregarArticulos();
+                deshabilitarBotones();
+
+                Anterior.setEnabled(false);
+                Posterior.setEnabled(true);
+                limite = 6;
+                detPosAnt();
+                // Mostrar mensaje de confirmacion
+                JOptionPane.showMessageDialog(null, "¡¡El producto se ha agregado con exito!!", "Confirmacion",
+                JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+            }
+        };
+        Accion.addActionListener(b);
+    }
+    //Configuracion de los Botones de Agregar y Eliminar
+    public void confAgregarEliminar(int Lim, JButton Accion){
+        //Determinamos si es Neceasario Imprimir el Boton, Gracias a la Longitud de la Lista
+        if (Lista.size() >= Lim) {
+            //Determinamos la posicion del Boton
+            if (Lim==1) Accion.setBounds(210, 275, 40, 40);
+            if (Lim==2) Accion.setBounds(465, 275, 40, 40);
+            if (Lim==3) Accion.setBounds(720, 275, 40, 40);
+            if (Lim==4) Accion.setBounds(210, 605, 40, 40);
+            if (Lim==5) Accion.setBounds(465, 605, 40, 40);
+            if (Lim==6) Accion.setBounds(720, 605, 40, 40);
+            //Configuracion del Boton
+            Accion.setIcon(ImagenMas);
+            Accion.setBackground(new Color(255, 255, 255, 0));
+            Accion.setBorderPainted(false);
+            Accion.setOpaque(false);
+            //Agregar al Panel
+            PArticulos.add(Accion);
+        }
+    }
     
     //METODOS DE FUNCIONALIDAD
+    // Asignar tipo
+    public void setTipo(int tipo){
+        this.tipopedido = tipo;
+    }
     //Metodo que Agrega las Imagenes en un Catalogo
     public void agregarArticulos() {
         confImagenes(1, 0, Articulo1);
@@ -841,16 +929,14 @@ public class Pedidos extends JFrame {
         TGanancia.setText("Ganancia: " + ganancia + "$");
     }
     // Metodos setters y getters
-    public void actualizar(int cod, List<Pedido> lista){
-        Pedido ped = Pedido.buscarPedido(cod, lista);
+    public void actualizar(int cod){
+        Pedido ped = Pedido.buscarPedido(cod, AccesoriosNauticos.getLista_pedidos());
         limite = 6;
         PLista = ped.getProductos();
         Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
         deshabilitarBotones();
         agregarArticulos();
         detPosAnt();
-        // Verificamos si deshabilitamos el finalizar o no
-        
     }
     
     

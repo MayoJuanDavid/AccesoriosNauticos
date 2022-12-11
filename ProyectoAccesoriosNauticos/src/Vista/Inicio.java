@@ -17,7 +17,7 @@ public class Inicio extends javax.swing.JFrame {
     private final String usuario = "admin";
     private final String clave = "admin";
     private Error vError;
-    private Pedidos vInventario;
+    private AsignarProd vInventario;
     
     /**
      * Creates new form Inicio
@@ -126,7 +126,7 @@ public class Inicio extends javax.swing.JFrame {
         else if (usuario.equals(this.usuario) && clave.equals(this.clave)){
             this.setVisible(false);
             //TODO : agregar la instancia this en el constructor de la ventana de inventario
-            vInventario = new Pedidos();
+            vInventario = new AsignarProd();
             vInventario.setVisible(true);
         }else {
             String msj = "";

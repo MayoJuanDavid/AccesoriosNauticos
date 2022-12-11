@@ -149,6 +149,7 @@ public class Gestionar extends javax.swing.JFrame {
         separador3.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(separador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 60, 10));
 
+        infoNombre.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         infoNombre.setForeground(new java.awt.Color(153, 153, 153));
         infoNombre.setText("0.0$");
         jPanel1.add(infoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 60, -1));
@@ -169,10 +170,12 @@ public class Gestionar extends javax.swing.JFrame {
         separador6.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(separador6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 60, 10));
 
+        infoNombre1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         infoNombre1.setForeground(new java.awt.Color(153, 153, 153));
         infoNombre1.setText("0.0$");
         jPanel1.add(infoNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 60, -1));
 
+        infoCodigo1.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         infoCodigo1.setForeground(new java.awt.Color(153, 153, 153));
         infoCodigo1.setText("0.0$");
         jPanel1.add(infoCodigo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 60, -1));

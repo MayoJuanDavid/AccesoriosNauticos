@@ -182,6 +182,11 @@ public class Producto {
         return lista;
     }    
     
-    
+    public static boolean buscarProducto(List<Producto> lista, int cod){
+        for (Producto p: lista){
+            if (p.getCod() == cod) return true;
+        }
+        return false;
+    }
     
 }

@@ -50,7 +50,7 @@ public class Salida extends Pedido{
     public static List<Salida> leer(List<Producto> lista_productos){
         // Variales a utilizar
         List<Salida> lista = new ArrayList<Salida>();
-        DateFormat formateador= new SimpleDateFormat("dd/MM/yy");
+        DateFormat formateador= new SimpleDateFormat("dd/MM/yyyy");
         String registro = "";
         String[] atrregistros = null;
         ArrayList<String> listsalida = null;
