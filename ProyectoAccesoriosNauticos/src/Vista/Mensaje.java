@@ -12,20 +12,22 @@ import java.awt.Color;
  *
  * @author Juan
  */
-public class Error extends javax.swing.JFrame {
+public class Mensaje extends javax.swing.JFrame {
 
     
-    private javax.swing.JFrame padre;
+    private javax.swing.JButton padre;
     
     int xMouse, yMouse;
-    public Error() {
+    public Mensaje() {
         initComponents();
     }
     
-    public Error(String e, javax.swing.JFrame padre){
+    public Mensaje(String e, javax.swing.JButton boton, String titulo){
         initComponents();
-        this.padre = padre;
-        msjError.setText(e);
+        this.padre = boton;
+        boton.setEnabled(false);
+        msj.setText(e);
+        favicon.setText(titulo);
         this.setVisible(true);
     }
 
@@ -39,7 +41,7 @@ public class Error extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        msjError = new javax.swing.JLabel();
+        msj = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         favicon = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
@@ -61,10 +63,9 @@ public class Error extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        msjError.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        msjError.setForeground(new java.awt.Color(255, 255, 255));
-        msjError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(msjError, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 350, 60));
+        msj.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
+        msj.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(msj, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 350, 60));
 
         jButton1.setBackground(new java.awt.Color(0, 134, 190));
         jButton1.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -76,12 +77,11 @@ public class Error extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 110, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 110, 40));
 
-        favicon.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
+        favicon.setFont(new java.awt.Font("Roboto Black", 1, 18)); // NOI18N
         favicon.setForeground(new java.awt.Color(204, 204, 204));
         favicon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/favicon.png"))); // NOI18N
-        favicon.setText("ERROR!!");
         jPanel1.add(favicon, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
@@ -151,15 +151,16 @@ public class Error extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
-        this.padre.setVisible(true);
+        this.padre.setEnabled(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        this.padre.setVisible(true);
+        this.dispose();
+        this.padre.setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_exitTxtMouseClicked
 
     private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
@@ -200,20 +201,21 @@ public class Error extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Error.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Mensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Error.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Mensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Error.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Mensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Error.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Mensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Error().setVisible(true);
+                new Mensaje().setVisible(true);
             }
         });
     }
@@ -225,6 +227,6 @@ public class Error extends javax.swing.JFrame {
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel msjError;
+    private javax.swing.JLabel msj;
     // End of variables declaration//GEN-END:variables
 }

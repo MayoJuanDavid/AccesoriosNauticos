@@ -173,7 +173,6 @@ public class Login extends javax.swing.JFrame {
         Usuario.setText("USUARIO");
         bg.add(Usuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
-        userTxt.setBackground(new java.awt.Color(255, 255, 255));
         userTxt.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         userTxt.setForeground(new java.awt.Color(153, 153, 153));
         userTxt.setText("Ingrese su nombre de usuario");
@@ -193,7 +192,6 @@ public class Login extends javax.swing.JFrame {
         Contrasena.setText("CONTRASEÑA");
         bg.add(Contrasena, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
 
-        passTxt.setBackground(new java.awt.Color(255, 255, 255));
         passTxt.setForeground(new java.awt.Color(153, 153, 153));
         passTxt.setText("********");
         passTxt.setBorder(null);
@@ -273,12 +271,11 @@ public class Login extends javax.swing.JFrame {
         String usuario = userTxt.getText();
         String clave = passTxt.getText();
         if (usuario.equalsIgnoreCase("admin") && usuario.equalsIgnoreCase("admin")){
-            JOptionPane.showMessageDialog(null, "¡¡Bienvenido de Nuevo!!", "Confirmacion",
-                JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+            new Mensaje("Bienvenido de Nuevo!",jButton2, "Se ha iniciado sesion correctamente!");
             this.setVisible(false);
             AccesoriosNauticos.getVInventario().setVisible(true);
         }else{
-            JOptionPane.showMessageDialog(null, "Usuario y/o clave incorrectos", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
+            new Mensaje("Bienvenido de Nuevo!",jButton2, "Se ha iniciado sesion correctamente!");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
