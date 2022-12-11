@@ -183,13 +183,12 @@
               <Color blue="99" green="99" red="99" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
-                <StringItem index="0" value=" "/>
-                <StringItem index="1" value="Electronicos"/>
-                <StringItem index="2" value="Seguridad"/>
-                <StringItem index="3" value="Vehiculos"/>
-                <StringItem index="4" value="Combustible"/>
-                <StringItem index="5" value="Miscelaneos"/>
+              <StringArray count="5">
+                <StringItem index="0" value="Electronico"/>
+                <StringItem index="1" value="Seguridad"/>
+                <StringItem index="2" value="Vehiculos"/>
+                <StringItem index="3" value="Combustible"/>
+                <StringItem index="4" value="Miscelaneo"/>
               </StringArray>
             </Property>
             <Property name="autoscrolls" type="boolean" value="true"/>
