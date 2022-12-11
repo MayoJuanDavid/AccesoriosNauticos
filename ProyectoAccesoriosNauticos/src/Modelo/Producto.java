@@ -26,9 +26,10 @@ public class Producto {
     private double pvp2mayor;
     private double ganancia;
     private String imagen;
+    private String categoria;
     
     //Constructor
-    public Producto(int cod, String nombre, int disponibilidad, double precio_compra, double prentabilidad, double pvpdetal, double pvp2mayor, double ganancia) {
+    public Producto(int cod, String nombre, int disponibilidad, double precio_compra, double prentabilidad, double pvpdetal, double pvp2mayor, double ganancia, String categoria) {
         this.cod = cod;
         this.nombre = nombre;
         this.disponibilidad = disponibilidad;
@@ -38,6 +39,7 @@ public class Producto {
         this.pvp2mayor = pvp2mayor;
         this.ganancia = ganancia;
         this.imagen = "";
+        this.categoria = categoria;
     }
 
     //Constructor vacio
@@ -125,6 +127,16 @@ public class Producto {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+    
+    
     
     public static Producto getProducto(List<Producto> lista_producto, int cod){
         for (Producto prod: lista_producto){
@@ -168,7 +180,8 @@ public class Producto {
                         Double.parseDouble(listproductos.get(4)),
                         Double.parseDouble(listproductos.get(5)),
                         Double.parseDouble(listproductos.get(6)),
-                        Double.parseDouble(listproductos.get(7))
+                        Double.parseDouble(listproductos.get(7)),
+                        listproductos.get(8)
                 ));
             }
             

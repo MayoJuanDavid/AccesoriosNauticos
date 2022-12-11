@@ -713,6 +713,8 @@ public class Inventario extends JFrame {
         accionGestioar(Gestionar);
         //Aciones de los Botones de Agregar y Eliminar
         accionEliminar();
+        //Accciondes de las categorias
+        accionCategorias();
     }
     //Accion del boton de pedidos
      public void accionPedidos(JButton Accion){
@@ -761,7 +763,7 @@ public class Inventario extends JFrame {
         ActionListener Acccion = (ActionEvent e) -> {
             ContDescripcion = Lim;
             Producto prod = Lista.get(Pos);
-            actualizarInfo(prod.getCod(), prod.getNombre(), "", prod.getPrecio_compra(), prod.getDisponibilidad(),
+            actualizarInfo(prod.getCod(), prod.getNombre(), prod.getCategoria(), prod.getPrecio_compra(), prod.getDisponibilidad(),
                     prod.getPrentabilidad(), prod.getPvpdetal(), prod.getPvp2mayor(), prod.getGanancia());
         };
         Info.addActionListener(Acccion);
@@ -783,6 +785,30 @@ public class Inventario extends JFrame {
             AccesoriosNauticos.getVGestionar().setVisible(true);
         };
         Info.addActionListener(Acccion);
+    }
+    //Metodo para la asignar la accion de las categorias
+    public void accionCategorias(){
+        cambiarCategoria(Electronicos, "electronico");
+        cambiarCategoria(Seguridad, "seguridad");
+        cambiarCategoria(Combustibles, "combustible");
+        cambiarCategoria(Motores, "motor");
+        cambiarCategoria(Miscelaneos, "miscelaneo");
+    }
+    //Metodo de accion de las categorias
+    public void cambiarCategoria(JButton Categoria, String cat){
+        //Accion del Boton de categorias
+        ActionListener Acccion = (ActionEvent e) -> {
+            limite = 6;
+            PLista = AccesoriosNauticos.getListaCategoria(cat, AccesoriosNauticos.getLista_productos());
+            Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
+            Anterior.setEnabled(false);
+            Posterior.setEnabled(true);          
+            detPosAnt();
+            agregarArticulos();
+            deshabilitarBotones();
+            limpiarInfo();            
+        };
+        Categoria.addActionListener(Acccion);
     }
     
     //METODOS DE FUNCIONALIDAD
@@ -929,6 +955,18 @@ public class Inventario extends JFrame {
         detPosAnt();
         agregarArticulos();
         deshabilitarBotones();
+    }
+    // Limpiar informacion
+    public void limpiarInfo(){
+        TCodigo.setText("Codigo: ");
+        TNombre.setText("Nombre: ");
+        TCategoria.setText("Categoria: ");
+        TCosto.setText("Costo: ");
+        TDisponibles.setText("Disponible: ");
+        TPRentabilidad.setText("% Rentabilidad: ");
+        TPVP2Mayor.setText("PVP2 al Mayor: ");
+        TPVPDetal.setText("PVP Detallado: ");
+        TGanancia.setText("Ganancia: ");
     }
     
     //METODOS VARIOS

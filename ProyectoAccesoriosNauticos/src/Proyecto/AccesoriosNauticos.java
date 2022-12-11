@@ -206,6 +206,15 @@ public class AccesoriosNauticos {
         lista_entradas.add(ped);
     }
     
+    // Metodo para devolver los productos de una categoria
+    public static List<Producto> getListaCategoria(String cat, List<Producto> l_productos){
+        List <Producto> lista = new ArrayList<Producto>();
+        for (Producto l: l_productos){
+            if (l.getCategoria().equalsIgnoreCase(cat))
+                lista.add(l);
+        }
+        return lista;
+    }
     // Metodo para devolver una lista de productos que no estan en una entrada
     public static List<Producto> getProductosNoPedEntrada(){
         List<Producto> lista = new ArrayList<Producto>();

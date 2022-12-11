@@ -37,6 +37,7 @@ public class Pedidos extends JFrame {
     public int ContDescripcion = 0;                                             //Determina la Descripcion que hay que Mostrar
     public List<Producto> Lista = new ArrayList<Producto>();                    //Representa la lista de Productos que se muestra en cada Pagina de un Catalogo
     public List<Producto> PLista = new ArrayList<Producto>();                   //Representa la lista principal con todos los productos
+    public List<Producto> PListaAux = new ArrayList<Producto>();
     public List<Pedido> PPedLista = new ArrayList<Pedido>();                    //Lista de pedidos
     public String Categoria = "Electrodomesticos";                              //Determina la Categoria que se esta Trabajando
     public Pedido pedido;
@@ -201,7 +202,7 @@ public class Pedidos extends JFrame {
         this.setResizable(false); //no se puede modificas
         this.setTitle("Accesorios Nauticos System");
         this.setLayout(null);
-        PLista = AccesoriosNauticos.getLista_productos();    
+        PLista = AccesoriosNauticos.getLista_productos();
         PPedLista = AccesoriosNauticos.getLista_pedidos();     
         this.parteDerecha();
         this.parteIzquierda();
@@ -663,7 +664,7 @@ public class Pedidos extends JFrame {
         limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
-        detPosAnt();
+        detPosAnt(PLista);
         
         //Boton Anterior
         Anterior.setBounds(1, 25, 23, 635);                                     //Posicion y Dimension  
@@ -700,6 +701,8 @@ public class Pedidos extends JFrame {
         accionBuscarProducto(Buscar);
         // Accion de finalizar
         accionFinalizar(Finalizar);
+        // Accion de las categorias
+        accionCategorias();
     }
     //Acciones de los botones de informacion
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
@@ -707,7 +710,7 @@ public class Pedidos extends JFrame {
         ActionListener Acccion = (ActionEvent e) -> {
             ContDescripcion = Lim;
             Producto prod = Lista.get(Pos);
-            actualizarInfo(prod.getCod(), prod.getNombre(), "", prod.getPrecio_compra(), prod.getDisponibilidad(),
+            actualizarInfo(prod.getCod(), prod.getNombre(), prod.getCategoria(), prod.getPrecio_compra(), prod.getDisponibilidad(),
                     prod.getPrentabilidad(), prod.getPvpdetal(), prod.getPvp2mayor(), prod.getGanancia());
         };
         Info.addActionListener(Acccion);
@@ -749,6 +752,31 @@ public class Pedidos extends JFrame {
             }
         };
         Finalizar.addActionListener(Acccion);
+    }
+    //Metodo para la asignar la accion de las categorias
+    public void accionCategorias(){
+        cambiarCategoria(Electronicos, "Electronico");
+        cambiarCategoria(Seguridad, "Seguridad");
+        cambiarCategoria(Combustibles, "Combustible");
+        cambiarCategoria(Motores, "Motor");
+        cambiarCategoria(Miscelaneos, "Miscelaneo");
+    }
+    //Metodo de accion de las categorias
+    public void cambiarCategoria(JButton Categoria, String cat){
+        //Accion del Boton de categorias
+        ActionListener Acccion = (ActionEvent e) -> {
+            limite = 6;
+            PListaAux = AccesoriosNauticos.getListaCategoria(cat, PLista);
+            Lista = PListaAux.subList(0, (PListaAux.size() < 6)? PListaAux.size(): 6);
+            Anterior.setEnabled(false);
+            Posterior.setEnabled(true);          
+            detPosAnt(PListaAux);
+            agregarArticulos();
+            deshabilitarBotones();
+            limpiarInfo();
+            
+        };
+        Categoria.addActionListener(Acccion);
     }
     
     //METODOS DE FUNCIONALIDAD
@@ -813,24 +841,24 @@ public class Pedidos extends JFrame {
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Posterior
     public void cambioDePaginaF() {
-        Lista = PLista.subList(limite, ((PLista.size() - limite) < 6)? limite + (PLista.size() - limite): limite + 6);
+        Lista = PListaAux.subList(limite, ((PListaAux.size() - limite) < 6)? limite + (PListaAux.size() - limite): limite + 6);
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
         limite += 6;
-        detPosAnt();
+        detPosAnt(PListaAux);
         //Limpiar();
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Anterior
     public void cambioDePaginaB() {
-        Lista = PLista.subList(0, 6);
+        Lista = PListaAux.subList(0, 6);
         agregarArticulos();
         deshabilitarBotones();
         
         Anterior.setEnabled(false);
         Posterior.setEnabled(true);
         limite = 6;
-        detPosAnt();
+        detPosAnt(PListaAux);
         //Limpiar();
     }
     //Metodo que Determina que Botones Estaran Disponibles y Cuales no
@@ -853,8 +881,8 @@ public class Pedidos extends JFrame {
         }
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
-    public void detPosAnt(){
-        if (limite >= PLista.size()) Posterior.setEnabled(false);
+    public void detPosAnt(List<Producto> list){
+        if (limite >= list.size()) Posterior.setEnabled(false);
         else Posterior.setEnabled(true);
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
@@ -874,15 +902,29 @@ public class Pedidos extends JFrame {
         pedido = Pedido.buscarPedido(cod, lista);
         limite = 6;
         PLista = pedido.getProductos();
+        PListaAux = PLista;
         Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
         deshabilitarBotones();
         agregarArticulos();
-        detPosAnt();
+        detPosAnt(PLista);
         
         // Verificamos si deshabilitamos el finalizar o no
         if (pedido.getFecha_recepcion() != null) Finalizar.setEnabled(false);
         else Finalizar.setEnabled(true);
     }
+    // Limpiar informacion
+    public void limpiarInfo(){
+        TCodigo.setText("Codigo: ");
+        TNombre.setText("Nombre: ");
+        TCategoria.setText("Categoria: ");
+        TCosto.setText("Costo: ");
+        TDisponibles.setText("Disponible: ");
+        TPRentabilidad.setText("% Rentabilidad: ");
+        TPVP2Mayor.setText("PVP2 al Mayor: ");
+        TPVPDetal.setText("PVP Detallado: ");
+        TGanancia.setText("Ganancia: ");
+    }
+
     
     //Configuracion que cambia el aspecto general de los botones
     //public void confGeneral(){
