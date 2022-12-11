@@ -252,9 +252,17 @@ public class AccesoriosNauticos {
         }
     }
     
+    // Metodo que modifica el producto
+    
     public static void modificarProducto(int indice, Producto modif){
         Producto p = AccesoriosNauticos.lista_productos.get(indice);
         AccesoriosNauticos.lista_productos.set(indice, modif);
+    }
+    
+    // Metodo que agrega un produto
+    
+    public static void agregarProducto(Producto p){
+        lista_productos.add(p);
     }
     
     // Metodos para llenar los datos y retornar la lista de productos
