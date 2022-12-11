@@ -69,18 +69,22 @@ public class Entrada extends Pedido{
             filer = new FileReader(fileentrada);
             bufferr = new BufferedReader(filer);
             // Variables para fecha
-            
+            Date fecha_e = new Date();
+            Date fecha_r = new Date();
             // Guardar todos los registros
             while((registro=bufferr.readLine())!=null){
                 atrregistros = registro.split(",");
                 listentrada = new ArrayList<String>(Arrays.asList(atrregistros));
                 // Verificamos si hay una fecha que ingresar
-                //if (listentrada.get(1) == "") 
+                if (listentrada.get(1).equalsIgnoreCase("")) fecha_e = null;
+                else fecha_e = formateador.parse(listentrada.get(1));
+                if (listentrada.get(2).equalsIgnoreCase("")) fecha_r = null;
+                else fecha_r = formateador.parse(listentrada.get(2));
                 // Conertimos los datos y agregamos el objeto Productos
                 lista.add(new Entrada(
                         Integer.parseInt(listentrada.get(0)),
-                        formateador.parse(listentrada.get(1)),
-                        formateador.parse(listentrada.get(2)),
+                        fecha_e,
+                        fecha_r,
                         Double.parseDouble(listentrada.get(4)),
                         listentrada.get(3)
                 ));
@@ -88,7 +92,6 @@ public class Entrada extends Pedido{
             
             // Cerrar el archivo
             bufferr.close();
-            
             
             // Recorremos la lista de entradas para ingresarle los productos
             for (Entrada entra: lista){

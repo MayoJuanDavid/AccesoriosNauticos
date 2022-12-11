@@ -66,16 +66,23 @@ public class Salida extends Pedido{
             filesalida = new File(".\\src\\Proyecto\\Salidas.txt");
             filer = new FileReader(filesalida);
             bufferr = new BufferedReader(filer);
-            
+            // Variables para fecha
+            Date fecha_e = new Date();
+            Date fecha_r = new Date();
             // Guardar todos los registros
             while((registro=bufferr.readLine())!=null){
                 atrregistros = registro.split(",");
                 listsalida = new ArrayList<String>(Arrays.asList(atrregistros));
+                // Verificamos si hay una fecha que ingresar
+                if (listsalida.get(1).equalsIgnoreCase("")) fecha_e = null;
+                else fecha_e = formateador.parse(listsalida.get(1));
+                if (listsalida.get(2).equalsIgnoreCase("")) fecha_r = null;
+                else fecha_r = formateador.parse(listsalida.get(2));
                 // Conertimos los datos y agregamos el objeto Productos
                 lista.add(new Salida(
                         Integer.parseInt(listsalida.get(0)),
-                        formateador.parse(listsalida.get(1)),
-                        formateador.parse(listsalida.get(2)),
+                        fecha_e,
+                        fecha_r,
                         Double.parseDouble(listsalida.get(3)),
                         Double.parseDouble(listsalida.get(4))
                 ));

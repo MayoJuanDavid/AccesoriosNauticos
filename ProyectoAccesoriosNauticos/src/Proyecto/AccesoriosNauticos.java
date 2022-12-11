@@ -18,8 +18,14 @@ import Vista.Login;
 import Vista.Pedidos;
 import Vista.VerPedidos;
 import Vista.VisualizarProducto;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AccesoriosNauticos {
     
@@ -203,7 +209,6 @@ public class AccesoriosNauticos {
     // Metodo para devolver una lista de productos que no estan en una entrada
     public static List<Producto> getProductosNoPedEntrada(){
         List<Producto> lista = new ArrayList<Producto>();
-        System.out.println(NEntrada.getProductos());
         for (Producto p: lista_productos){
             if (!Producto.buscarProducto(NEntrada.getProductos(), p.getCod())){
                 lista.add(p);
@@ -219,6 +224,24 @@ public class AccesoriosNauticos {
                 lista.add(p);
         }
         return lista;
+    }
+    // Metodo para finalizar un pedido
+    public static void finalizarPedido(int cod){
+        for (Pedido p: lista_pedidos){
+            if (p.getCod() == cod){
+                //// Fecha
+                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String date = dateFormat.format(new Date());
+                System.out.println("Se ha actualizado con exito");
+                // Modificamos los datos de fecha
+                try {
+                    p.setFecha_recepcion(dateFormat.parse(date.toString()));
+                } catch (ParseException ex) {
+                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
+                }  
+                System.out.println(p.getFecha_recepcion());
+            }
+        }
     }
     
     // Metodos para llenar los datos y retornar la lista de productos

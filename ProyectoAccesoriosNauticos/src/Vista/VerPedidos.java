@@ -353,7 +353,6 @@ public class VerPedidos extends javax.swing.JFrame {
         Date fecha_re = ped.getFecha_recepcion();
         String fechaRTexto = (fecha_re == null) ? "": formatter.format(fecha_re);
         
-        
         ICodigo.setText("" + ped.getCod());
         IFechaP.setText(fechaETexto);
         IFechaL.setText(fechaRTexto);

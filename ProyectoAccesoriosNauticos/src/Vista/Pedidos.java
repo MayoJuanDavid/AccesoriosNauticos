@@ -11,8 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,6 +39,7 @@ public class Pedidos extends JFrame {
     public List<Producto> PLista = new ArrayList<Producto>();                   //Representa la lista principal con todos los productos
     public List<Pedido> PPedLista = new ArrayList<Pedido>();                    //Lista de pedidos
     public String Categoria = "Electrodomesticos";                              //Determina la Categoria que se esta Trabajando
+    public Pedido pedido;
     
         //PANELES DEL LADO DERECHO
     public JPanel PPedido = new JPanel();
@@ -691,6 +698,8 @@ public class Pedidos extends JFrame {
         accionRegresar(Regresar);
         // Accion del boton buscar producto
         accionBuscarProducto(Buscar);
+        // Accion de finalizar
+        accionFinalizar(Finalizar);
     }
     //Acciones de los botones de informacion
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
@@ -720,6 +729,26 @@ public class Pedidos extends JFrame {
             AccesoriosNauticos.getVVProductos().setVisible(true);
         };
         Info.addActionListener(Acccion);
+    }
+    //Metodo para la accion de buscar producto
+    public void accionFinalizar(JButton Finalizar) {
+        //Accion del Boton de Informacion
+        ActionListener Acccion = (ActionEvent e) -> {
+            int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de finalizar el pedido?\nse asignará la fecha actual como fecha de recepción", "Advertencia",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (Valor == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, "¡¡Se ha finalizado el pedido exitosamente!!", "Confirmacion",
+                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+                AccesoriosNauticos.finalizarPedido(pedido.getCod());
+                AccesoriosNauticos.getVPedidos().setVisible(false);
+                AccesoriosNauticos.setVVPedidos();
+                AccesoriosNauticos.setVCEntrada();
+                AccesoriosNauticos.setVAProd(); 
+                AccesoriosNauticos.setVPedidos();
+                AccesoriosNauticos.getVVPedidos().setVisible(true);
+            }
+        };
+        Finalizar.addActionListener(Acccion);
     }
     
     //METODOS DE FUNCIONALIDAD
@@ -842,17 +871,18 @@ public class Pedidos extends JFrame {
     }
     // Metodos setters y getters
     public void actualizar(int cod, List<Pedido> lista){
-        Pedido ped = Pedido.buscarPedido(cod, lista);
+        pedido = Pedido.buscarPedido(cod, lista);
         limite = 6;
-        PLista = ped.getProductos();
+        PLista = pedido.getProductos();
         Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
         deshabilitarBotones();
         agregarArticulos();
         detPosAnt();
-        // Verificamos si deshabilitamos el finalizar o no
         
+        // Verificamos si deshabilitamos el finalizar o no
+        if (pedido.getFecha_recepcion() != null) Finalizar.setEnabled(false);
+        else Finalizar.setEnabled(true);
     }
-    
     
     //Configuracion que cambia el aspecto general de los botones
     //public void confGeneral(){
