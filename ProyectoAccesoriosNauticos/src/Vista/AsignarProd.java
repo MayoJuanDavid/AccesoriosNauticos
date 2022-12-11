@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ControladorPedido;
 import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -960,7 +961,7 @@ public class AsignarProd extends JFrame {
     }
     // Metodos setters y getters
     public void actualizar(int cod){
-        Pedido ped = Pedido.buscarPedido(cod, AccesoriosNauticos.getLista_pedidos());
+        Pedido ped = ControladorPedido.buscarPedido(cod, AccesoriosNauticos.getLista_pedidos());
         limite = 6;
         PLista = ped.getProductos();
         PListaAux = PLista;
