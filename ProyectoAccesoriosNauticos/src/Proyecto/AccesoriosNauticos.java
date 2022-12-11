@@ -134,11 +134,6 @@ public class AccesoriosNauticos {
         VVProductos = new VisualizarProducto();
     }
     
-    public static void modificarProducto(int indice, Producto modif){
-        Producto p = AccesoriosNauticos.lista_productos.get(indice);
-        AccesoriosNauticos.lista_productos.set(indice, modif);
-    }
-    
     // Metodos para llenar los datos y retornar la lista de productos
     public static List<Producto> getBD(){
         lista_productos = Producto.leer();

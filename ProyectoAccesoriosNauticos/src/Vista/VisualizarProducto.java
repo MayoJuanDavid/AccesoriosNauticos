@@ -8,13 +8,13 @@ package Vista;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 
 /**
  *
@@ -161,15 +161,11 @@ public class VisualizarProducto extends javax.swing.JFrame {
         CodigoDelProducto.setText("Código del Producto");
         bg.add(CodigoDelProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 300, 30));
 
+        CodigoEntrante.setBackground(new java.awt.Color(255, 255, 255));
         CodigoEntrante.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
         CodigoEntrante.setForeground(new java.awt.Color(153, 153, 153));
         CodigoEntrante.setText("Ingrese el código del producto");
         CodigoEntrante.setBorder(null);
-        CodigoEntrante.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                CodigoEntranteMousePressed(evt);
-            }
-        });
         bg.add(CodigoEntrante, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 80, 230, 30));
 
         nombretitulo.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -304,14 +300,6 @@ public class VisualizarProducto extends javax.swing.JFrame {
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         AccesoriosNauticos.getVInventario().setVisible(true);
-        getInfoCodigo().setText("");
-        getCodigoEntrante().setText("Ingrese el código del producto");
-        getInfoNombre().setText("");
-        getInfoPrecio().setText("");
-        getInfoUnidades().setText("");
-        getElminar().setEnabled(false);
-        getModificar().setEnabled(false);
-        getImagen().setEnabled(false);
         AccesoriosNauticos.getVVProductos().setVisible(false);
     }//GEN-LAST:event_exitTxtMouseClicked
     
@@ -345,8 +333,6 @@ public class VisualizarProducto extends javax.swing.JFrame {
 
     // Accion para buscar
     private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
-        
-        
         try{
             codigo = Integer.parseInt(CodigoEntrante.getText());
             prod = null;
@@ -369,16 +355,9 @@ public class VisualizarProducto extends javax.swing.JFrame {
 
     // Acccion de modifocar
     private void BModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BModificarActionPerformed
-        
-        new ModificarProducto(prod, this).setVisible(true);
-        
+        // TODO add your handling code here:
     }//GEN-LAST:event_BModificarActionPerformed
 
-    private void CodigoEntranteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CodigoEntranteMousePressed
-        CodigoEntrante.setText("");
-    }//GEN-LAST:event_CodigoEntranteMousePressed
-
-    
     // Metodo para actualizar los datos de la vista
     public void actualizarDatos(Producto prod){
         // Actualizamos los textos
@@ -429,38 +408,6 @@ public class VisualizarProducto extends javax.swing.JFrame {
         });
     }
 
-    JLabel getInfoCodigo() {
-        return infoCodigo;
-    }
-
-    JLabel getInfoNombre() {
-        return infoNombre;
-    }
-
-    JLabel getInfoPrecio() {
-        return infoPrecio;
-    }
-
-    JLabel getInfoUnidades() {
-        return infoUnidades;
-    }
-
-    JTextField getCodigoEntrante() {
-        return CodigoEntrante;
-    }
-    
-    JButton getModificar(){
-        return BModificar;
-    }
-    
-    JButton getElminar(){
-        return BEliminar;
-    }
-    
-    JButton getImagen(){
-        return BVerImagen;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BBuscar;
     private javax.swing.JButton BEliminar;
@@ -489,5 +436,4 @@ public class VisualizarProducto extends javax.swing.JFrame {
     private javax.swing.JSeparator separador5;
     private javax.swing.JLabel unidadestitulo;
     // End of variables declaration//GEN-END:variables
-
 }
