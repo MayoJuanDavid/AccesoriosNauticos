@@ -295,7 +295,22 @@ public class Alarma extends javax.swing.JFrame {
 
     
     public static boolean validarFecha(String date) {
-        return date.matches("^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((20[2-9][2-9])|(209[0-9])|(2100))$");
+        String regex = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/((20[2-9][2-9])|(209[0-9])|(2100))$";
+
+        if (date.matches(regex)){
+            // if it is from 29 to 31 of february it is not valid or if it is 31 of a month with 30 days it is not valid
+            String[] dateArray = date.split("/");
+            int day = Integer.parseInt(dateArray[0]);
+            int month = Integer.parseInt(dateArray[1]);
+            int year = Integer.parseInt(dateArray[2]);
+            if (day == 31 && (month == 4 || month == 6 || month == 9 || month == 11)) {
+                return false;
+            } else if (day == 29 && month == 2) {
+                return year % 4 == 0;
+            } else return !(day >= 30 && month == 2);
+        }
+        return false;
+
     }
 
     
