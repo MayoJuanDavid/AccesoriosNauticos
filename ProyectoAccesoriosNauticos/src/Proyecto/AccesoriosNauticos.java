@@ -237,6 +237,7 @@ public class AccesoriosNauticos {
         lista_productos = ControladorProducto.AgregarProducto(p, lista_productos);
         VVProductos = new VisualizarProducto();
         VInventario.actualizarListaProd();
+        VAProd = new AsignarProd();
         
     }
     

@@ -36,13 +36,13 @@ public class ControladorPedido {
         return lista;
     }
     
-        // Buscamos un pedido
+    // Metodo que busca un pedido
     public static Pedido buscarPedido(int codigo, List<Pedido> list_pedidos){
         for (Pedido ped: list_pedidos)
             if (ped.getCod() == codigo) return ped;
         return null;
     }
-    
+    // Metodo que obtiene los productos de un pedido de entrada
     public static List<Producto> getProductosNoPedSalida(List<Producto> lista_productos, Salida NSalida){
         List<Producto> lista = new ArrayList<Producto>();
         for (Producto p: lista_productos){
@@ -52,7 +52,7 @@ public class ControladorPedido {
         }
         return lista;
     }
-    
+    // Metodo que obtiene los productos de un pedido de salida
     public static List<Producto> getProductosNoPedEntrada(List<Producto> lista_productos, Entrada NEntrada){
         List<Producto> lista = new ArrayList<Producto>();
         for (Producto p: lista_productos){
@@ -62,7 +62,7 @@ public class ControladorPedido {
         }
         return lista;
     }
-    
+    // Metodo que finaliza un pedido
     public static void finalizarPedido(List<Pedido> lista_pedidos, int cod){
         for (Pedido p: lista_pedidos){
             if (p.getCod() == cod){
@@ -80,17 +80,17 @@ public class ControladorPedido {
             }
         }
     }
-    
+    // Metodo que inserta un producto a un pedido de entrada
     public static Entrada insertarProductoDeEntrada(Entrada NEntrada, Producto prod){
         NEntrada.setProductos(prod);
         return NEntrada;
     }
-    
+    // Metodo que inserta un producto a un pedido de salida
     public static Salida insertarProductoDeSalida(Salida NSalida, Producto prod){
         NSalida.setProductos(prod);
         return NSalida;
     }
-    
+    // Metodo que agrega un pedido a la lista de pedidos
     public static List<Pedido> AgregarPedido(Pedido ped, List<Pedido> lista_pedidos){
         lista_pedidos.add(ped);
         return lista_pedidos;

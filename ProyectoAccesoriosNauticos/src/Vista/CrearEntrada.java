@@ -134,7 +134,6 @@ public class CrearEntrada extends javax.swing.JFrame {
         });
         jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, 40));
 
-        IProveedor.setBackground(new java.awt.Color(255, 255, 255));
         IProveedor.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         IProveedor.setForeground(new java.awt.Color(153, 153, 153));
         IProveedor.setText("Ingrese el Proveedor");
