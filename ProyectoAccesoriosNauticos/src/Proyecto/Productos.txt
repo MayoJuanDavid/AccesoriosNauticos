@@ -32,4 +32,4 @@
 32,Switch Para Bomba De Achique (M),4, 60.00 ,0.45, 60.00 , 75.00 , 85.46 ,Miscelaneo
 33,Tapa de Termostato Evinrude,7, 26.26 ,0.45, 60.00 , 32.82 , 87.52 ,Electronico
 34,Tapon De Drenaje Bronce (M),6, 3.00 ,0.45, 60.00 , 3.75 , 89.58 ,Miscelaneo
-35,Tapon de Drenaje Bronce 1/2",4, 9.00 ,0.45, 60.00 , 11.25 , 91.64 ,Motor
+35,Tapon de Drenaje Bronce 1/2",4, 9.00 ,0.45, 60.00 , 11.25 , 91.64 ,Motorpedro,Mon Dec 12 00:00:00 VET 2022,5

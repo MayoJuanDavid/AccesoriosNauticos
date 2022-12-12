@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Controlador.ControladorAlarma;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -248,6 +249,9 @@ public class Alarma extends javax.swing.JFrame {
                 try {
                     Date fechaObj = formato.parse(fecha);
                     alarma = new AlarmaObj(nombre,fechaObj,Integer.parseInt(unidades));
+                    // Metodo del controlador para guardar la alarma
+                    ControladorAlarma.guardarAlarma(alarma,fecha);
+//                    AccesoriosNauticos.agregarAlarma(alarma);
                     new Mensaje("Se ha agregado la alarma correctamente!!",jButton3,"Alarma Agregada exitosamente");
                     userTxt.setText("");
                     userTxt1.setText("");

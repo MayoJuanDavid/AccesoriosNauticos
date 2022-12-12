@@ -1,9 +1,11 @@
 package Proyecto;
 
 // Paquetes a utilizar
+import Controlador.ControladorAlarma;
 import Controlador.ControladorArchivo;
 import Controlador.ControladorPedido;
 import Controlador.ControladorProducto;
+import Modelo.AlarmaObj;
 import Modelo.Cliente;
 import Modelo.Entrada;
 import Modelo.Pedido;
@@ -45,7 +47,8 @@ public class AccesoriosNauticos {
     private static List<Cliente> lista_clientes = new ArrayList<Cliente>(); 
     private static List<Pedido> lista_pedidos = new ArrayList<Pedido>();
     private static List<Entrada> lista_entradas = new ArrayList<Entrada>(); 
-    private static List<Salida> lista_salida = new ArrayList<Salida>(); 
+    private static List<Salida> lista_salida = new ArrayList<Salida>();
+    private static List<AlarmaObj> lista_alarmas = new ArrayList<AlarmaObj>();
     
     // Variables de pedidos y productosnuevos
     private static Entrada NEntrada = new Entrada();
@@ -219,6 +222,12 @@ public class AccesoriosNauticos {
         VInventario.actualizarListaProd();
         VAProd = new AsignarProd();
         
+    }
+    
+    
+    // Metodo para checkear que alarma se debe disparar
+    public static AlarmaObj triggerAlarma(){
+        return null;
     }
     
     // Metodos para llenar los datos y retornar la lista de productos
