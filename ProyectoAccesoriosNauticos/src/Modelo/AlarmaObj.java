@@ -18,6 +18,7 @@ public class AlarmaObj {
     private String nombre;
     private Date fecha;
     private int unidades;
+    private boolean activada;
     
     
     //Constructores
@@ -28,6 +29,7 @@ public class AlarmaObj {
         nombre = n;
         fecha = f;
         unidades = u;
+        activada = false;
     }
     
     
@@ -45,6 +47,10 @@ public class AlarmaObj {
         return unidades;
     }
     
+    public boolean estaActiva(){
+        return activada;
+    }
+    
     
     // setters 
     
@@ -60,4 +66,7 @@ public class AlarmaObj {
         unidades = n;
     }
      
+    public void setActivada(){
+        activada = true;
+    }
 }
