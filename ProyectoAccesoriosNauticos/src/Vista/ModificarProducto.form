@@ -183,7 +183,11 @@
               <StringArray count="5">
                 <StringItem index="0" value="Electronico"/>
                 <StringItem index="1" value="Seguridad"/>
+<<<<<<< HEAD
                 <StringItem index="2" value="Motor"/>
+=======
+                <StringItem index="2" value="Vehiculos"/>
+>>>>>>> 87d96a5655479f0f344c0a5c29a59912c5ff50b7
                 <StringItem index="3" value="Combustible"/>
                 <StringItem index="4" value="Miscelaneo"/>
               </StringArray>

@@ -2,7 +2,6 @@ package Modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  *
@@ -72,20 +71,6 @@ public abstract class Pedido {
     // Metodo de impresion
     public abstract String imprimir();
     
-    // Metodos de funcionalidad
-    // Retornamos una lista de pedidos con las entradas y las salidas
-    public static List<Pedido> generarListaPedidos(List<Entrada> lista_entrada, List<Salida> lista_salida){
-        List<Pedido> lista = new ArrayList<Pedido>();
-        lista.addAll(lista_entrada);
-        lista.addAll(lista_salida);
-        return lista;
-    }
-    // Buscamos un pedido
-    public static Pedido buscarPedido(int codigo, List<Pedido> list_pedidos){
-        for (Pedido ped: list_pedidos)
-            if (ped.getCod() == codigo) return ped;
-        return null;
-    }
     
     
 }

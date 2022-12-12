@@ -10,7 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
+import Modelo.Producto;
 /**
  *
  * @author Windows 10
@@ -49,13 +49,13 @@ public class AgregarProducto extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         nombretitulo = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<String>();
+        tipoField = new javax.swing.JComboBox<>();
         nombretitulo2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        userTxt = new javax.swing.JTextField();
+        nombreField = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         nombretitulo3 = new javax.swing.JLabel();
-        userTxt1 = new javax.swing.JTextField();
+        precioField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,21 +137,20 @@ public class AgregarProducto extends javax.swing.JFrame {
         nombretitulo.setText("Nombre:");
         jPanel1.add(nombretitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 90, 20));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setEditable(true);
-        jComboBox1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(153, 153, 153));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Electronicos", "Seguridad", "Vehiculos", "Combustible", "Miscelaneos" }));
-        jComboBox1.setAutoscrolls(true);
-        jComboBox1.setBorder(null);
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox1.setFocusable(false);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        tipoField.setEditable(true);
+        tipoField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        tipoField.setForeground(new java.awt.Color(153, 153, 153));
+        tipoField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electronicos", "Seguridad", "Vehiculos", "Combustible", "Miscelaneos" }));
+        tipoField.setAutoscrolls(true);
+        tipoField.setBorder(null);
+        tipoField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tipoField.setFocusable(false);
+        tipoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                tipoFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+        jPanel1.add(tipoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
 
         nombretitulo2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo2.setForeground(new java.awt.Color(153, 153, 153));
@@ -169,12 +168,16 @@ public class AgregarProducto extends javax.swing.JFrame {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 120, 40));
 
-        userTxt.setBackground(new java.awt.Color(255, 255, 255));
-        userTxt.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        userTxt.setForeground(new java.awt.Color(153, 153, 153));
-        userTxt.setText("Ingrese nombre");
-        userTxt.setBorder(null);
-        jPanel1.add(userTxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 20));
+        nombreField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        nombreField.setForeground(new java.awt.Color(153, 153, 153));
+        nombreField.setText("Ingrese nombre");
+        nombreField.setBorder(null);
+        nombreField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                nombreMousePressed(evt);
+            }
+        });
+        jPanel1.add(nombreField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 20));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 190, 20));
@@ -184,22 +187,21 @@ public class AgregarProducto extends javax.swing.JFrame {
         nombretitulo3.setText("Precio:");
         jPanel1.add(nombretitulo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 80, 20));
 
-        userTxt1.setBackground(new java.awt.Color(255, 255, 255));
-        userTxt1.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-        userTxt1.setForeground(new java.awt.Color(153, 153, 153));
-        userTxt1.setText("Ingrese precio");
-        userTxt1.setBorder(null);
-        userTxt1.addMouseListener(new java.awt.event.MouseAdapter() {
+        precioField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        precioField.setForeground(new java.awt.Color(153, 153, 153));
+        precioField.setText("Ingrese precio");
+        precioField.setBorder(null);
+        precioField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                userTxt1MousePressed(evt);
+                precioMousePressed(evt);
             }
         });
-        userTxt1.addActionListener(new java.awt.event.ActionListener() {
+        precioField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userTxt1ActionPerformed(evt);
+                precioFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(userTxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 180, 20));
+        jPanel1.add(precioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 180, 20));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 190, 20));
@@ -244,22 +246,105 @@ public class AgregarProducto extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void tipoFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_tipoFieldActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        
+        String nombre = nombreField.getText();
+        String tipo = tipoField.getSelectedItem().toString();
+        String precio = precioField.getText();
+        
+        int aux = ValidarCampos(nombre,precio);
+        
+        switch(aux){
+            
+            case -1:
+                
+                int max = AccesoriosNauticos.getLista_productos().size();
+                
+                int newCod = AccesoriosNauticos.getLista_productos().get(max-1).getCod();
+                
+                Producto p = new Producto(newCod+1,nombre,1,Double.parseDouble(precio),0,0,0,0,tipo);
+                
+                AccesoriosNauticos.agregarProducto(p);
+                
+                new Mensaje("Producto: "+ nombre+ " agregado exitosamente!",jButton2, "Producto agregado!").setVisible(true);
+                
+                limpiar();
+                break;
+                
+            case 1:
+                new Mensaje("El nombre no debe estar en blanco!",jButton2,"ERROR!!").setVisible(true);
+                break;
+                
+            case 2:
+                new Mensaje("El precio debe ser un valor numerico positivo!",jButton2,"ERROR!!").setVisible(true);
+                break;
+                
+                       
+            
+        }
+        
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void userTxt1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userTxt1MousePressed
+    private int ValidarCampos(String nombre, String precio) {
+     
+        if (nombre.equals("") || nombre.equalsIgnoreCase("Ingrese nombre")){
+            return 1;
+        }
+        
+        if (!isNumeric(precio,false)){
+            return 2;
+        }else {
+            if (Double.parseDouble(precio) <= 0 ){
+                return 3;
+            }
+        }
+        
+        return-1;
+        
+        
+    }
+    
+    private void limpiar(){
+        nombreField.setText("Ingrese nombre");
+        precioField.setText("Ingrese precio");
+        tipoField.setSelectedIndex(0);
+    }
+    
+    
+    private void precioFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_userTxt1MousePressed
+    }//GEN-LAST:event_precioFieldActionPerformed
 
-    private void userTxt1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTxt1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_userTxt1ActionPerformed
+    private void nombreMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreMousePressed
+        nombreField.setText("");
+    }//GEN-LAST:event_nombreMousePressed
 
+    private void precioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_precioMousePressed
+        precioField.setText("");
+    }//GEN-LAST:event_precioMousePressed
+
+    private boolean isNumeric(String s, boolean flag){
+        
+        try{
+            if (flag){
+                Double.parseDouble(s);
+                return true;
+            }else{
+                Integer.parseInt(s);
+                return true;
+            }
+        }
+        catch ( NumberFormatException ex){
+            return false;
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -302,14 +387,14 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField nombreField;
     private javax.swing.JLabel nombretitulo;
     private javax.swing.JLabel nombretitulo2;
     private javax.swing.JLabel nombretitulo3;
-    private javax.swing.JTextField userTxt;
-    private javax.swing.JTextField userTxt1;
+    private javax.swing.JTextField precioField;
+    private javax.swing.JComboBox<String> tipoField;
     // End of variables declaration//GEN-END:variables
 }

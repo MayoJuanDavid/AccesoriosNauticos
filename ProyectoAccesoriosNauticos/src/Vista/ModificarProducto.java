@@ -362,86 +362,139 @@ public class ModificarProducto extends javax.swing.JFrame {
     // boton que modifica el producto
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer modificar el Producto?", "Advertencia",
-                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (Valor == JOptionPane.YES_OPTION) {
-            String nombre = nombreField.getText();
-
-            String precio = precioField.getText();
-            String unidades = unidadesField.getText();
-            String preciodetal = precioDetalField.getText();
-            String preciomayor = precioMayorField.getText();
-            String rentabilidad = rentabilidadField.getText();
-            String ganancia = gananciaField.getText();
-
-            if (!nombre.equals(producto.getNombre()) && !nombre.isEmpty()) {
-                producto.setNombre(nombre);
-            }
-
-            if (!precio.equals(String.valueOf(producto.getPrecio_compra())) && !precio.isEmpty() ) {
-                if (isNumeric(precio,true)){
-                    producto.setPrecio_compra(Double.parseDouble(precio));
-                }else{
-                    
-                }
-            }
-
-            if (!unidades.equals(String.valueOf(producto.getDisponibilidad())) && !unidades.isEmpty()) {
-                if (isNumeric(unidades,false)){
-                    producto.setDisponibilidad(Integer.parseInt(unidades));
-                }else{
-
-                }
-            }
-
-            if (!preciodetal.equals(String.valueOf(producto.getPvpdetal())) && !preciodetal.isEmpty()) {
-                if (isNumeric(preciodetal,true)){
-                    producto.setPvpdetal(Double.parseDouble(preciodetal));
-                }else{
-
-                }
-            }
-
-            if (!preciomayor.equals(String.valueOf(producto.getPvp2mayor()))  && !preciomayor.isEmpty()) {
-                if (isNumeric(preciomayor,true)){
-                    producto.setPvp2mayor(Double.parseDouble(preciomayor));
-                }else{
-
-                }
-            }
-
-            if (!rentabilidad.equals(String.valueOf(producto.getPrentabilidad())) && !rentabilidad.isEmpty()) {
-                if (isNumeric(rentabilidad, true)){
-                    producto.setPrentabilidad(Double.parseDouble(rentabilidad));
-                }else{
-
-                }
-            }
-
-            if (!ganancia.equals(String.valueOf(producto.getGanancia()))  && !ganancia.isEmpty()) {
-                if (isNumeric(ganancia,true)) {
-                    producto.setGanancia(Double.parseDouble(ganancia));
-                }else{
-
-                }
-            }
-
-            for (int i = 0; i < AccesoriosNauticos.getLista_productos().size();i++){
-                if (producto.getCod() == AccesoriosNauticos.getLista_productos().get(i).getCod()){
-                    AccesoriosNauticos.modificarProducto(i, producto);
-                }
-            }
-            
-            JOptionPane.showMessageDialog(null, "¡¡Se ha modificado el producto de forma exitosa!!", "Confirmacion",
-                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
-        }
-        AccesoriosNauticos.setVVProductos();
-        this.padre = AccesoriosNauticos.getVVProductos();
+       
+        String nombre = nombreField.getText();
+        String tipo = tipoField.getSelectedItem().toString();
+        String precio = precioField.getText();
+        String unidades = unidadesField.getText();
+        String preciodetal = precioDetalField.getText();
+        String preciomayor = precioMayorField.getText();
+        String rentabilidad = rentabilidadField.getText();
+        String ganancia = gananciaField.getText();
         
-        this.dispose();
-        this.padre.setVisible(true);
+        int aux = ValidarCampos(nombre,tipo,precio,unidades,preciodetal,preciomayor,rentabilidad,ganancia);
+  
+        switch (aux) {
+            
+            case -1 :
+            int op = JOptionPane.showConfirmDialog(null, "           ¿Estás seguro de querer modificar el producto " + producto.getNombre() + "?", "Advertencia",
+            JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (op == JOptionPane.YES_OPTION){
+                // crear nuevo producto con todos los cambios
+                producto.setNombre(nombre);
+                producto.setCategoria(tipo);
+                producto.setPrecio_compra(Double.parseDouble(precio));
+                producto.setDisponibilidad(Integer.parseInt(unidades));
+                producto.setPvpdetal(Double.parseDouble(preciodetal));
+                producto.setPvp2mayor(Double.parseDouble(preciomayor));
+                producto.setPrentabilidad(Double.parseDouble(rentabilidad));
+                producto.setGanancia(Double.parseDouble(ganancia));
+                for (int i = 0; i < AccesoriosNauticos.getLista_productos().size();i++){
+                    if (producto.getCod() == AccesoriosNauticos.getLista_productos().get(i).getCod()){
+                        AccesoriosNauticos.modificarProducto(i, producto);
+                    }
+                }
+                this.dispose();
+                this.padre.setVisible(true);
+            }
+            break;
+            
+            case 1:
+                new Mensaje("El nombre no puede estar vacio",jButton2,"ERROR!!").setVisible(true);
+                break;
+                
+            case 2:
+                new Mensaje("El tipo no puede estar vacio",jButton2,"ERROR!!").setVisible(true);
+                break;
+            case 3:
+                new Mensaje("El precio debe ser un valor numerico mayor que 0",jButton2,"ERROR!!").setVisible(true);
+                break;
+            
+            case 4:
+                new Mensaje("Las unidades deben ser un valor numerico entero mayor que 0",jButton2,"ERROR!!").setVisible(true);
+                break;
+            case 5:
+                new Mensaje("El precio detal debe ser un valor numerico mayor que 0",jButton2,"ERROR!!").setVisible(true);
+                break;
+                
+            case 6:
+                new Mensaje("El precio al mayor debe ser un valor numerico mayor que 0",jButton2,"ERROR!!").setVisible(true);
+                break;
+            case 7 :
+                new Mensaje("La rentabilidad debe ser un valor numerico mayor que 0",jButton2,"ERROR!!").setVisible(true);
+                break;
+               
+            case 8:
+                new Mensaje("La ganancia debe ser un valor numerico mayor que 0",jButton2,"ERROR!!").setVisible(true);
+                break;
+
+            
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private int ValidarCampos(String nombre, String tipo, String precio, String unidades, String preciodetal, String preciomayor, String rentabilidad, String ganancia) {
+        
+       if (nombre.equals("")) {
+           return 1;
+       }
+       
+       if (tipo.equals(" ")){
+           return 2;
+       }
+       
+       if (!isNumeric(precio,true)){
+           return 3;
+       }else {
+           if (Double.parseDouble(precio) <= 0) {
+               return 3;
+           }
+       }
+       
+       if (!isNumeric(unidades,false)){
+           return 4;
+       }
+       else {
+           if (Integer.parseInt(unidades) <= 0){
+               return 4;
+           }
+       }
+       
+       if (!isNumeric(preciodetal,true) ){
+           return 5;
+       }else{
+           if(Double.parseDouble(preciodetal) <= 0){
+               return 5;
+           }
+       }
+       
+       if (!isNumeric(preciomayor,true)){
+           return 6;
+       }else {
+           if(Double.parseDouble(preciomayor) <= 0){
+               return 6;
+           }
+       }
+       
+       if (!isNumeric(rentabilidad,true) ) {
+           return 7;
+       }else {
+           if(Double.parseDouble(rentabilidad) <= 0){
+               return 7;
+           }
+       }
+       
+       if (!isNumeric(ganancia,true) && Double.parseDouble(ganancia) <= 0){
+           return 8;
+       }else{
+           if(Double.parseDouble(ganancia) <= 0){
+               return 8;
+           }
+       }
+        
+       return -1;
+        
+    }
+    
     
     private void gananciaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gananciaFieldActionPerformed
         // TODO add your handling code here:
@@ -486,7 +539,7 @@ public class ModificarProducto extends javax.swing.JFrame {
     
     private void setCampos(){
         nombreField.setText(producto.getNombre());
-        // agregar el tipo :)
+        tipoField.setSelectedItem(producto.getCategoria());
         precioField.setText(String.valueOf(producto.getPrecio_compra()));
         unidadesField.setText(String.valueOf(producto.getDisponibilidad()));
         precioDetalField.setText(String.valueOf(producto.getPvpdetal()));
@@ -512,6 +565,7 @@ public class ModificarProducto extends javax.swing.JFrame {
         }
         
     }
+    
     
     /**
      * @param args the command line arguments
@@ -580,5 +634,6 @@ public class ModificarProducto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> tipoField;
     private javax.swing.JTextField unidadesField;
     // End of variables declaration//GEN-END:variables
+
 
 }
