@@ -4,19 +4,12 @@
  */
 package Vista;
 
-import Modelo.Entrada;
+import Controlador.ControladorPedido;
 import Modelo.Pedido;
-import Modelo.Producto;
 import Modelo.Salida;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -57,6 +50,12 @@ public class CrearSalida extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio de Sesion");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setFocusTraversalPolicyProvider(true);
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -152,37 +151,8 @@ public class CrearSalida extends javax.swing.JFrame {
             if (salida.getProductos().size() == 0){
                 JOptionPane.showMessageDialog(null, "Debe de ingresar al menos un producto en el pedido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
             }else{
-                //// Fecha
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String date = dateFormat.format(new Date());
-                // Modificamos los datos de codigo
-                salida.setCod(codigo);
-                // Modificamos los datos de fecha
-                try {
-                    salida.setFecha_emision(dateFormat.parse(date.toString()));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CrearSalida.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                // Modificamos los datos de ganancia
-                double ganancia = 0.0;
-                for (Producto prod: salida.getProductos()){
-                    ganancia += prod.getGanancia();
-                }
-                salida.setGanancia(ganancia);
-                // Ingresamos el pedido a la lista de pedidos
-                lista_ped = AccesoriosNauticos.insertarPedido(salida);                  
-                // Mostramos el mensaje de confirmacion
-                JOptionPane.showMessageDialog(null, "¡¡Se ha creado el pedido de forma exitosa!!", "Confirmacion",
-                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
-                // Modificamos la visualizacion
-                this.setVisible(false);                
-                // Actualizamos las vistas de pedidos
-                AccesoriosNauticos.setVVPedidos();
-                AccesoriosNauticos.setVCSalida();
-                AccesoriosNauticos.setVAProd();
-                AccesoriosNauticos.eliminarNPedido();
-                // Dirigimos a ver pedidos
-                AccesoriosNauticos.getVVPedidos().setVisible(true);
+                // Invocamos el metodo del controlador 
+                ControladorPedido.crearSalida(salida, codigo, lista_ped);
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed

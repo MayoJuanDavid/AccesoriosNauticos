@@ -5,6 +5,7 @@
 package Vista;
 
 
+import Controlador.ControladorProducto;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
@@ -321,19 +322,8 @@ public class VisualizarProducto extends javax.swing.JFrame {
         int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer eliminar el producto \n" + prod.getNombre() + "?", "Advertencia",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (Valor == JOptionPane.YES_OPTION) {
-            for (int i = 0; i < lista_productos.size();i++){
-                if (lista_productos.get(i).getCod() == codigo) {
-                    AccesoriosNauticos.eliminarProducto(i);
-                    AccesoriosNauticos.getVInventario().actualizarListaProd();
-                    lista_productos = AccesoriosNauticos.getLista_productos();
-                    break;
-                }
-            }
-            this.setVisible(false);
-            AccesoriosNauticos.setVVProductos();
-            AccesoriosNauticos.getVVProductos().setVisible(true);
-            JOptionPane.showMessageDialog(null, "¡¡El producto se ha eliminado con exito!!", "Confirmacion",
-                JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+            // Invocamos el metodo del controlador
+            ControladorProducto.eliminarProducto(lista_productos, codigo);
         }
         
     }//GEN-LAST:event_BEliminarActionPerformed

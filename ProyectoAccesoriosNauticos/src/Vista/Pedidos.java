@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.ControladorPedido;
-import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
@@ -12,14 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,7 +33,6 @@ public class Pedidos extends JFrame {
     public List<Producto> PLista = new ArrayList<Producto>();                   //Representa la lista principal con todos los productos
     public List<Producto> PListaAux = new ArrayList<Producto>();
     public List<Pedido> PPedLista = new ArrayList<Pedido>();                    //Lista de pedidos
-    public String Categoria = "Electrodomesticos";                              //Determina la Categoria que se esta Trabajando
     public Pedido pedido;
     
         //PANELES DEL LADO DERECHO
@@ -888,11 +880,11 @@ public class Pedidos extends JFrame {
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
     public void actualizarInfo(int cod, String nom, String cate, double cos, int dis, double prent, double pvpd, double pvpm, double ganancia) {
-        TCodigo.setText("Codigo: " + cod);
+        TCodigo.setText("Código: " + cod);
         TNombre.setText("Nombre: " + nom);
-        TCategoria.setText("Categoria: " + cate);
+        TCategoria.setText("Categoría: " + cate);
         TCosto.setText("Costo: " + "$" + cos);
-        TDisponibles.setText("Disponible: " + dis);
+        TDisponibles.setText("Disponibles: " + dis);
         TPRentabilidad.setText("% Rentabilidad: " + (prent*100) + "%");
         TPVP2Mayor.setText("PVP2 al Mayor: " + pvpm + "$");
         TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
@@ -915,15 +907,15 @@ public class Pedidos extends JFrame {
     }
     // Limpiar informacion
     public void limpiarInfo(){
-        TCodigo.setText("Codigo: ");
+        TCodigo.setText("Código: ");
         TNombre.setText("Nombre: ");
-        TCategoria.setText("Categoria: ");
+        TCategoria.setText("Categoría: ");
         TCosto.setText("Costo: ");
-        TDisponibles.setText("Disponible: ");
+        TDisponibles.setText("Disponibles: ");
         TPRentabilidad.setText("% Rentabilidad: ");
         TPVP2Mayor.setText("PVP2 al Mayor: ");
         TPVPDetal.setText("PVP Detallado: ");
-        TGanancia.setText("Ganancia: ");
+        TGanancia.setText("Ganancia: 0.0$");
     }
 
     

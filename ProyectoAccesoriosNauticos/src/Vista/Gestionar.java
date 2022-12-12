@@ -81,6 +81,9 @@ public class Gestionar extends javax.swing.JFrame {
         CodigoDelProducto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusTraversalPolicyProvider(true);
+        setLocationByPlatform(true);
+        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Controlador.ControladorPedido;
 import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -59,6 +60,10 @@ public class CrearEntrada extends javax.swing.JFrame {
         IProveedor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusTraversalPolicyProvider(true);
+        setLocationByPlatform(true);
+        setUndecorated(true);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,45 +173,13 @@ public class CrearEntrada extends javax.swing.JFrame {
             List<Pedido> lista_ped = AccesoriosNauticos.getLista_pedidos();
             int codigo = lista_ped.get(lista_ped.size() - 1).getCod() + 1;
             // Verificamos si los datos son correctos
-            if (IProveedor.getText().length() == 0 || IProveedor.getText().equalsIgnoreCase("Ingrese el Proveedor")){
+            if (proveedor.length() == 0 || proveedor.equalsIgnoreCase("Ingrese el Proveedor")){
                 JOptionPane.showMessageDialog(null, "Ingrese un nombre de proveedor válido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
             }else if (entrada.getProductos().size() == 0){
                 JOptionPane.showMessageDialog(null, "Debe de ingresar al menos un producto en el pedido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
             }else{
-                //// Fecha
-                DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                String date = dateFormat.format(new Date());
-                // Modificamos los datos de proveedor
-                entrada.setProovedor(proveedor);
-                // Modificamos los datos de codigo
-                entrada.setCod(codigo);
-                // Modificamos los datos de fecha
-                try {
-                    entrada.setFecha_emision(dateFormat.parse(date.toString()));
-                } catch (ParseException ex) {
-                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                // Modificamos los datos de monto a pagar
-                double monto = 0.0;
-                for (Producto prod: entrada.getProductos()){
-                    monto += prod.getPrecio_compra();
-                }
-                entrada.setMonto_pagar(monto);
-                // Ingresamos el pedido a la lista de pedidos
-                lista_ped = AccesoriosNauticos.insertarPedido(entrada);                  
-                // Mostramos el mensaje de confirmacion
-                JOptionPane.showMessageDialog(null, "¡¡Se ha creado el pedido de forma exitosa!!", "Confirmacion",
-                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
-                // Modificamos la visualizacion
-                this.setVisible(false);                
-                // Actualizamos las vistas de pedidos
-                AccesoriosNauticos.setVVPedidos();
-                AccesoriosNauticos.setVCEntrada();
-                AccesoriosNauticos.setVAProd(); 
-                AccesoriosNauticos.eliminarNPedido();
-                
-                // Dirigimos a ver pedidos
-                AccesoriosNauticos.getVVPedidos().setVisible(true);
+                // Invocamos el controlador
+                ControladorPedido.crearEntrada(entrada, proveedor, codigo, lista_ped);
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed

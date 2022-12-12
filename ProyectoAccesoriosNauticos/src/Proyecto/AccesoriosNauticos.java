@@ -20,14 +20,8 @@ import Vista.Login;
 import Vista.Pedidos;
 import Vista.VerPedidos;
 import Vista.VisualizarProducto;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class AccesoriosNauticos {
     
@@ -60,19 +54,6 @@ public class AccesoriosNauticos {
     // Programa pricipal
     public static void main (String[] args){
         lista_productos = getBD();
-        /*VPedidos.actualizar(3);
-        VPedidos.setVisible(true);*/
-        
-        
-        /*int lim = 6;
-        int lim_inf = (lista_productos.size() - lim);
-        List<Producto> lista = lista_productos.subList(lim, (lim_inf < 6)? lim + lim_inf: lim + 6);
-        */
-        /*for (Pedido cli: lista_pedido){
-            System.out.println(cli.imprimir());
-            for (Producto prod: cli.getProductos())
-                System.out.println("\t" + prod.imprimir());
-        }*/
         //Ventana.setVisible(true);
         VInventario.setVisible(true);        
     }
@@ -232,7 +213,6 @@ public class AccesoriosNauticos {
     }
     
     // Metodo que agrega un produto
-    
     public static void agregarProducto(Producto p){
         lista_productos = ControladorProducto.AgregarProducto(p, lista_productos);
         VVProductos = new VisualizarProducto();
@@ -243,7 +223,6 @@ public class AccesoriosNauticos {
     
     // Metodos para llenar los datos y retornar la lista de productos
     public static List<Producto> getBD(){
-        
         //Instanciamos el controlador de archivos
         ControladorArchivo ctrlArchivo = new ControladorArchivo();
         // Se instancia el controlador de Pedidos

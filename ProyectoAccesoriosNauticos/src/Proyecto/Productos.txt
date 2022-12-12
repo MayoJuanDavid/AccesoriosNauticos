@@ -2,7 +2,7 @@
 2,Kit de Sellos Ciguenal Etec,6, 9.12 ,0.45, 30.00 , 11.40 , 30.00 ,Miscelaneo
 3,Kit de Sellos de Inyectores Etec 5007017,5, 7.60 ,0.45, 3.00 , 9.50 , 14.00 ,Motor
 4,Kit de sellos M2 5007700 (M),4, 30.00 ,0.45, 120.00 , 37.50 , 25.00 ,Seguridad
-5,Kit de Servicio de Inyectores Etec,7, 6.85 ,0.45, 40.00 , 8.56 , 40.00 ,Motor 
+5,Kit de Servicio de Inyectores Etec,7, 6.85 ,0.45, 40.00 , 8.56 , 40.00 ,Motor
 6,Kit Servicio De Inyectores (M),8, 10.00 ,0.45, 15.00 , 12.50 , 34.00 ,Seguridad
 7,Luces De Navegacion Led Ojo De Gato,2, 50.72 ,0.45, 20.00 , 63.40 , 20.00 ,Electronico
 8,Luz De Cortesia 3" Led Blancas Marpac",0, 6.00 ,0.45, 40.00 , 7.50 , 40.00 ,Miscelaneo
@@ -10,7 +10,7 @@
 10,Luz De Cortesia Orbit Lumitec (A),0, 12.00 ,0.45, 120.00 , 15.00 , 42.00 ,Miscelaneo
 11,Luz De Cortesia Orbit Lumitec (M),0, 15.00 ,0.45, 40.00 , 18.75 , 40.00 ,Motor
 12,Luz De Emergencia Led Advance (M),1, 30.00 ,0.45, 25.00 , 37.50 , 78.00 ,Seguridad
-13,Luz de Navegacion Fija,5, 31.00 ,0.45, 20.00 , 38.75 , 20.00 ,Motor 
+13,Luz de Navegacion Fija,5, 31.00 ,0.45, 20.00 , 38.75 , 20.00 ,Motor
 14,Luz De Popa 2 - 3/8" (A)",5, 9.44 ,0.45, 40.00 , 11.80 , 40.00 ,Seguridad
 15,Luz De Popa De Vastago (M),6, 25.00 ,0.45, 60.00 , 31.25 , 55.00 ,Electronico
 16,Luz De Popa Perko (A),4, 39.32 ,0.45, 60.00 , 49.15 , 52.49 ,Miscelaneo
@@ -18,7 +18,7 @@
 18,Salida De Agua 1" Y 1 1/8"" (M)",0, 5.00 ,0.45, 60.00 , 6.25 , 56.61 ,Miscelaneo
 19,Salida De Agua De 1" (A)",0, 5.00 , 60.00 ,0.45, 6.25 , 58.67 ,Motor
 20,Salida De Agua De 2" X 3/4"" (M)",0, 7.00 ,0.45, 60.00 , 8.75 , 60.73 ,Seguridad
-21,Sender de gasolina Marpac,1, 25.58 ,0.45, 60.00 , 31.98 , 62.79 ,Motor 
+21,Sender de gasolina Marpac,1, 25.58 ,0.45, 60.00 , 31.98 , 62.79 ,Motor
 22,Sensor de Temperatura de Aire Etec,2, 27.40 ,0.45, 60.00 , 34.25 , 64.85 ,Seguridad
 23,Sensor De Temperatura Etec,2, 13.70 ,0.45, 60.00 , 17.13 , 66.91 ,Electronico
 24,Sensor De Temperatura Etec (M),1, 50.00 ,0.45, 60.00 , 62.50 , 68.97 ,Miscelaneo
@@ -26,7 +26,7 @@
 26,Sensor TPS Etec,5, 30.14 ,0.45, 60.00 , 37.68 , 73.09 ,Miscelaneo
 27,Silicon 4200,4, 10.84 ,0.45, 60.00 , 13.55 , 75.15 ,Motor
 28,Silicon Marino 3M 5200 10 oz,1, 15.87 ,0.45, 60.00 , 19.84 , 77.21 ,Seguridad
-29,Sincronico De Transmision Evinrude Ocean Runner M1 Y M2 (M),2, 16.00 ,0.45, 60.00 , 20.00 , 79.28 ,Motor 
+29,Sincronico De Transmision Evinrude Ocean Runner M1 Y M2 (M),2, 16.00 ,0.45, 60.00 , 20.00 , 79.28 ,Motor
 30,Suichera de Ignicion Etec,5, 10.96 ,0.45, 60.00 , 13.70 , 81.34 ,Seguridad
 31,Suitch De Botica 3 Pases (M),1, 75.00 ,0.45, 60.00 , 93.75 , 83.40 ,Electronico
 32,Switch Para Bomba De Achique (M),4, 60.00 ,0.45, 60.00 , 75.00 , 85.46 ,Miscelaneo

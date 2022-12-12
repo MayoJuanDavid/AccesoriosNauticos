@@ -5,15 +5,17 @@
 package Controlador;
 
 import Modelo.Producto;
+import Proyecto.AccesoriosNauticos;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Windows 10
  */
 public class ControladorProducto {
-    
     
     // Metodo que busca un producto
     public static boolean buscarProducto(List<Producto> lista, int cod){
@@ -51,4 +53,21 @@ public class ControladorProducto {
         lista_productos.remove(indice);
     }
     
+    // CRUD
+    //// Metodo para eliminar un producto
+    public static void eliminarProducto(List<Producto> lista_productos, int codigo){
+        for (int i = 0; i < lista_productos.size();i++){
+            if (lista_productos.get(i).getCod() == codigo) {
+                AccesoriosNauticos.eliminarProducto(i);
+                AccesoriosNauticos.getVInventario().actualizarListaProd();
+                lista_productos = AccesoriosNauticos.getLista_productos();
+                break;
+            }
+        }
+        AccesoriosNauticos.getVVProductos().setVisible(false);
+        AccesoriosNauticos.setVVProductos();
+        AccesoriosNauticos.getVVProductos().setVisible(true);
+        JOptionPane.showMessageDialog(null, "¡¡El producto se ha eliminado con exito!!", "Confirmacion",
+            JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+    }
 }

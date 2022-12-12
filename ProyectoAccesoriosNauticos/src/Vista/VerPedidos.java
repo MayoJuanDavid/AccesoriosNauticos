@@ -8,19 +8,14 @@ package Vista;
 
 import Modelo.Entrada;
 import Modelo.Pedido;
-import Modelo.Producto;
 import Modelo.Salida;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *

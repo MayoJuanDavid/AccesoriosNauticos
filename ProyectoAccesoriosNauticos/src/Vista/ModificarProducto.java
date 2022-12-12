@@ -11,11 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author Windows 10
- */
 public class ModificarProducto extends javax.swing.JFrame {
 
     
@@ -496,10 +491,6 @@ public class ModificarProducto extends javax.swing.JFrame {
     }
     
     
-    private void gananciaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gananciaFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_gananciaFieldActionPerformed
-
     private void nombreFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreFieldActionPerformed
@@ -523,6 +514,10 @@ public class ModificarProducto extends javax.swing.JFrame {
     private void rentabilidadFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentabilidadFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rentabilidadFieldActionPerformed
+
+    private void gananciaFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gananciaFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_gananciaFieldActionPerformed
 
     private void limpiar(){
         

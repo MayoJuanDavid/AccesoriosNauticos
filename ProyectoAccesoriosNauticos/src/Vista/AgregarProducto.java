@@ -49,7 +49,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         exitTxt = new javax.swing.JLabel();
         Logo = new javax.swing.JLabel();
         nombretitulo = new javax.swing.JLabel();
-        tipoField = new javax.swing.JComboBox<>();
+        tipoField = new javax.swing.JComboBox<String>();
         nombretitulo2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         nombreField = new javax.swing.JTextField();
@@ -140,7 +140,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         tipoField.setEditable(true);
         tipoField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         tipoField.setForeground(new java.awt.Color(153, 153, 153));
-        tipoField.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Electronicos", "Seguridad", "Vehiculos", "Combustible", "Miscelaneos" }));
+        tipoField.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Electronico", "Seguridad", "Motor", "Combustible", "Miscelaneo" }));
         tipoField.setAutoscrolls(true);
         tipoField.setBorder(null);
         tipoField.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

@@ -720,6 +720,8 @@ public class AsignarProd extends JFrame {
         accionAgregar();
         // Acciones de categorias
         accionCategorias();
+        // Accion de Agregar producto
+        accionAProducto(AProducto);
     }
     //Acciones de los botones de informacion
     public void confiBotonesinfo(int Lim, int Pos, JButton Info) {
@@ -836,6 +838,14 @@ public class AsignarProd extends JFrame {
         };
         Categoria.addActionListener(Acccion);
     }
+    //Metodo de accion de agregar producto
+    public void accionAProducto(JButton AProducto){
+        //Accion del Boton de categorias
+        ActionListener Acccion = (ActionEvent e) -> {
+            JOptionPane.showMessageDialog(null, "Esta funcionalidad esta en mantenimiento", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        };
+        AProducto.addActionListener(Acccion);
+    }
     
     //METODOS DE FUNCIONALIDAD
     // Asignar tipo
@@ -949,11 +959,11 @@ public class AsignarProd extends JFrame {
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
     public void actualizarInfo(int cod, String nom, String cate, double cos, int dis, double prent, double pvpd, double pvpm, double ganancia) {
-        TCodigo.setText("Codigo: " + cod);
+        TCodigo.setText("Código: " + cod);
         TNombre.setText("Nombre: " + nom);
-        TCategoria.setText("Categoria: " + cate);
+        TCategoria.setText("Categoría: " + cate);
         TCosto.setText("Costo: " + "$" + cos);
-        TDisponibles.setText("Disponible: " + dis);
+        TDisponibles.setText("Disponibles: " + dis);
         TPRentabilidad.setText("% Rentabilidad: " + (prent*100) + "%");
         TPVP2Mayor.setText("PVP2 al Mayor: " + pvpm + "$");
         TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
@@ -972,15 +982,15 @@ public class AsignarProd extends JFrame {
     }
     // Limpiar informacion
     public void limpiarInfo(){
-        TCodigo.setText("Codigo: ");
+        TCodigo.setText("Código: ");
         TNombre.setText("Nombre: ");
-        TCategoria.setText("Categoria: ");
+        TCategoria.setText("Categoría: ");
         TCosto.setText("Costo: ");
-        TDisponibles.setText("Disponible: ");
+        TDisponibles.setText("Disponibles: ");;
         TPRentabilidad.setText("% Rentabilidad: ");
         TPVP2Mayor.setText("PVP2 al Mayor: ");
         TPVPDetal.setText("PVP Detallado: ");
-        TGanancia.setText("Ganancia: ");
+        TGanancia.setText("Ganancia: 0.0$");
     }
     
     
