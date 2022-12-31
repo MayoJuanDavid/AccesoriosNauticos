@@ -22,9 +22,11 @@ public class Producto {
     private double ganancia;
     private String imagen;
     private String categoria;
+    private double iva;
+    private int cantidad;
     
     //Constructor
-    public Producto(int cod, String nombre, int disponibilidad, double precio_compra, double prentabilidad, double pvpdetal, double pvp2mayor, double ganancia, String categoria) {
+    public Producto(int cod, String nombre, int disponibilidad, double precio_compra, double prentabilidad, double pvpdetal, double pvp2mayor, double ganancia, String categoria, String imagen) {
         this.cod = cod;
         this.nombre = nombre;
         this.disponibilidad = disponibilidad;
@@ -33,8 +35,10 @@ public class Producto {
         this.pvpdetal = pvpdetal;
         this.pvp2mayor = pvp2mayor;
         this.ganancia = ganancia;
-        this.imagen = "";
+        this.imagen = imagen;
         this.categoria = categoria;
+        this.iva = 0.0;
+        this.cantidad = 0;
     }
 
     //Constructor vacio
@@ -48,6 +52,8 @@ public class Producto {
         this.pvp2mayor = 0.00;
         this.ganancia = 0.00;
         this.imagen = "";
+        this.iva = 0.0;
+        this.cantidad = 0;
     }
     
     //Getters y setters
@@ -129,6 +135,22 @@ public class Producto {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public double getIva() {
+        return iva;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setIva(double iva) {
+        this.iva = iva;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
     
     

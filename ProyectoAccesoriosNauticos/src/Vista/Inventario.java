@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ControladorBDProductos;
 import Proyecto.AccesoriosNauticos;
 import Modelo.Producto;
 import java.awt.Color;
@@ -29,7 +30,7 @@ public class Inventario extends JFrame {
     public int ContDescripcion = 0;                                     //Determina la Descripcion que hay que Mostrar
     public List<Producto> Lista = new ArrayList<Producto>();   //Representa la lista de Productos que se muestra en cada Pagina de un Catalogo
     public List<Producto> PLista = AccesoriosNauticos.getBD();   //Representa la lista principal con todos los productos
-    public String Categoria = "Electronicos";                                //Determina la Categoria que se esta Trabajando
+    public String Categoria = "Electronico";                                //Determina la Categoria que se esta Trabajando
     
         //PANELES DEL LADO DERECHO
     public JPanel PPedido = new JPanel();
@@ -127,6 +128,13 @@ public class Inventario extends JFrame {
     public JLabel Articulo4 = new JLabel();
     public JLabel Articulo5 = new JLabel();
     public JLabel Articulo6 = new JLabel();
+    public JLabel foto1 = new JLabel();
+    public JLabel foto2 = new JLabel();
+    public JLabel foto3 = new JLabel();
+    public JLabel foto4 = new JLabel();
+    public JLabel foto5 = new JLabel();
+    public JLabel foto6 = new JLabel();
+    
 
         //TEXTOS E IMAGENES PARA REPRESENTAR LOS BOTONES DE ACCION DE LOS CATALOGOS
     public JLabel TextoPedido = new JLabel();
@@ -626,7 +634,8 @@ public class Inventario extends JFrame {
     //Metodo que Gestiona los Articulos que se colocan en el Catalogo
     public void panelArticulos() {
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
-        Lista = PLista.subList(0, 6);
+        limite = 6;
+        Lista = ControladorBDProductos.listaProductosVisiblesPost(0, Categoria);
         
         //Se establece la configuracion del Panel
         PArticulos.setLayout(null);
@@ -663,12 +672,19 @@ public class Inventario extends JFrame {
         
         //Agregando los articulos
         agregarArticulos();
+        PArticulos.add(foto1);
+        PArticulos.add(foto2);
+        PArticulos.add(foto3);
+        PArticulos.add(foto4);
+        PArticulos.add(foto5);
+        PArticulos.add(foto6);
         PArticulos.add(Articulo6);
         PArticulos.add(Articulo5);
         PArticulos.add(Articulo4);
         PArticulos.add(Articulo3);
         PArticulos.add(Articulo1);
         PArticulos.add(Articulo2);
+        
         
         //Determinamos el Comportamineto de los Botones de Anterior y Posterior
         limite = 6;
@@ -736,20 +752,22 @@ public class Inventario extends JFrame {
     //Metodo que Determina el Comportamiento de los Botones Agregar y Eliminar
     public void confEliminar(int Pos, JButton Accion){
         ActionListener b = (ActionEvent e) -> {
-            int Valor = JOptionPane.showConfirmDialog(null, "           ¿Estás seguro de querer eliminar el producto " + PLista.get(limite - 6 + Pos).getNombre() + "?", "Advertencia",
+            int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer eliminar el producto " + Lista.get(Pos).getNombre() + "?", "Advertencia",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-            if (Valor == JOptionPane.YES_OPTION) {
-                AccesoriosNauticos.eliminarProducto(limite- 6 + Pos);
-                PLista = AccesoriosNauticos.getLista_productos();
+            if (Valor == JOptionPane.YES_OPTION) {                
+                ControladorBDProductos.eliminarProducto(Lista.get(Pos).getCod());
 
-                Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
+                Lista = ControladorBDProductos.listaProductosVisiblesPost(0, Categoria);
                 agregarArticulos();
                 deshabilitarBotones();
-
                 Anterior.setEnabled(false);
-                Posterior.setEnabled(true);
-                limite = 6;
-                detPosAnt();
+                Posterior.setEnabled(false);
+                
+                if (!Lista.isEmpty()){
+                    Posterior.setEnabled(true);
+                    detPosAnt();
+                }
+                
                 // Mostrar mensaje de confirmacion
                 JOptionPane.showMessageDialog(null, "¡¡El producto se ha eliminado con exito!!", "Confirmacion",
                 JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
@@ -788,22 +806,24 @@ public class Inventario extends JFrame {
     }
     //Metodo para la asignar la accion de las categorias
     public void accionCategorias(){
-        cambiarCategoria(Electronicos, "electronico");
-        cambiarCategoria(Seguridad, "seguridad");
-        cambiarCategoria(Combustibles, "combustible");
-        cambiarCategoria(Motores, "motor");
-        cambiarCategoria(Miscelaneos, "miscelaneo");
+        cambiarCategoria(Electronicos, "Electronico");
+        cambiarCategoria(Seguridad, "Seguridad");
+        cambiarCategoria(Combustibles, "Combustible");
+        cambiarCategoria(Motores, "Motor");
+        cambiarCategoria(Miscelaneos, "Miscelaneo");
     }
     //Metodo de accion de las categorias
     public void cambiarCategoria(JButton Categoria, String cat){
         //Accion del Boton de categorias
         ActionListener Acccion = (ActionEvent e) -> {
-            limite = 6;
-            PLista = AccesoriosNauticos.getListaCategoria(cat, AccesoriosNauticos.getLista_productos());
-            Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
+            this.Categoria = cat;
+            Lista = ControladorBDProductos.listaProductosVisiblesPost(0, cat);
             Anterior.setEnabled(false);
-            Posterior.setEnabled(true);          
-            detPosAnt();
+            Posterior.setEnabled(false);
+            if (!Lista.isEmpty()){
+                Posterior.setEnabled(true);          
+                detPosAnt();
+            }
             agregarArticulos();
             deshabilitarBotones();
             limpiarInfo();            
@@ -814,12 +834,12 @@ public class Inventario extends JFrame {
     //METODOS DE FUNCIONALIDAD
     //Metodo que Agrega las Imagenes en un Catalogo
     public void agregarArticulos() {
-        confImagenes(1, 0, Articulo1);
-        confImagenes(2, 1, Articulo2);
-        confImagenes(3, 2, Articulo3);
-        confImagenes(4, 3, Articulo4);
-        confImagenes(5, 4, Articulo5);
-        confImagenes(6, 5, Articulo6);
+        confImagenes(1, 0, Articulo1, foto1);
+        confImagenes(2, 1, Articulo2, foto2);
+        confImagenes(3, 2, Articulo3, foto3);
+        confImagenes(4, 3, Articulo4, foto4);
+        confImagenes(5, 4, Articulo5, foto5);
+        confImagenes(6, 5, Articulo6, foto6);
     }
     //Configuracion de los Botones de Agregar y Eliminar
     public void confAgregarEliminar(int Lim, JButton Accion){
@@ -862,20 +882,44 @@ public class Inventario extends JFrame {
         }
     }
     //Metodo que Determina el Estado de las Fotos de los Articulos
-    public void confImagenes(int Lim, int Pos, JLabel Imagen){
+    public void confImagenes(int Lim, int Pos, JLabel Imagen, JLabel Foto){
         if (Lista.size() >= Lim) {
-            if (Lim == 1) Imagen.setBounds(25, 25, 240, 305);
-            if (Lim == 2) Imagen.setBounds(280, 25, 240, 305);
-            if (Lim == 3) Imagen.setBounds(535, 25, 240, 305);
-            if (Lim == 4) Imagen.setBounds(25, 355, 240, 305);
-            if (Lim == 5) Imagen.setBounds(280, 355, 240, 305);
-            if (Lim == 6) Imagen.setBounds(535, 355, 240, 305);
-            if (!Lista.get(Pos).getImagen().equals("")) Imagen.setIcon(new ImageIcon("src/Imagenes/foto camisas" + Lista.get(Pos).getImagen() + ".png"));
-            else {
-                Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
+            if (Lim == 1){ 
+                Imagen.setBounds(25, 25, 240, 305);
+                Foto.setBounds(30,30,230,230);
             }
+            if (Lim == 2){
+                Imagen.setBounds(280, 25, 240, 305);
+                Foto.setBounds(285,30,230,230);
+            }
+            if (Lim == 3){
+                Imagen.setBounds(535, 25, 240, 305);
+                Foto.setBounds(540,30,230,230);
+            }
+            if (Lim == 4) {
+                Imagen.setBounds(25, 355, 240, 305);
+                Foto.setBounds(30,360,230,230);
+            }
+            if (Lim == 5) {
+                Imagen.setBounds(280, 355, 240, 305);
+                Foto.setBounds(285,360,230,230);
+            }
+            if (Lim == 6) {
+                Imagen.setBounds(535, 355, 240, 305);
+                Foto.setBounds(540,360,230,230);
+            }
+            if (!Lista.get(Pos).getImagen().equals("")){
+                rsscalelabel.RSScaleLabel.setScaleLabel(Foto, "src/Imagenes/Productos/" + Lista.get(Pos).getImagen());
+                Foto.setVisible(true);
+            }
+            else Foto.setVisible(false);
+            Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
             Imagen.setVisible(true);
-        }else Imagen.setVisible(false);
+            
+        }else{
+            Imagen.setVisible(false);
+            Foto.setVisible(false);
+        }
     }
     //Configuracion de las Acciones de Botones Posterior y Anterios
     public void confPosAnt(int ID, JButton Direccion){
@@ -892,17 +936,17 @@ public class Inventario extends JFrame {
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Posterior
     public void cambioDePaginaF() {
-        Lista = PLista.subList(limite, ((PLista.size() - limite) < 6)? limite + (PLista.size() - limite): limite + 6);
+        Lista = ControladorBDProductos.listaProductosVisiblesPost(Lista.get(Lista.size()-1).getCod(), Categoria);
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
         limite += 6;
         detPosAnt();
-        //Limpiar();
+        limpiarInfo(); 
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Anterior
     public void cambioDePaginaB() {
-        Lista = PLista.subList(0, 6);
+        Lista = ControladorBDProductos.listaProductosVisiblesAnt(Lista.get(0).getCod(), Categoria);
         agregarArticulos();
         deshabilitarBotones();
         
@@ -910,7 +954,7 @@ public class Inventario extends JFrame {
         Posterior.setEnabled(true);
         limite = 6;
         detPosAnt();
-        //Limpiar();
+        limpiarInfo();
     }
     //Metodo que Determina que Botones Estaran Disponibles y Cuales no
     public void deshabilitarBotones() {
@@ -933,7 +977,7 @@ public class Inventario extends JFrame {
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
     public void detPosAnt(){
-        if (limite >= PLista.size()) Posterior.setEnabled(false);
+        if (ControladorBDProductos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), Categoria)) Posterior.setEnabled(false);
         else Posterior.setEnabled(true);
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos

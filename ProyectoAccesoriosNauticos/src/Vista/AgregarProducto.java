@@ -266,7 +266,7 @@ public class AgregarProducto extends javax.swing.JFrame {
                 
                 int newCod = AccesoriosNauticos.getLista_productos().get(max-1).getCod();
                 
-                Producto p = new Producto(newCod+1,nombre,1,Double.parseDouble(precio),0,0,0,0,tipo);
+                Producto p = new Producto(newCod+1,nombre,1,Double.parseDouble(precio),0,0,0,0,tipo, "");
                 
                 AccesoriosNauticos.agregarProducto(p);
                 

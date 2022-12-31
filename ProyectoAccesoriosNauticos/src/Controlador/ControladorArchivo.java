@@ -55,7 +55,7 @@ public class ControladorArchivo {
                         Double.parseDouble(listproductos.get(5)),
                         Double.parseDouble(listproductos.get(6)),
                         Double.parseDouble(listproductos.get(7)),
-                        listproductos.get(8)
+                        listproductos.get(8), ""
                 ));
             }
             

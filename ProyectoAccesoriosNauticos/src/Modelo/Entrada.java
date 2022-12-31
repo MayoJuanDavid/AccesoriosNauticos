@@ -1,13 +1,7 @@
 package Modelo;
 
-
 import java.util.Date;
 
-
-/**
- *
- * @author juandavid
- */
 public class Entrada extends Pedido{
     //Atributos
     private String proovedor;

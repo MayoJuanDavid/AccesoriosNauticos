@@ -1,7 +1,6 @@
 package Proyecto;
 
 // Paquetes a utilizar
-import Controlador.ControladorAlarma;
 import Controlador.ControladorArchivo;
 import Controlador.ControladorPedido;
 import Controlador.ControladorProducto;
@@ -56,9 +55,14 @@ public class AccesoriosNauticos {
     
     // Programa pricipal
     public static void main (String[] args){
-        lista_productos = getBD();
+        //lista_productos = getBD();
         //Ventana.setVisible(true);
         VInventario.setVisible(true);        
+        /*lista_productos = ControladorBDProductos.listaProductosVisiblesPost(0);
+        for(Producto p: lista_productos){
+            System.out.println(p.imprimir());
+        }*/
+        //System.out.println(ControladorBDProductos.verificarUltimoProducto(32, "Electronico"));
     }
     
     // Metodos getters 
