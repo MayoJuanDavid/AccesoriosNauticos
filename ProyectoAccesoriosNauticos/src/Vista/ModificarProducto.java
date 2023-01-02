@@ -4,6 +4,7 @@
  */
 
 package Vista;
+import Controlador.ControladorBDProductos;
 import java.awt.Color;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
@@ -384,12 +385,11 @@ public class ModificarProducto extends javax.swing.JFrame {
                 producto.setPvp2mayor(Double.parseDouble(preciomayor));
                 producto.setPrentabilidad(Double.parseDouble(rentabilidad));
                 producto.setGanancia(Double.parseDouble(ganancia));
-                for (int i = 0; i < AccesoriosNauticos.getLista_productos().size();i++){
-                    if (producto.getCod() == AccesoriosNauticos.getLista_productos().get(i).getCod()){
-                        AccesoriosNauticos.modificarProducto(i, producto);
-                    }
-                }
+                
+                ControladorBDProductos.modificarProducto(producto);
+                
                 this.dispose();
+                this.padre = new VisualizarProducto();
                 this.padre.setVisible(true);
             }
             break;

@@ -4,14 +4,12 @@
  */
 package Vista;
 
-import Modelo.Entrada;
-import Modelo.Pedido;
-import Modelo.Producto;
-import Modelo.Salida;
+import Controlador.ControladorBDPedidos;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -22,35 +20,16 @@ import javax.swing.JFrame;
 public class Gestionar extends javax.swing.JFrame {
 
     int xMouse,yMouse;
-    public Gestionar() {
+    public Gestionar() throws SQLException {
         initComponents();
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
         this.setTitle("Accesorios Nauticos System");
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
-        
-        // Establecemos los indicadores
-        //// Variables a utilizar
-        List<Pedido> lista_pedido = AccesoriosNauticos.getLista_pedidos();
-        double total_ventas = 0.0, compra_tarnsito = 0.0;
-        Salida sal = new Salida();
-        Entrada ent = new Entrada();
-        //// Total de venta
-        for (Pedido p: lista_pedido){
-            if (p instanceof Salida){
-                sal = (Salida)p;
-                total_ventas+= sal.getGanancia();
-            }else{
-                ent = (Entrada)p;
-                if (ent.getFecha_recepcion() == null){
-                    for (Producto prod: ent.getProductos()) compra_tarnsito += prod.getPrecio_compra();
-                }
-            }
-        }
         // Actualizamos los datos
-        TComprasTransito.setText(compra_tarnsito + "$");
-        TTotalVentas.setText(total_ventas + "$");
+        TComprasTransito.setText(ControladorBDPedidos.calcularMontoTransito() + "$");
+        TTotalVentas.setText(ControladorBDPedidos.calcularGanancia()+ "$");
     }
 
     /**
@@ -298,7 +277,11 @@ public class Gestionar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Gestionar().setVisible(true);
+                try {
+                    new Gestionar().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Gestionar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

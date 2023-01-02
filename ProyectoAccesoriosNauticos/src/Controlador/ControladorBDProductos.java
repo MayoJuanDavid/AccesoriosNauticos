@@ -122,6 +122,77 @@ public class ControladorBDProductos {
         }
         return false;
     }
+    
+    // Metodo para crear un producto
+    public static boolean agregarProducto(Producto producto){
+        try {
+            // Hacemos la conexion
+            Statement sql = Conexion.getConexion().createStatement();
+            
+            // Determinamos la consulta
+            String Consulta = "INSERT INTO [AccesoriosNauticos].[dbo].Productos (nombre, imagen, disponibilidad, precio_compra, p_rentabilidad, pvpdetal, pvp2mayor, ganancia, categoria, no_visible)\n" +
+            "VALUES ('" + producto.getNombre() + "','',0,0,0.0,0,0,0,'" + producto.getCategoria() + "',1)";
+            sql.execute(Consulta);
+            
+        }catch (SQLException ex){
+            System.out.println("Error al agregar un producto de la lista");
+        }
+        return false;
+    }
+    
+    // Metodo para buscar un producto
+    public static Producto buscarProducto(int codigo){
+        Producto prod = null;
+        try {
+            // Hacemos la conexion
+            Statement sql = Conexion.getConexion().createStatement();
+            
+            // Determinamos la consulta
+            String Consulta = "SELECT * FROM [AccesoriosNauticos].[dbo].[Productos] WHERE no_visible = 1 and cod = " + codigo;
+            ResultSet Resultado = sql.executeQuery(Consulta);
+
+            if (Resultado.next()){
+                prod = new Producto(
+                    Integer.parseInt(Resultado.getString("cod")),
+                    Resultado.getString("nombre"),
+                    Integer.parseInt(Resultado.getString("disponibilidad")),
+                    Double.parseDouble(Resultado.getString("precio_compra")),
+                    Double.parseDouble(Resultado.getString("p_rentabilidad")),
+                    Double.parseDouble(Resultado.getString("pvpdetal")),
+                    Double.parseDouble(Resultado.getString("pvp2mayor")),
+                    Double.parseDouble(Resultado.getString("ganancia")),
+                    Resultado.getString("categoria"),
+                    Resultado.getString("imagen"));
+            }
+            
+            Resultado.close();
+            return prod;
+            
+        }catch (SQLException ex){
+            System.out.println("Error al consultar la lista ascendente de productos");
+        }
+        return prod;
+    }
+
+    // Metodo para modificar un producto
+    public static boolean modificarProducto(Producto producto){
+        try {
+            // Hacemos la conexion
+            Statement sql = Conexion.getConexion().createStatement();
+            
+            // Determinamos la consulta
+            String Consulta = "UPDATE [AccesoriosNauticos].[dbo].Productos \n" +
+            "SET nombre = '" + producto.getNombre() + "', imagen = '" + producto.getImagen() + "', disponibilidad = " + producto.getDisponibilidad() + 
+            ", precio_compra = " + producto.getPrecio_compra() + ", p_rentabilidad = " + producto.getPrentabilidad() + ", pvpdetal = " + producto.getPvpdetal() + 
+            ", pvp2mayor = " + producto.getPvp2mayor() + ", ganancia = " + producto.getGanancia() + ", categoria = '" + producto.getCategoria() + "'\n" +
+            "WHERE cod = " + producto.getCod();
+            sql.execute(Consulta);
+            
+        }catch (SQLException ex){
+            System.out.println("Error al agregar un producto de la lista");
+        }
+        return false;
+    }
 }
 
 

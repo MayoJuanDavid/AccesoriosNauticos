@@ -5,6 +5,7 @@
 package Vista;
 
 
+import Controlador.ControladorBDProductos;
 import Controlador.ControladorProducto;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
@@ -323,9 +324,11 @@ public class VisualizarProducto extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (Valor == JOptionPane.YES_OPTION) {
             // Invocamos el metodo del controlador
-            ControladorProducto.eliminarProducto(lista_productos, codigo);
+            ControladorBDProductos.eliminarProducto(codigo);
+            this.setVisible(false);
+            AccesoriosNauticos.setVVProductos();
+            AccesoriosNauticos.getVVProductos().setVisible(true);
         }
-        
     }//GEN-LAST:event_BEliminarActionPerformed
 
     // Accion para mostrar la imagen
@@ -335,17 +338,9 @@ public class VisualizarProducto extends javax.swing.JFrame {
 
     // Accion para buscar
     private void BBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BBuscarActionPerformed
-        
-        
         try{
             codigo = Integer.parseInt(CodigoEntrante.getText());
-            prod = null;
-            for (Producto auxprod: lista_productos){
-                if (auxprod.getCod() == codigo) {
-                    prod = auxprod;
-                    break;
-                }
-            }
+            prod = ControladorBDProductos.buscarProducto(codigo);
             // Verificamos si se consiguio
             if (prod != null)
             // Actualizamos los datos

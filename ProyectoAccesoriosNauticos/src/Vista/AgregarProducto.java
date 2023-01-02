@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Controlador.ControladorBDProductos;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
 import java.awt.event.WindowAdapter;
@@ -150,12 +151,12 @@ public class AgregarProducto extends javax.swing.JFrame {
                 tipoFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(tipoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
+        jPanel1.add(tipoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 140, -1, -1));
 
         nombretitulo2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo2.setForeground(new java.awt.Color(153, 153, 153));
-        nombretitulo2.setText("Tipo:");
-        jPanel1.add(nombretitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 60, 20));
+        nombretitulo2.setText("Categoría:");
+        jPanel1.add(nombretitulo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 100, 20));
 
         jButton2.setBackground(new java.awt.Color(0, 134, 190));
         jButton2.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
@@ -177,10 +178,10 @@ public class AgregarProducto extends javax.swing.JFrame {
                 nombreMousePressed(evt);
             }
         });
-        jPanel1.add(nombreField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 190, 20));
+        jPanel1.add(nombreField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 100, 180, 20));
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 190, 20));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 180, 20));
 
         nombretitulo3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         nombretitulo3.setForeground(new java.awt.Color(153, 153, 153));
@@ -201,10 +202,10 @@ public class AgregarProducto extends javax.swing.JFrame {
                 precioFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(precioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 180, 180, 20));
+        jPanel1.add(precioField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 180, 20));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 200, 190, 20));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 180, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -262,13 +263,9 @@ public class AgregarProducto extends javax.swing.JFrame {
             
             case -1:
                 
-                int max = AccesoriosNauticos.getLista_productos().size();
+                Producto prod = new Producto(0, nombre, 0, Double.parseDouble(precio),0,0,0,0, tipo, "");
                 
-                int newCod = AccesoriosNauticos.getLista_productos().get(max-1).getCod();
-                
-                Producto p = new Producto(newCod+1,nombre,1,Double.parseDouble(precio),0,0,0,0,tipo, "");
-                
-                AccesoriosNauticos.agregarProducto(p);
+                ControladorBDProductos.agregarProducto(prod);
                 
                 new Mensaje("Producto: "+ nombre+ " agregado exitosamente!",jButton2, "Producto agregado!").setVisible(true);
                 

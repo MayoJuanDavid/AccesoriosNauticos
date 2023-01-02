@@ -363,4 +363,34 @@ public class ControladorBDPedidos {
         sql.execute(Consulta);
     }
 
+    // Metodo para calcular el total de ganancia
+    public static double calcularGanancia() throws SQLException{
+        // Establecemos conexion
+        Statement sql = Conexion.getConexion().createStatement();
+        
+        // Determinamos la consulta
+        String Consulta = "SELECT SUM(ganancia) as ganancia FROM [AccesoriosNauticos].[dbo].Salidas";
+        ResultSet resultado = sql.executeQuery(Consulta);
+        
+        // Retornamos los datos
+        resultado.next();
+        return Double.parseDouble(resultado.getString(1));
+    }
+    
+    // Metodo para calcular el monto en transito
+    public static double calcularMontoTransito() throws SQLException{
+        // Establecemos conexion
+        Statement sql = Conexion.getConexion().createStatement();
+        
+        // Determinamos la consulta
+        String Consulta = "SELECT SUM(monto_pagar) as monto FROM [AccesoriosNauticos].[dbo].Entradas WHERE f_recepcion is null;";
+        ResultSet resultado = sql.executeQuery(Consulta);
+        
+        // Retornamos los datos
+        resultado.next();
+        return Double.parseDouble((resultado.getString(1) == null)? "0.0": resultado.getString(1));
+    }
+    
+    
+    
 }
