@@ -6,14 +6,18 @@
 
 package Vista;
 
+import Controlador.ControladorBDPedidos;
 import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Salida;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
@@ -23,19 +27,19 @@ import javax.swing.JFrame;
  */
 public class VerPedidos extends javax.swing.JFrame {
 
-    private List<Pedido> lista_pedido;
+    private Pedido pedido;
     private int indice;
     
-    public VerPedidos() {
+    public VerPedidos() throws ParseException {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
         BAtras.setEnabled(false);
+        pedido = ControladorBDPedidos.consultarPedidoPost(new Entrada());    
         indice = 0;
-        lista_pedido = AccesoriosNauticos.getLista_pedidos();          
-        actualizarInfo(lista_pedido.get(indice));
+        actualizarInfo(pedido);
     }
 
     /**
@@ -336,7 +340,8 @@ public class VerPedidos extends javax.swing.JFrame {
     // Boton para ver los productos de un pedido
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Actualizamos los datos de la ventana pedidos
-        AccesoriosNauticos.getVPedidos().actualizar(lista_pedido.get(indice).getCod(), lista_pedido);
+        AccesoriosNauticos.setVPedidos(pedido);
+        //AccesoriosNauticos.getVPedidos().actualizarLista(pedido);
         // Modificamos la visualizacion
         this.setVisible(false);
         AccesoriosNauticos.getVPedidos().setVisible(true);
@@ -344,18 +349,28 @@ public class VerPedidos extends javax.swing.JFrame {
 
     // Accion de pulsar el boton de atras
     private void BAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAtrasActionPerformed
-        indice--;
-        if (indice == 0) BAtras.setEnabled(false);
-        BDelante.setEnabled(true);
-        actualizarInfo(lista_pedido.get(indice));
+        try{
+            indice--;
+            if (indice == 0) BAtras.setEnabled(false);
+            BDelante.setEnabled(true);
+            pedido = ControladorBDPedidos.consultarPedidoAnt(pedido);  
+            actualizarInfo(pedido);
+        }catch (ParseException ext){
+            System.out.println("Hubo un error al parsear la fecha");
+        }
     }//GEN-LAST:event_BAtrasActionPerformed
 
     // Accion de pulsar el boton de adelante
     private void BDelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BDelanteActionPerformed
-        indice++;
-        if (indice+1 == lista_pedido.size()) BDelante.setEnabled(false);
-        BAtras.setEnabled(true);
-        actualizarInfo(lista_pedido.get(indice));
+        try{
+            indice++;
+            BAtras.setEnabled(true);
+            pedido = ControladorBDPedidos.consultarPedidoPost(pedido);  
+            actualizarInfo(pedido);
+            if (ControladorBDPedidos.verificarUltimoPedido(pedido)) BDelante.setEnabled(false);
+        }catch (ParseException ext){
+            System.out.println("Hubo un error al parsear la fecha");
+        }
     }//GEN-LAST:event_BDelanteActionPerformed
 
     //Accion de crear un pedido
@@ -442,7 +457,11 @@ public class VerPedidos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VerPedidos().setVisible(true);
+                try {
+                    new VerPedidos().setVisible(true);
+                } catch (ParseException ex) {
+                    Logger.getLogger(VerPedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -685,7 +685,6 @@ public class Inventario extends JFrame {
         PArticulos.add(Articulo1);
         PArticulos.add(Articulo2);
         
-        
         //Determinamos el Comportamineto de los Botones de Anterior y Posterior
         limite = 6;
         confPosAnt(1, Posterior);
@@ -733,7 +732,7 @@ public class Inventario extends JFrame {
         accionCategorias();
     }
     //Accion del boton de pedidos
-     public void accionPedidos(JButton Accion){
+    public void accionPedidos(JButton Accion){
         ActionListener b = (ActionEvent e) -> {
             this.setVisible(false);
             AccesoriosNauticos.getVVPedidos().setVisible(true);

@@ -1,6 +1,8 @@
 package Vista;
 
+import Controlador.ControladorBDPedidos;
 import Controlador.ControladorPedido;
+import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
@@ -11,8 +13,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,6 +40,7 @@ public class Pedidos extends JFrame {
     public List<Producto> PListaAux = new ArrayList<Producto>();
     public List<Pedido> PPedLista = new ArrayList<Pedido>();                    //Lista de pedidos
     public Pedido pedido;
+    public String Categoria = "Electronico";
     
         //PANELES DEL LADO DERECHO
     public JPanel PPedido = new JPanel();
@@ -132,6 +139,12 @@ public class Pedidos extends JFrame {
     public JLabel Articulo4 = new JLabel();
     public JLabel Articulo5 = new JLabel();
     public JLabel Articulo6 = new JLabel();
+    public JLabel foto1 = new JLabel();
+    public JLabel foto2 = new JLabel();
+    public JLabel foto3 = new JLabel();
+    public JLabel foto4 = new JLabel();
+    public JLabel foto5 = new JLabel();
+    public JLabel foto6 = new JLabel();
 
         //TEXTOS E IMAGENES PARA REPRESENTAR LOS BOTONES DE ACCION DE LOS CATALOGOS
     public JLabel TextoPedido = new JLabel();
@@ -187,16 +200,18 @@ public class Pedidos extends JFrame {
     public ImageIcon fondo = new ImageIcon("src/Imagenes/fondo.jpeg");
     
     public int limite = 0;
+    private Pedido ped = new Entrada();
     
     // Constructor
-    public Pedidos(){
+    public Pedidos(Pedido pedido){
         this.setSize(1315, 839); //tamano
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
         this.setTitle("Accesorios Nauticos System");
         this.setLayout(null);
-        PLista = AccesoriosNauticos.getLista_productos();
-        PPedLista = AccesoriosNauticos.getLista_pedidos();     
+        if (pedido != null){
+            ped = pedido;
+        }
         this.parteDerecha();
         this.parteIzquierda();
         this.parteCentro();
@@ -373,6 +388,8 @@ public class Pedidos extends JFrame {
         PFinalizacion.add(Finalizar); 
             //Visibilidad
         PFinalizacion.setVisible(true);
+        if (ped.getFecha_recepcion() != null) Finalizar.setEnabled(false);
+        else Finalizar.setEnabled(true);
     }
         
     //LADO IZQUIERDO
@@ -618,7 +635,7 @@ public class Pedidos extends JFrame {
     //Metodo que Gestiona los Articulos que se colocan en el Catalogo
     public void panelArticulos() {
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
-        Lista = PLista.subList(0, 6);
+        Lista = ControladorBDPedidos.listaProductosVisiblesPost(0, ped, Categoria);
         
         //Se establece la configuracion del Panel
         PArticulos.setLayout(null);
@@ -646,6 +663,12 @@ public class Pedidos extends JFrame {
         
         //Agregando los articulos
         agregarArticulos();
+        PArticulos.add(foto1);
+        PArticulos.add(foto2);
+        PArticulos.add(foto3);
+        PArticulos.add(foto4);
+        PArticulos.add(foto5);
+        PArticulos.add(foto6);
         PArticulos.add(Articulo6);
         PArticulos.add(Articulo5);
         PArticulos.add(Articulo4);
@@ -657,7 +680,8 @@ public class Pedidos extends JFrame {
         limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
-        detPosAnt(PLista);
+        detPosAnt();
+        deshabilitarBotones();
         
         //Boton Anterior
         Anterior.setBounds(1, 25, 23, 635);                                     //Posicion y Dimension  
@@ -733,15 +757,23 @@ public class Pedidos extends JFrame {
             int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de finalizar el pedido?\nse asignará la fecha actual como fecha de recepción", "Advertencia",
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (Valor == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "¡¡Se ha finalizado el pedido exitosamente!!", "Confirmacion",
-                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
-                AccesoriosNauticos.finalizarPedido(pedido.getCod());
+                try {
+                    ControladorBDPedidos.finalizarPedido(ped);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 AccesoriosNauticos.getVPedidos().setVisible(false);
-                AccesoriosNauticos.setVVPedidos();
+                try {
+                    AccesoriosNauticos.setVVPedidos();
+                } catch (ParseException ex) {
+                    Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 AccesoriosNauticos.setVCEntrada();
                 AccesoriosNauticos.setVAProd(); 
-                AccesoriosNauticos.setVPedidos();
+                AccesoriosNauticos.setVPedidos(null);
                 AccesoriosNauticos.getVVPedidos().setVisible(true);
+                JOptionPane.showMessageDialog(null, "¡¡Se ha finalizado el pedido exitosamente!!", "Confirmacion",
+                    JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
             }
         };
         Finalizar.addActionListener(Acccion);
@@ -759,15 +791,14 @@ public class Pedidos extends JFrame {
         //Accion del Boton de categorias
         ActionListener Acccion = (ActionEvent e) -> {
             limite = 6;
-            PListaAux = AccesoriosNauticos.getListaCategoria(cat, PLista);
-            Lista = PListaAux.subList(0, (PListaAux.size() < 6)? PListaAux.size(): 6);
+            this.Categoria = cat;
+            Lista = ControladorBDPedidos.listaProductosVisiblesPost(0, ped, cat);
             Anterior.setEnabled(false);
             Posterior.setEnabled(true);          
-            detPosAnt(PListaAux);
+            detPosAnt();
             agregarArticulos();
             deshabilitarBotones();
             limpiarInfo();
-            
         };
         Categoria.addActionListener(Acccion);
     }
@@ -775,49 +806,69 @@ public class Pedidos extends JFrame {
     //METODOS DE FUNCIONALIDAD
     //Metodo que Agrega las Imagenes en un Catalogo
     public void agregarArticulos() {
-        confImagenes(1, 0, Articulo1);
-        confImagenes(2, 1, Articulo2);
-        confImagenes(3, 2, Articulo3);
-        confImagenes(4, 3, Articulo4);
-        confImagenes(5, 4, Articulo5);
-        confImagenes(6, 5, Articulo6);
+        confImagenes(1, 0, Articulo1, foto1);
+        confImagenes(2, 1, Articulo2, foto2);
+        confImagenes(3, 2, Articulo3, foto3);
+        confImagenes(4, 3, Articulo4, foto4);
+        confImagenes(5, 4, Articulo5, foto5);
+        confImagenes(6, 5, Articulo6, foto6);
     }
     //Configuracion de los Botones de Informacion
     public void confInformacion(int Lim, JButton Info){
-        //Determinamos si es Neceasario Imprimir el Boton, Gracias a la Longitud de la Lista
-        if (Lista.size() >= Lim) {
-            //Determinamos la Posicion del Boton
-            if (Lim == 1) Info.setBounds(40, 275, 45, 45);
-            if (Lim == 2) Info.setBounds(295, 275, 45, 45);
-            if (Lim == 3) Info.setBounds(550, 275, 45, 45);
-            if (Lim == 4) Info.setBounds(40, 605, 45, 45);
-            if (Lim == 5) Info.setBounds(295, 605, 45, 45);
-            if (Lim == 6) Info.setBounds(550, 605, 45, 45);
-            //Configuracion del Boton
-            Info.setIcon(ImagenLupa);
-            Info.setBackground(new Color(255, 255, 255, 0));
-            Info.setBorderPainted(false);
-            Info.setOpaque(false);
-            //Agragar al Panel
-            PArticulos.add(Info);
-        }
+        //Determinamos la Posicion del Boton
+        if (Lim == 1) Info.setBounds(40, 275, 45, 45);
+        if (Lim == 2) Info.setBounds(295, 275, 45, 45);
+        if (Lim == 3) Info.setBounds(550, 275, 45, 45);
+        if (Lim == 4) Info.setBounds(40, 605, 45, 45);
+        if (Lim == 5) Info.setBounds(295, 605, 45, 45);
+        if (Lim == 6) Info.setBounds(550, 605, 45, 45);
+        //Configuracion del Boton
+        Info.setIcon(ImagenLupa);
+        Info.setBackground(new Color(255, 255, 255, 0));
+        Info.setBorderPainted(false);
+        Info.setOpaque(false);
+        //Agragar al Panel
+        PArticulos.add(Info);
     }
     //Metodo que Determina el Estado de las Fotos de los Articulos
-    public void confImagenes(int Lim, int Pos, JLabel Imagen){
+    public void confImagenes(int Lim, int Pos, JLabel Imagen, JLabel Foto){
         if (Lista.size() >= Lim) {
-            if (Lim == 1) Imagen.setBounds(25, 25, 240, 305);
-            if (Lim == 2) Imagen.setBounds(280, 25, 240, 305);
-            if (Lim == 3) Imagen.setBounds(535, 25, 240, 305);
-            if (Lim == 4) Imagen.setBounds(25, 355, 240, 305);
-            if (Lim == 5) Imagen.setBounds(280, 355, 240, 305);
-            if (Lim == 6) Imagen.setBounds(535, 355, 240, 305);
-            if (!Lista.get(Pos).getImagen().equals("")) Imagen.setIcon(new ImageIcon("src/Imagenes/foto camisas" + Lista.get(Pos).getImagen() + ".png"));
-            else {
-                Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
-                
+            if (Lim == 1){ 
+                Imagen.setBounds(25, 25, 240, 305);
+                Foto.setBounds(30,30,230,230);
             }
+            if (Lim == 2){
+                Imagen.setBounds(280, 25, 240, 305);
+                Foto.setBounds(285,30,230,230);
+            }
+            if (Lim == 3){
+                Imagen.setBounds(535, 25, 240, 305);
+                Foto.setBounds(540,30,230,230);
+            }
+            if (Lim == 4) {
+                Imagen.setBounds(25, 355, 240, 305);
+                Foto.setBounds(30,360,230,230);
+            }
+            if (Lim == 5) {
+                Imagen.setBounds(280, 355, 240, 305);
+                Foto.setBounds(285,360,230,230);
+            }
+            if (Lim == 6) {
+                Imagen.setBounds(535, 355, 240, 305);
+                Foto.setBounds(540,360,230,230);
+            }
+            if (!Lista.get(Pos).getImagen().equals("")){
+                rsscalelabel.RSScaleLabel.setScaleLabel(Foto, "src/Imagenes/Productos/" + Lista.get(Pos).getImagen());
+                Foto.setVisible(true);
+            }
+            else Foto.setVisible(false);
+            Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
             Imagen.setVisible(true);
-        }else Imagen.setVisible(false);
+            
+        }else{
+            Imagen.setVisible(false);
+            Foto.setVisible(false);
+        }
     }
     //Configuracion de las Acciones de Botones Posterior y Anterios
     public void confPosAnt(int ID, JButton Direccion){
@@ -834,25 +885,24 @@ public class Pedidos extends JFrame {
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Posterior
     public void cambioDePaginaF() {
-        Lista = PListaAux.subList(limite, ((PListaAux.size() - limite) < 6)? limite + (PListaAux.size() - limite): limite + 6);
+        Lista = ControladorBDPedidos.listaProductosVisiblesPost(Lista.get(Lista.size()-1).getCod(), ped, Categoria);
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
         limite += 6;
-        detPosAnt(PListaAux);
-        //Limpiar();
+        detPosAnt();
+        limpiarInfo();
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Anterior
     public void cambioDePaginaB() {
-        Lista = PListaAux.subList(0, 6);
+        Lista = ControladorBDPedidos.listaProductosVisiblesAnt(Lista.get(0).getCod(), ped, Categoria);
         agregarArticulos();
         deshabilitarBotones();
-        
         Anterior.setEnabled(false);
         Posterior.setEnabled(true);
         limite = 6;
-        detPosAnt(PListaAux);
-        //Limpiar();
+        detPosAnt();
+        limpiarInfo();
     }
     //Metodo que Determina que Botones Estaran Disponibles y Cuales no
     public void deshabilitarBotones() {
@@ -874,8 +924,9 @@ public class Pedidos extends JFrame {
         }
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
-    public void detPosAnt(List<Producto> list){
-        if (limite >= list.size()) Posterior.setEnabled(false);
+    public void detPosAnt(){
+        if (Lista.isEmpty() || ControladorBDPedidos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), ped, Categoria)) 
+            Posterior.setEnabled(false);
         else Posterior.setEnabled(true);
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
@@ -890,21 +941,6 @@ public class Pedidos extends JFrame {
         TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
         TGanancia.setText("Ganancia: " + ganancia + "$");
     }
-    // Metodos setters y getters
-    public void actualizar(int cod, List<Pedido> lista){
-        pedido = ControladorPedido.buscarPedido(cod, lista);
-        limite = 6;
-        PLista = pedido.getProductos();
-        PListaAux = PLista;
-        Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
-        deshabilitarBotones();
-        agregarArticulos();
-        detPosAnt(PLista);
-        
-        // Verificamos si deshabilitamos el finalizar o no
-        if (pedido.getFecha_recepcion() != null) Finalizar.setEnabled(false);
-        else Finalizar.setEnabled(true);
-    }
     // Limpiar informacion
     public void limpiarInfo(){
         TCodigo.setText("Código: ");
@@ -918,7 +954,6 @@ public class Pedidos extends JFrame {
         TGanancia.setText("Ganancia: 0.0$");
     }
 
-    
     //Configuracion que cambia el aspecto general de los botones
     //public void confGeneral(){
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -942,4 +977,15 @@ public class Pedidos extends JFrame {
             java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }*/
+    
+    // Metodo para actualizar la lista
+    public void actualizarLista(Pedido ped){
+        // Actualizamos el pedido
+        this.ped = ped;
+        // Actualizamos la lista y la vista
+        Lista = ControladorBDPedidos.listaProductosVisiblesPost(0, ped, "Electronico");
+        agregarArticulos();
+        deshabilitarBotones();
+        detPosAnt();
+    }
 }

@@ -102,7 +102,7 @@ public class ControladorPedido {
     
     // CRUD
     //// Metodo para crear una nueva entrada
-    public static void crearEntrada(Entrada entrada, String proveedor, int codigo, List<Pedido> lista_ped){
+    public static void crearEntrada(Entrada entrada, String proveedor, int codigo, List<Pedido> lista_ped) throws ParseException{
         //// Fecha
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = dateFormat.format(new Date());
@@ -139,7 +139,7 @@ public class ControladorPedido {
         AccesoriosNauticos.getVVPedidos().setVisible(true);
     }
     //// Metodo para crear una nueva salida
-    public static void crearSalida(Salida salida, int codigo, List<Pedido> lista_ped){
+    public static void crearSalida(Salida salida, int codigo, List<Pedido> lista_ped) throws ParseException{
         //// Fecha
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = dateFormat.format(new Date());

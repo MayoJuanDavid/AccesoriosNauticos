@@ -21,7 +21,11 @@ import Vista.Login;
 import Vista.Pedidos;
 import Vista.VerPedidos;
 import Vista.VisualizarProducto;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AccesoriosNauticos {
@@ -31,8 +35,8 @@ public class AccesoriosNauticos {
     //// Ventanas
     private static Login Ventana = new Login();
     private static Inventario VInventario = new Inventario();
-    private static Pedidos VPedidos = new Pedidos();
-    private static VerPedidos VVPedidos = new VerPedidos();
+    private static Pedidos VPedidos = new Pedidos(null);
+    private static VerPedidos VVPedidos;
     private static VisualizarProducto VVProductos = new VisualizarProducto();
     private static Gestionar VGestionar = new Gestionar();
     private static AgregarProducto VAProducto = new AgregarProducto();
@@ -54,10 +58,11 @@ public class AccesoriosNauticos {
     private static Salida NSalida = new Salida();
     
     // Programa pricipal
-    public static void main (String[] args){
+    public static void main (String[] args) throws ParseException{
+        VVPedidos = new VerPedidos();
         //lista_productos = getBD();
         //Ventana.setVisible(true);
-        VInventario.setVisible(true);        
+        VInventario.setVisible(true);   
         /*lista_productos = ControladorBDProductos.listaProductosVisiblesPost(0);
         for(Producto p: lista_productos){
             System.out.println(p.imprimir());
@@ -152,7 +157,7 @@ public class AccesoriosNauticos {
     public static void setVVProductos() {
         AccesoriosNauticos.VVProductos = new VisualizarProducto();
     }
-    public static void setVVPedidos() {
+    public static void setVVPedidos() throws ParseException {
         AccesoriosNauticos.VVPedidos = new VerPedidos();
     }
     public static void setVCEntrada() {
@@ -164,8 +169,8 @@ public class AccesoriosNauticos {
     public static void setVAProd() {
         AccesoriosNauticos.VAProd = new AsignarProd();
     }
-    public static void setVPedidos() {
-        AccesoriosNauticos.VPedidos = new Pedidos();
+    public static void setVPedidos(Pedido ped) {
+        AccesoriosNauticos.VPedidos = new Pedidos(ped);
     }
     
     // Metodos de eliminacion    
