@@ -4,7 +4,6 @@ import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
 import Modelo.Salida;
-import Vista.CrearEntrada;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,9 +12,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
 
 // Controlador para los pedidos en la bd
 public class ControladorBDPedidos {
@@ -126,12 +125,19 @@ public class ControladorBDPedidos {
         try {
             // Hacemos la conexion
             Statement sql = Conexion.getConexion().createStatement();
-            
-            // Determinamos la consulta
-            String Consulta = "SELECT TOP (6) MAX(DISTINCT prod.cod) as Maximo\n" +
-            "FROM [AccesoriosNauticos].[dbo].[Entradas] ent LEFT JOIN [AccesoriosNauticos].[dbo].Ent_Prod epr on ent.cod = epr.cod_entrada\n" +
-            "LEFT JOIN [AccesoriosNauticos].[dbo].Productos prod on epr.cod_producto = prod.cod\n" +
-            "WHERE ent.cod = " + ped.getCod() + " and categoria = '" + cat + "'";
+            String Consulta = "";
+            if (ped instanceof Entrada){
+                // Determinamos la consulta
+                Consulta = "SELECT TOP (6) MAX(DISTINCT prod.cod) as Maximo\n" +
+                "FROM [AccesoriosNauticos].[dbo].[Entradas] ent LEFT JOIN [AccesoriosNauticos].[dbo].Ent_Prod epr on ent.cod = epr.cod_entrada\n" +
+                "LEFT JOIN [AccesoriosNauticos].[dbo].Productos prod on epr.cod_producto = prod.cod\n" +
+                "WHERE ent.cod = " + ped.getCod() + " and categoria = '" + cat + "'";
+            }else{
+                Consulta = "SELECT TOP (6) MAX(DISTINCT prod.cod) as Maximo\n" +
+                "FROM [AccesoriosNauticos].[dbo].[Salidas] sal LEFT JOIN [AccesoriosNauticos].[dbo].Sal_Prod spr on sal.cod = spr.cod_salida\n" +
+                "LEFT JOIN [AccesoriosNauticos].[dbo].Productos prod on spr.cod_producto = prod.cod\n" +
+                "WHERE sal.cod = " + ped.getCod() + " and categoria = '" + cat + "'";
+            }
             ResultSet Resultado = sql.executeQuery(Consulta);
             
             Resultado.next();
@@ -356,11 +362,36 @@ public class ControladorBDPedidos {
         String date = dateFormat.format(new Date());
         Statement sql = Conexion.getConexion().createStatement();
         String Consulta = "";
+        // Actualizamos el pedido con una nueva fecha de recepcion
         if (ped instanceof Entrada)
             Consulta = "UPDATE Entradas SET f_recepcion = '" + date + "' WHERE cod = " + ped.getCod();
         else
             Consulta = "UPDATE Salidas SET f_recepcion = '" + date + "' WHERE cod = " + ped.getCod();
         sql.execute(Consulta);
+        
+        Consulta = "";
+        // Actualizamos la existencia de los productos
+        if (ped instanceof Entrada){
+            // Buscamos los productos del pedido
+            Consulta = "SELECT [cantidad],[cod_producto]\n" +
+            "FROM [AccesoriosNauticos].[dbo].[Ent_Prod] WHERE cod_entrada = " + ped.getCod();
+            ResultSet resultado = sql.executeQuery(Consulta);
+            
+            Consulta = "";
+            // Cambiamos uno por uno los productos
+            while (resultado.next()){
+                // Almacenamos los datos
+                int cod = Integer.parseInt(resultado.getString("cod_producto"));
+                int cantidad = Integer.parseInt(resultado.getString("cantidad"));
+                // Armamos la consulta
+                Consulta += "UPDATE [AccesoriosNauticos].[dbo].[Productos] SET disponibilidad = (\n" +
+                "SELECT disponibilidad\n" +
+                "FROM [AccesoriosNauticos].[dbo].[Productos] WHERE cod = " + cod + ") + " + cantidad + " WHERE cod = " + cod + ";\n";
+            }
+            // Ejecutamos la consulta
+            resultado.close();
+            sql.execute(Consulta);
+        }
     }
 
     // Metodo para calcular el total de ganancia
@@ -391,6 +422,81 @@ public class ControladorBDPedidos {
         return Double.parseDouble((resultado.getString(1) == null)? "0.0": resultado.getString(1));
     }
     
-    
-    
+    // Metodo para crear un pedido
+    @SuppressWarnings({"UnusedAssignment", "SuspiciousIndentAfterControlStatement"})
+    public static void crearPedido(Map<Integer, Integer> listaProductos, double ganancia, double monto_pagar, String proveedor, int ped) throws SQLException{
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = dateFormat.format(new Date());
+        Statement sql = Conexion.getConexion().createStatement();
+        String Consulta = "", Registro = "";
+        listaProductos.remove(0);
+        
+        // Creamos el pedido
+        if (ped == 1)
+            // Creamos el pedido
+            Consulta = "INSERT INTO [AccesoriosNauticos].[dbo].[Entradas] (f_emision, f_recepcion, monto_pagar, proveedor)\n" +
+            "  VALUES ('" + date + "',NULL," + monto_pagar + ",'" + proveedor + "')";
+        else
+            Consulta = "  INSERT INTO [AccesoriosNauticos].[dbo].Salidas (f_emision, f_recepcion, monto_pagar, ganancia)\n" +
+            "  VALUES ('" + date + "',NULL," + monto_pagar + ", " + ganancia + ")";
+        sql.execute(Consulta);
+        
+        // Ingresamos los productos
+        if (ped == 1){
+            // Buscamos el pedido creado
+            Consulta = "SELECT MAX(cod) as cod FROM [AccesoriosNauticos].[dbo].[Entradas]";
+            ResultSet listaRes = sql.executeQuery(Consulta);
+            listaRes.next();
+            int cod = Integer.parseInt(listaRes.getString(1));
+            
+            // Creamos la consulta
+            Consulta = "INSERT INTO [AccesoriosNauticos].[dbo].Ent_Prod (cod_entrada, cod_producto, cantidad, iva)\n" +
+            "VALUES ";
+            // Agregamos los registros
+            Iterator it = listaProductos.keySet().iterator();
+            while(it.hasNext()){
+                int codigo = (int)it.next();
+                Registro = "(" + cod + "," + codigo + "," + listaProductos.get(codigo) + ",5),";
+                Consulta += Registro;
+            }
+            System.out.println(Consulta);
+            Consulta = Consulta.replaceFirst(".$", "");
+        }else{
+            // Buscamos el pedido creado
+            Consulta = "SELECT MAX(cod) as cod FROM [AccesoriosNauticos].[dbo].Salidas";
+            ResultSet listaRes = sql.executeQuery(Consulta);
+            listaRes.next();
+            int cod = Integer.parseInt(listaRes.getString(1));
+            
+            // Creamos la consulta
+            Consulta = "INSERT INTO [AccesoriosNauticos].[dbo].Sal_Prod (cod_salida, cod_producto, cantidad, iva)\n" +
+            "VALUES ";
+            // Agregamos los registros
+            Iterator it = listaProductos.keySet().iterator();
+            while(it.hasNext()){
+                int codigo = (int)it.next();
+                Registro = "(" + cod + "," + codigo + "," + listaProductos.get(codigo) + ",5),";
+                Consulta += Registro;
+            }
+            Consulta = Consulta.replaceFirst(".$", "");
+        }
+        
+        sql.execute(Consulta);
+        
+        // Actualizamos los productos con la nueva disponibilidad si son de salida
+        if (ped != 1){
+            Iterator it = listaProductos.keySet().iterator();
+            while(it.hasNext()){
+                // Almacenamos los datos
+                int cod = (int)it.next();
+                int cantidad = listaProductos.get(cod);
+                // Armamos la consulta
+                Consulta = "UPDATE [AccesoriosNauticos].[dbo].[Productos] SET disponibilidad = (\n" +
+                "SELECT disponibilidad\n" +
+                "FROM [AccesoriosNauticos].[dbo].[Productos] WHERE cod = " + cod + ") - " + cantidad + " WHERE cod = " + cod;
+                // Ejecutamos la consulta
+                sql.execute(Consulta);
+            }
+        }
+    }
 }

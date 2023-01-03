@@ -4,17 +4,16 @@
  */
 package Vista;
 
-import Controlador.ControladorPedido;
+import Controlador.ControladorBDPedidos;
 import Modelo.Entrada;
 import Modelo.Pedido;
-import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
-import java.text.DateFormat;
+import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -27,9 +26,11 @@ import javax.swing.JOptionPane;
  */
 public class CrearEntrada extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CrearPedido
-     */
+    // Variables a utilziar
+    private Map<Integer, Integer> listaProductos = new HashMap<>(); 
+    private String proveedor = "";
+    private Double monto_pagar = 0.0;
+    
     public CrearEntrada() {
         initComponents();
         this.setLocationRelativeTo(null); // medio de la pantalla
@@ -168,18 +169,32 @@ public class CrearEntrada extends javax.swing.JFrame {
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (Valor == JOptionPane.YES_OPTION) {
             // Variables a utilizar
-            String proveedor = IProveedor.getText();
-            Entrada entrada = AccesoriosNauticos.getNEntrada();
-            List<Pedido> lista_ped = AccesoriosNauticos.getLista_pedidos();
-            int codigo = lista_ped.get(lista_ped.size() - 1).getCod() + 1;
+            proveedor = IProveedor.getText();
+            
+
             // Verificamos si los datos son correctos
             if (proveedor.length() == 0 || proveedor.equalsIgnoreCase("Ingrese el Proveedor")){
                 JOptionPane.showMessageDialog(null, "Ingrese un nombre de proveedor válido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
-            }else if (entrada.getProductos().size() == 0){
+            }else if (listaProductos.isEmpty()){
                 JOptionPane.showMessageDialog(null, "Debe de ingresar al menos un producto en el pedido", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
             }else{
-                // Invocamos el controlador
-                ControladorPedido.crearEntrada(entrada, proveedor, codigo, lista_ped);
+                try {
+                    ControladorBDPedidos.crearPedido(listaProductos, 0, monto_pagar, proveedor, 1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                JOptionPane.showMessageDialog(null, "¡¡La entrada se ha agregado con exito!!", "Confirmacion",
+                            JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+                this.setVisible(false);
+                AccesoriosNauticos.setVAProd();
+                AccesoriosNauticos.setVCEntrada();
+                try {
+                    AccesoriosNauticos.setVVPedidos();
+                } catch (ParseException ex) {
+                    Logger.getLogger(CrearEntrada.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                AccesoriosNauticos.getVVPedidos().setVisible(true);
+                
             }
         }
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -202,9 +217,16 @@ public class CrearEntrada extends javax.swing.JFrame {
     // Accion de asignar los productos
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         this.setVisible(false);
+        AccesoriosNauticos.getVAProd().setTipo(1);
         AccesoriosNauticos.getVAProd().setVisible(true);
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    public void setLProductosMontoP(Map<Integer, Integer> listaProductos, double monto_pagar) {
+        listaProductos.remove(0);
+        this.listaProductos = listaProductos;
+        this.monto_pagar = monto_pagar;
+    }
+    
     /**
      * @param args the command line arguments
      */

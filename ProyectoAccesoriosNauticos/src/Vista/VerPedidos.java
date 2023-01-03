@@ -72,6 +72,8 @@ public class VerPedidos extends javax.swing.JFrame {
         IGanProvee = new javax.swing.JLabel();
         exitBtn = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
+        TMontoP = new javax.swing.JLabel();
+        IMontoP = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -225,6 +227,14 @@ public class VerPedidos extends javax.swing.JFrame {
             .addComponent(exitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        TMontoP.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        TMontoP.setForeground(new java.awt.Color(153, 153, 153));
+        TMontoP.setText("Monto Pagar: ");
+
+        IMontoP.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
+        IMontoP.setForeground(new java.awt.Color(153, 153, 153));
+        IMontoP.setText(" ");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -233,24 +243,30 @@ public class VerPedidos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(LFechaL)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(IFechaL, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(LFechaP)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(IFechaP, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(favicon)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(LFechaP)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(IFechaP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(LFechaL)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(IFechaL, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(TMontoP)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(IMontoP, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(TipoPedido)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(ITipoP, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(TGanProvee))
+                                        .addGap(88, 88, 88)
+                                        .addComponent(TGanProvee, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(LCodigo)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -259,7 +275,7 @@ public class VerPedidos extends javax.swing.JFrame {
                                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(IGanProvee, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE))
+                        .addGap(18, 18, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -303,7 +319,9 @@ public class VerPedidos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(LFechaL)
-                            .addComponent(IFechaL))
+                            .addComponent(IFechaL)
+                            .addComponent(TMontoP)
+                            .addComponent(IMontoP))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(TipoPedido)
@@ -341,7 +359,6 @@ public class VerPedidos extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Actualizamos los datos de la ventana pedidos
         AccesoriosNauticos.setVPedidos(pedido);
-        //AccesoriosNauticos.getVPedidos().actualizarLista(pedido);
         // Modificamos la visualizacion
         this.setVisible(false);
         AccesoriosNauticos.getVPedidos().setVisible(true);
@@ -414,6 +431,7 @@ public class VerPedidos extends javax.swing.JFrame {
         ICodigo.setText("" + ped.getCod());
         IFechaP.setText(fechaETexto);
         IFechaL.setText(fechaRTexto);
+        IMontoP.setText(ped.getMonto_pagar() + "$");
         ITipoP.setText((ped instanceof Entrada)? "Entrada": "Salida");
         
         if (ped instanceof Entrada){
@@ -473,6 +491,7 @@ public class VerPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel IFechaL;
     private javax.swing.JLabel IFechaP;
     private javax.swing.JLabel IGanProvee;
+    private javax.swing.JLabel IMontoP;
     private javax.swing.JLabel ITipoP;
     private javax.swing.JLabel LCodigo;
     private javax.swing.JLabel LFechaL;
@@ -480,6 +499,7 @@ public class VerPedidos extends javax.swing.JFrame {
     private javax.swing.JLabel LIcono;
     private javax.swing.JLabel LVPedidos;
     private javax.swing.JLabel TGanProvee;
+    private javax.swing.JLabel TMontoP;
     private javax.swing.JLabel TipoPedido;
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;

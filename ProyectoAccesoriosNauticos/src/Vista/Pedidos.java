@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.ControladorBDPedidos;
-import Controlador.ControladorPedido;
 import Modelo.Entrada;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -750,7 +749,7 @@ public class Pedidos extends JFrame {
         };
         Info.addActionListener(Acccion);
     }
-    //Metodo para la accion de buscar producto
+    //Metodo para la accion de finalizar pedido
     public void accionFinalizar(JButton Finalizar) {
         //Accion del Boton de Informacion
         ActionListener Acccion = (ActionEvent e) -> {
@@ -768,8 +767,8 @@ public class Pedidos extends JFrame {
                 } catch (ParseException ex) {
                     Logger.getLogger(Pedidos.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                AccesoriosNauticos.setVCEntrada();
                 AccesoriosNauticos.setVAProd(); 
+                AccesoriosNauticos.setVPrincipal();
                 AccesoriosNauticos.setVPedidos(null);
                 AccesoriosNauticos.getVVPedidos().setVisible(true);
                 JOptionPane.showMessageDialog(null, "¡¡Se ha finalizado el pedido exitosamente!!", "Confirmacion",

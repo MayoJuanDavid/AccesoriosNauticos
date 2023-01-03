@@ -1,7 +1,6 @@
 package Vista;
 
-import Controlador.ControladorPedido;
-import Modelo.Entrada;
+import Controlador.ControladorBDProductos;
 import Modelo.Pedido;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
@@ -13,7 +12,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,7 +36,7 @@ public class AsignarProd extends JFrame {
     public List<Producto> PLista = new ArrayList<Producto>();   //Representa la lista principal con todos los productos
     public List<Producto> PListaAux = new ArrayList<Producto>();  
     public List<Pedido> PPedLista = new ArrayList<Pedido>();      //Lista de pedidos
-    public String Categoria = "Electrodomesticos";                                //Determina la Categoria que se esta Trabajando
+    public String Categoria = "Electronico";                                //Determina la Categoria que se esta Trabajando
     public int tipopedido = 0;
     
         //PANELES DEL LADO DERECHO
@@ -134,6 +136,12 @@ public class AsignarProd extends JFrame {
     public JLabel Articulo4 = new JLabel();
     public JLabel Articulo5 = new JLabel();
     public JLabel Articulo6 = new JLabel();
+    public JLabel foto1 = new JLabel();
+    public JLabel foto2 = new JLabel();
+    public JLabel foto3 = new JLabel();
+    public JLabel foto4 = new JLabel();
+    public JLabel foto5 = new JLabel();
+    public JLabel foto6 = new JLabel();
 
         //TEXTOS E IMAGENES PARA REPRESENTAR LOS BOTONES DE ACCION DE LOS CATALOGOS
     public JLabel TextoPedido = new JLabel();
@@ -189,18 +197,19 @@ public class AsignarProd extends JFrame {
     public ImageIcon fondo = new ImageIcon("src/Imagenes/fondo.jpeg");
     
     public int limite = 0;
+    public Map<Integer, Integer> listaProductos = new HashMap<>();
+    public int disponibilidad = 0;
+    public double monto_pagar = 0.0;
+    public double ganancia = 0.0;
     
     // Constructor
     public AsignarProd(){
         this.setSize(1315, 839); //tamano
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
-        this.setTitle("Accesorios Nauticos System");
-        limite = 0;
-        PLista = AccesoriosNauticos.getLista_productos();
-        PListaAux = PLista;
-        PPedLista = AccesoriosNauticos.getLista_pedidos();     
+        this.setTitle("Accesorios Nauticos System");    
         this.setLayout(null);
+        this.listaProductos.put(0, 0);
         this.parteDerecha();
         this.parteIzquierda();
         this.parteCentro();
@@ -631,8 +640,15 @@ public class AsignarProd extends JFrame {
     }
     //Metodo que Gestiona los Articulos que se colocan en el Catalogo
     public void panelArticulos() {
+        // Creamos la lista de codigos
+        List<Integer> lista = new ArrayList<>();
+        Iterator it = listaProductos.keySet().iterator();
+        while(it.hasNext()){
+          int codigo = (int)it.next();
+          lista.add(codigo);
+        }
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
-        Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
+        Lista = ControladorBDProductos.listaProductosVisiblesNoCodPost(0, Categoria, lista.toString().replace("[", "(").replace("]", ")"));
         
         //Se establece la configuracion del Panel
         PArticulos.setLayout(null);
@@ -666,10 +682,14 @@ public class AsignarProd extends JFrame {
         confiBotonesinfo(5, 4, Info5);
         confiBotonesinfo(6, 5, Info6);
         
-        
-        
         //Agregando los articulos
         agregarArticulos();
+        PArticulos.add(foto1);
+        PArticulos.add(foto2);
+        PArticulos.add(foto3);
+        PArticulos.add(foto4);
+        PArticulos.add(foto5);
+        PArticulos.add(foto6);
         PArticulos.add(Articulo6);
         PArticulos.add(Articulo5);
         PArticulos.add(Articulo4);
@@ -681,7 +701,7 @@ public class AsignarProd extends JFrame {
         limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
-        detPosAnt(PLista);
+        detPosAnt();
         
         //Boton Anterior
         Anterior.setBounds(1, 25, 23, 635);                                     //Posicion y Dimension  
@@ -739,8 +759,14 @@ public class AsignarProd extends JFrame {
         //Accion del Boton de Informacion
         ActionListener Acccion = (ActionEvent e) -> {
             this.setVisible(false);
-            if (tipopedido == 1) AccesoriosNauticos.getVCEntrada().setVisible(true);
-            else AccesoriosNauticos.getVCSalida().setVisible(true);
+            if (tipopedido == 1){
+                AccesoriosNauticos.getVCEntrada().setLProductosMontoP(listaProductos, monto_pagar);
+                AccesoriosNauticos.getVCEntrada().setVisible(true);
+            }
+            else {
+                AccesoriosNauticos.getVCSalida().setLProductosMontoPGanancia(listaProductos, monto_pagar, ganancia);
+                AccesoriosNauticos.getVCSalida().setVisible(true);
+            }
         };
         Regresar.addActionListener(Acccion);
     }
@@ -762,34 +788,52 @@ public class AsignarProd extends JFrame {
         confAgregar(4, Accion5);
         confAgregar(5, Accion6);
     }
-    //Metodo que Determina el Comportamiento de los Botones Agregar y Eliminar
+    //Metodo que Determina el Comportamiento del Boton Agregar 
     public void confAgregar(int Pos, JButton Accion){
         ActionListener b = (ActionEvent e) -> {
-            int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer agregar el producto\n" + PListaAux.get(limite - 6 + Pos).getNombre() + "?", "Advertencia",
+            int Valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro de querer agregar el producto\n" + Lista.get(Pos).getNombre() + "?", "Advertencia",
                         JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (Valor == JOptionPane.YES_OPTION) {
-                if (tipopedido == 1){ 
-                    AccesoriosNauticos.insertarProdEntrada(PListaAux.get(limite- 6 + Pos));
-                    PLista = AccesoriosNauticos.getProductosNoPedEntrada();
-                    PListaAux = PLista;
-                }
-                if (tipopedido == 2) {
-                    AccesoriosNauticos.insertarProdSalida(PListaAux.get(limite- 6 + Pos));
-                    PLista = AccesoriosNauticos.getProductosNoPedSalida();
-                    PListaAux = PLista;
-                }
-                
-                Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
-                agregarArticulos();
-                deshabilitarBotones();
+                // Solicitamos la cantidad
+                try{
+                    int cantidad = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de producto a solicitar: "));
 
-                Anterior.setEnabled(false);
-                Posterior.setEnabled(true);
-                limite = 6;
-                detPosAnt(PLista);
-                // Mostrar mensaje de confirmacion
-                JOptionPane.showMessageDialog(null, "¡¡El producto se ha agregado con exito!!", "Confirmacion",
-                JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+                    // Verificamos que la cantidad sea un valor positivo mayor que 0
+                    if (cantidad > 0){
+                        // Verificamos si es una salida y verificar la cantidad del producto
+                        if (tipopedido == 1 || cantidad <= Lista.get(Pos).getDisponibilidad()){
+                            listaProductos.put(Lista.get(Pos).getCod(), cantidad);
+                            monto_pagar += Lista.get(Pos).getPrecio_compra();
+                            // Verificamos si hay una ganancia que calcular
+                            ganancia += (tipopedido == 1)? 0: Lista.get(Pos).getGanancia(); 
+                            // Creamos la lista de codigos
+                            List<Integer> lista = new ArrayList<>();
+                            Iterator it = listaProductos.keySet().iterator();
+                            while(it.hasNext()){
+                              int codigo = (int)it.next();
+                              lista.add(codigo);
+                            }
+                            // Consultamos la nueva lista
+                            Lista = ControladorBDProductos.listaProductosVisiblesNoCodPost(0, Categoria, lista.toString().replace("[", "(").replace("]", ")"));
+                            agregarArticulos();
+                            deshabilitarBotones();
+
+                            Anterior.setEnabled(false);
+                            Posterior.setEnabled(true);
+                            limite = 6;
+                            detPosAnt();
+                            // Mostrar mensaje de confirmacion
+                            JOptionPane.showMessageDialog(null, "¡¡El producto se ha agregado con exito!!", "Confirmacion",
+                            JOptionPane.OK_OPTION, new ImageIcon("src/Imagenes/Visto.jpg"));
+                        }else{
+                            JOptionPane.showMessageDialog(null, "La cantidad solicitada excede la existencia", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "La cantidad debe de ser mayor que 0", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }catch (NumberFormatException error){
+                    JOptionPane.showMessageDialog(null, "La cantidad debe de ser mayor que 0", "Mensaje de Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         };
         Accion.addActionListener(b);
@@ -826,15 +870,24 @@ public class AsignarProd extends JFrame {
     public void cambiarCategoria(JButton Categoria, String cat){
         //Accion del Boton de categorias
         ActionListener Acccion = (ActionEvent e) -> {
-            limite = 6;
-            PListaAux = AccesoriosNauticos.getListaCategoria(cat, PLista);
-            Lista = PListaAux.subList(0, (PListaAux.size() < 6)? PListaAux.size(): 6);
+            this.Categoria = cat;
+            // Creamos la lista de codigos
+            List<Integer> lista = new ArrayList<>();
+            Iterator it = listaProductos.keySet().iterator();
+            while(it.hasNext()){
+              int codigo = (int)it.next();
+              lista.add(codigo);
+            }
+            Lista = ControladorBDProductos.listaProductosVisiblesNoCodPost(0, cat, lista.toString().replace("[", "(").replace("]", ")"));
             Anterior.setEnabled(false);
-            Posterior.setEnabled(true);          
-            detPosAnt(PListaAux);
+            Posterior.setEnabled(false);
+            if (!Lista.isEmpty()){
+                Posterior.setEnabled(true);          
+                detPosAnt();
+            }
             agregarArticulos();
             deshabilitarBotones();
-            limpiarInfo();
+            limpiarInfo();            
         };
         Categoria.addActionListener(Acccion);
     }
@@ -854,12 +907,12 @@ public class AsignarProd extends JFrame {
     }
     //Metodo que Agrega las Imagenes en un Catalogo
     public void agregarArticulos() {
-        confImagenes(1, 0, Articulo1);
-        confImagenes(2, 1, Articulo2);
-        confImagenes(3, 2, Articulo3);
-        confImagenes(4, 3, Articulo4);
-        confImagenes(5, 4, Articulo5);
-        confImagenes(6, 5, Articulo6);
+        confImagenes(1, 0, Articulo1, foto1);
+        confImagenes(2, 1, Articulo2, foto2);
+        confImagenes(3, 2, Articulo3, foto3);
+        confImagenes(4, 3, Articulo4, foto4);
+        confImagenes(5, 4, Articulo5, foto5);
+        confImagenes(6, 5, Articulo6, foto6);
     }
     //Configuracion de los Botones de Informacion
     public void confInformacion(int Lim, JButton Info){
@@ -882,21 +935,43 @@ public class AsignarProd extends JFrame {
         }
     }
     //Metodo que Determina el Estado de las Fotos de los Articulos
-    public void confImagenes(int Lim, int Pos, JLabel Imagen){
+    public void confImagenes(int Lim, int Pos, JLabel Imagen, JLabel Foto){
         if (Lista.size() >= Lim) {
-            if (Lim == 1) Imagen.setBounds(25, 25, 240, 305);
-            if (Lim == 2) Imagen.setBounds(280, 25, 240, 305);
-            if (Lim == 3) Imagen.setBounds(535, 25, 240, 305);
-            if (Lim == 4) Imagen.setBounds(25, 355, 240, 305);
-            if (Lim == 5) Imagen.setBounds(280, 355, 240, 305);
-            if (Lim == 6) Imagen.setBounds(535, 355, 240, 305);
-            if (!Lista.get(Pos).getImagen().equals("")) Imagen.setIcon(new ImageIcon("src/Imagenes/foto camisas" + Lista.get(Pos).getImagen() + ".png"));
-            else {
-                Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
-                
+            if (Lim == 1){ 
+                Imagen.setBounds(25, 25, 240, 305);
+                Foto.setBounds(30,30,230,230);
             }
+            if (Lim == 2){
+                Imagen.setBounds(280, 25, 240, 305);
+                Foto.setBounds(285,30,230,230);
+            }
+            if (Lim == 3){
+                Imagen.setBounds(535, 25, 240, 305);
+                Foto.setBounds(540,30,230,230);
+            }
+            if (Lim == 4) {
+                Imagen.setBounds(25, 355, 240, 305);
+                Foto.setBounds(30,360,230,230);
+            }
+            if (Lim == 5) {
+                Imagen.setBounds(280, 355, 240, 305);
+                Foto.setBounds(285,360,230,230);
+            }
+            if (Lim == 6) {
+                Imagen.setBounds(535, 355, 240, 305);
+                Foto.setBounds(540,360,230,230);
+            }
+            if (!Lista.get(Pos).getImagen().equals("")){
+                rsscalelabel.RSScaleLabel.setScaleLabel(Foto, "src/Imagenes/Productos/" + Lista.get(Pos).getImagen());
+                Foto.setVisible(true);
+            }
+            else Foto.setVisible(false);
+            Imagen.setIcon(new ImageIcon("src/Imagenes/NO.png"));
             Imagen.setVisible(true);
-        }else Imagen.setVisible(false);
+        }else{
+            Imagen.setVisible(false);
+            Foto.setVisible(false);
+        }
     }
     //Configuracion de las Acciones de Botones Posterior y Anterios
     public void confPosAnt(int ID, JButton Direccion){
@@ -913,25 +988,39 @@ public class AsignarProd extends JFrame {
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Posterior
     public void cambioDePaginaF() {
-        Lista = PListaAux.subList(limite, ((PListaAux.size() - limite) < 6)? limite + (PListaAux.size() - limite): limite + 6);
+        // Creamos la lista de codigos
+        List<Integer> lista = new ArrayList<>();
+        Iterator it = listaProductos.keySet().iterator();
+        while(it.hasNext()){
+          int codigo = (int)it.next();
+          lista.add(codigo);
+        }
+        Lista = ControladorBDProductos.listaProductosVisiblesNoCodPost(Lista.get(Lista.size()-1).getCod(), Categoria, lista.toString().replace("[", "(").replace("]", ")"));
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
         limite += 6;
-        detPosAnt(PListaAux);
-        //Limpiar();
+        detPosAnt();
+        limpiarInfo(); 
     }
     //Metodo que Determina el Comportamiento al Cambiar de Pagina Anterior
     public void cambioDePaginaB() {
-        Lista = PListaAux.subList(0, 6);
+        // Creamos la lista de codigos
+        List<Integer> lista = new ArrayList<>();
+        Iterator it = listaProductos.keySet().iterator();
+        while(it.hasNext()){
+          int codigo = (int)it.next();
+          lista.add(codigo);
+        }
+        Lista = ControladorBDProductos.listaProductosVisiblesNoCodAnt(Lista.get(0).getCod(), Categoria, lista.toString().replace("[", "(").replace("]", ")"));
         agregarArticulos();
         deshabilitarBotones();
         
         Anterior.setEnabled(false);
         Posterior.setEnabled(true);
         limite = 6;
-        detPosAnt(PListaAux);
-        //Limpiar();
+        detPosAnt();
+        limpiarInfo();
     }
     //Metodo que Determina que Botones Estaran Disponibles y Cuales no
     public void deshabilitarBotones() {
@@ -953,8 +1042,8 @@ public class AsignarProd extends JFrame {
         }
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
-    public void detPosAnt(List<Producto> list){
-        if (limite >= list.size()) Posterior.setEnabled(false);
+    public void detPosAnt(){
+        if (ControladorBDProductos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), Categoria)) Posterior.setEnabled(false);
         else Posterior.setEnabled(true);
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
@@ -968,17 +1057,6 @@ public class AsignarProd extends JFrame {
         TPVP2Mayor.setText("PVP2 al Mayor: " + pvpm + "$");
         TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
         TGanancia.setText("Ganancia: " + ganancia + "$");
-    }
-    // Metodos setters y getters
-    public void actualizar(int cod){
-        Pedido ped = ControladorPedido.buscarPedido(cod, AccesoriosNauticos.getLista_pedidos());
-        limite = 6;
-        PLista = ped.getProductos();
-        PListaAux = PLista;
-        Lista = PLista.subList(0, ((PLista.size() < 6)? PLista.size(): 6));
-        deshabilitarBotones();
-        agregarArticulos();
-        detPosAnt(PLista);
     }
     // Limpiar informacion
     public void limpiarInfo(){

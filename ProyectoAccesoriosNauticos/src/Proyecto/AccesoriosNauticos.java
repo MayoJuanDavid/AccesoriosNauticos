@@ -1,9 +1,6 @@
 package Proyecto;
 
 // Paquetes a utilizar
-import Controlador.ControladorArchivo;
-import Controlador.ControladorPedido;
-import Controlador.ControladorProducto;
 import Modelo.AlarmaObj;
 import Modelo.Cliente;
 import Modelo.Entrada;
@@ -21,11 +18,9 @@ import Vista.Login;
 import Vista.Pedidos;
 import Vista.VerPedidos;
 import Vista.VisualizarProducto;
-import java.text.DateFormat;
+import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AccesoriosNauticos {
@@ -38,7 +33,7 @@ public class AccesoriosNauticos {
     private static Pedidos VPedidos = new Pedidos(null);
     private static VerPedidos VVPedidos;
     private static VisualizarProducto VVProductos = new VisualizarProducto();
-    private static Gestionar VGestionar = new Gestionar();
+    private static Gestionar VGestionar;
     private static AgregarProducto VAProducto = new AgregarProducto();
     private static Alarma VAlarma = new Alarma();
     private static CrearEntrada VCEntrada = new CrearEntrada();
@@ -58,16 +53,12 @@ public class AccesoriosNauticos {
     private static Salida NSalida = new Salida();
     
     // Programa pricipal
-    public static void main (String[] args) throws ParseException{
+    public static void main (String[] args) throws ParseException, SQLException{
         VVPedidos = new VerPedidos();
+        VGestionar = new Gestionar();
         //lista_productos = getBD();
         //Ventana.setVisible(true);
         VInventario.setVisible(true);   
-        /*lista_productos = ControladorBDProductos.listaProductosVisiblesPost(0);
-        for(Producto p: lista_productos){
-            System.out.println(p.imprimir());
-        }*/
-        //System.out.println(ControladorBDProductos.verificarUltimoProducto(32, "Electronico"));
     }
     
     // Metodos getters 
@@ -171,88 +162,11 @@ public class AccesoriosNauticos {
     }
     public static void setVPedidos(Pedido ped) {
         AccesoriosNauticos.VPedidos = new Pedidos(ped);
-    }
-    
-    // Metodos de eliminacion    
-    public static void eliminarProducto(int indice){
-        ControladorProducto.eliminarProducto(indice, lista_productos);
-        VVProductos = new VisualizarProducto();
-    }
-    public static void eliminarNPedido(){
-        NEntrada = new Entrada();
-        NSalida = new Salida();
-    }
-    
-    // Metodos para modificar los pedidos
-    public static void insertarProdEntrada(Producto prod){
-       NEntrada.setProductos(prod);
-    }
-    public static void insertarProdSalida(Producto prod){
-       NSalida.setProductos(prod);
-    }
-    public static void insertarProveedor(String proveedor){
-        NEntrada.setProovedor(proveedor);
-    }
-    public static List<Pedido> insertarPedido(Pedido ped){
-        return ControladorPedido.AgregarPedido(ped, lista_pedidos);
-    }
-    public static void insertarEntrada(Entrada ped){
-        lista_entradas.add(ped);
-    }
-    
-    // Metodo para devolver los productos de una categoria
-    public static List<Producto> getListaCategoria(String cat, List<Producto> l_productos){
-        return ControladorProducto.getListaCategoria(cat, l_productos);
-    }
-    // Metodo para devolver una lista de productos que no estan en una entrada
-    public static List<Producto> getProductosNoPedEntrada(){
-        return ControladorPedido.getProductosNoPedEntrada(lista_productos, NEntrada);
-    }
-    
-    // Metodo para devolver una lista de productos que no estan en una salida
-    public static List<Producto> getProductosNoPedSalida(){
-        return ControladorPedido.getProductosNoPedSalida(lista_productos, NSalida);
-    }
-    // Metodo para finalizar un pedido
-    public static void finalizarPedido(int cod){
-        ControladorPedido.finalizarPedido(lista_pedidos, cod);
-    }
-    
-    // Metodo que modifica el producto
-    
-    public static void modificarProducto(int indice, Producto modif){
-        lista_productos = ControladorProducto.ModificarProducto(indice, modif, lista_productos);
-    }
-    
-    // Metodo que agrega un produto
-    public static void agregarProducto(Producto p){
-        lista_productos = ControladorProducto.AgregarProducto(p, lista_productos);
-        VVProductos = new VisualizarProducto();
-        VInventario.actualizarListaProd();
-        VAProd = new AsignarProd();
-        
-    }
-    
+    }  
     
     // Metodo para checkear que alarma se debe disparar
     public static AlarmaObj triggerAlarma(){
         return null;
-    }
-    
-    // Metodos para llenar los datos y retornar la lista de productos
-    public static List<Producto> getBD(){
-        //Instanciamos el controlador de archivos
-        ControladorArchivo ctrlArchivo = new ControladorArchivo();
-        // Se instancia el controlador de Pedidos
-        ControladorPedido ctrlPedido = new ControladorPedido();
-        
-        lista_productos = ctrlArchivo.leerArchivoProducto();
-        lista_clientes = ctrlArchivo.leerArchivoCliente();
-        lista_entradas = ctrlArchivo.leerArchivoEntrada(lista_productos);
-        lista_salida = ctrlArchivo.leerArchivoSalida(lista_productos);
-        lista_pedidos = ctrlPedido.generarListaPedidos(lista_entradas, lista_salida);
-        
-        return lista_productos;
     }
     
 }

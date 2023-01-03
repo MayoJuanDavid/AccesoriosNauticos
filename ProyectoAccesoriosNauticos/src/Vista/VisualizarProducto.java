@@ -6,7 +6,6 @@ package Vista;
 
 
 import Controlador.ControladorBDProductos;
-import Controlador.ControladorProducto;
 import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;

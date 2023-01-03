@@ -29,7 +29,6 @@ public class Inventario extends JFrame {
     //ESTRUCTURAS DE CONTROL
     public int ContDescripcion = 0;                                     //Determina la Descripcion que hay que Mostrar
     public List<Producto> Lista = new ArrayList<Producto>();   //Representa la lista de Productos que se muestra en cada Pagina de un Catalogo
-    public List<Producto> PLista = AccesoriosNauticos.getBD();   //Representa la lista principal con todos los productos
     public String Categoria = "Electronico";                                //Determina la Categoria que se esta Trabajando
     
         //PANELES DEL LADO DERECHO
@@ -991,14 +990,7 @@ public class Inventario extends JFrame {
         TPVPDetal.setText("PVP Detallado: " + pvpd + "$");
         TGanancia.setText("Ganancia: " + ganancia + "$");
     }
-    //Metodo para actualizar la lista de productos
-    public void actualizarListaProd(){
-        PLista = AccesoriosNauticos.getLista_productos();
-        Lista = PLista.subList(0, (PLista.size() < 6)? PLista.size(): 6);
-        detPosAnt();
-        agregarArticulos();
-        deshabilitarBotones();
-    }
+    
     // Limpiar informacion
     public void limpiarInfo(){
         TCodigo.setText("Código: ");
