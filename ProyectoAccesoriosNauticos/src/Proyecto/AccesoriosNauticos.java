@@ -163,6 +163,9 @@ public class AccesoriosNauticos {
     public static void setVPedidos(Pedido ped) {
         AccesoriosNauticos.VPedidos = new Pedidos(ped);
     }  
+    public static void setVAProductos() {
+        AccesoriosNauticos.VAProducto = new AgregarProducto();
+    } 
     
     // Metodo para checkear que alarma se debe disparar
     public static AlarmaObj triggerAlarma(){

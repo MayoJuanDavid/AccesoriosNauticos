@@ -634,6 +634,7 @@ public class Pedidos extends JFrame {
     //Metodo que Gestiona los Articulos que se colocan en el Catalogo
     public void panelArticulos() {
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
+        limite = 0;
         Lista = ControladorBDPedidos.listaProductosVisiblesPost(0, ped, Categoria);
         
         //Se establece la configuracion del Panel
@@ -676,7 +677,6 @@ public class Pedidos extends JFrame {
         PArticulos.add(Articulo2);
         
         //Determinamos el Comportamineto de los Botones de Anterior y Posterior
-        limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
         detPosAnt();
@@ -789,11 +789,11 @@ public class Pedidos extends JFrame {
     public void cambiarCategoria(JButton Categoria, String cat){
         //Accion del Boton de categorias
         ActionListener Acccion = (ActionEvent e) -> {
-            limite = 6;
             this.Categoria = cat;
             Lista = ControladorBDPedidos.listaProductosVisiblesPost(0, ped, cat);
             Anterior.setEnabled(false);
-            Posterior.setEnabled(true);          
+            Posterior.setEnabled(true);   
+            limite = 0;
             detPosAnt();
             agregarArticulos();
             deshabilitarBotones();
@@ -888,7 +888,7 @@ public class Pedidos extends JFrame {
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
-        limite += 6;
+        limite += 1;
         detPosAnt();
         limpiarInfo();
     }
@@ -899,7 +899,7 @@ public class Pedidos extends JFrame {
         deshabilitarBotones();
         Anterior.setEnabled(false);
         Posterior.setEnabled(true);
-        limite = 6;
+        limite -= 1;
         detPosAnt();
         limpiarInfo();
     }
@@ -927,6 +927,9 @@ public class Pedidos extends JFrame {
         if (Lista.isEmpty() || ControladorBDPedidos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), ped, Categoria)) 
             Posterior.setEnabled(false);
         else Posterior.setEnabled(true);
+        
+        if (limite == 0) Anterior.setEnabled(false);
+        else Anterior.setEnabled(true);
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
     public void actualizarInfo(int cod, String nom, String cate, double cos, int dis, double prent, double pvpd, double pvpm, double ganancia) {

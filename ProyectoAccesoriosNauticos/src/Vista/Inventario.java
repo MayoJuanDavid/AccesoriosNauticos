@@ -633,7 +633,7 @@ public class Inventario extends JFrame {
     //Metodo que Gestiona los Articulos que se colocan en el Catalogo
     public void panelArticulos() {
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
-        limite = 6;
+        limite = 0;
         Lista = ControladorBDProductos.listaProductosVisiblesPost(0, Categoria);
         
         //Se establece la configuracion del Panel
@@ -685,7 +685,6 @@ public class Inventario extends JFrame {
         PArticulos.add(Articulo2);
         
         //Determinamos el Comportamineto de los Botones de Anterior y Posterior
-        limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
         detPosAnt();
@@ -818,6 +817,7 @@ public class Inventario extends JFrame {
             Lista = ControladorBDProductos.listaProductosVisiblesPost(0, cat);
             Anterior.setEnabled(false);
             Posterior.setEnabled(false);
+            limite = 0;
             if (!Lista.isEmpty()){
                 Posterior.setEnabled(true);          
                 detPosAnt();
@@ -938,7 +938,7 @@ public class Inventario extends JFrame {
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
-        limite += 6;
+        limite += 1;
         detPosAnt();
         limpiarInfo(); 
     }
@@ -947,10 +947,9 @@ public class Inventario extends JFrame {
         Lista = ControladorBDProductos.listaProductosVisiblesAnt(Lista.get(0).getCod(), Categoria);
         agregarArticulos();
         deshabilitarBotones();
-        
+        limite -= 1;
         Anterior.setEnabled(false);
         Posterior.setEnabled(true);
-        limite = 6;
         detPosAnt();
         limpiarInfo();
     }
@@ -975,8 +974,14 @@ public class Inventario extends JFrame {
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
     public void detPosAnt(){
-        if (ControladorBDProductos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), Categoria)) Posterior.setEnabled(false);
-        else Posterior.setEnabled(true);
+        try{
+            if (ControladorBDProductos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), Categoria)) Posterior.setEnabled(false);
+            else Posterior.setEnabled(true);
+            if (limite == 0) Anterior.setEnabled(false);
+            else Anterior.setEnabled(true);
+        }catch(Exception e){
+            Posterior.setEnabled(false);
+        }
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
     public void actualizarInfo(int cod, String nom, String cate, double cos, int dis, double prent, double pvpd, double pvpm, double ganancia) {

@@ -5,13 +5,13 @@
 package Vista;
 
 import Controlador.ControladorBDProductos;
+import Modelo.Producto;
 import Proyecto.AccesoriosNauticos;
 import java.awt.Color;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import Modelo.Producto;
+import javax.swing.UIManager;
 /**
  *
  * @author Windows 10
@@ -19,17 +19,13 @@ import Modelo.Producto;
 public class AgregarProducto extends javax.swing.JFrame {
 
     int xMouse,yMouse;
+    private JFrame padre = null;
+    private JFileChooser imagen = null;
+    private int codigo = 0;
     public AgregarProducto() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         this.setIconImage((new ImageIcon("src/Imagenes/Mini_Logo.png")).getImage());
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                AccesoriosNauticos.getVVPedidos().setVisible(false);
-                AccesoriosNauticos.getVInventario().setVisible(true); 
-            }
-        });
         this.setLocationRelativeTo(null); // medio de la pantalla
         this.setResizable(false); //no se puede modificas
     }
@@ -58,6 +54,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         nombretitulo3 = new javax.swing.JLabel();
         precioField = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
+        BAImagen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -167,7 +164,7 @@ public class AgregarProducto extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, 120, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 120, 40));
 
         nombreField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         nombreField.setForeground(new java.awt.Color(153, 153, 153));
@@ -207,6 +204,17 @@ public class AgregarProducto extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 180, 20));
 
+        BAImagen.setBackground(new java.awt.Color(0, 134, 190));
+        BAImagen.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        BAImagen.setForeground(new java.awt.Color(255, 255, 255));
+        BAImagen.setText("IMAGEN");
+        BAImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BAImagenActionPerformed(evt);
+            }
+        });
+        jPanel1.add(BAImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 120, 40));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,7 +223,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -223,7 +231,12 @@ public class AgregarProducto extends javax.swing.JFrame {
 
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         this.setVisible(false);
-        AccesoriosNauticos.getVGestionar().setVisible(true);
+        if (padre == null) {
+            AccesoriosNauticos.getVGestionar().setVisible(true);
+        }else{
+            AccesoriosNauticos.getVAProd().actualizarProductos();
+            AccesoriosNauticos.getVAProd().setVisible(true);
+        }
     }//GEN-LAST:event_exitTxtMouseClicked
 
     private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
@@ -263,7 +276,7 @@ public class AgregarProducto extends javax.swing.JFrame {
             
             case -1:
                 
-                Producto prod = new Producto(0, nombre, 0, Double.parseDouble(precio),0,0,0,0, tipo, "");
+                Producto prod = new Producto(0, nombre, 0, Double.parseDouble(precio),0,0,0,0, tipo, ("img"+codigo+".png"));
                 
                 ControladorBDProductos.agregarProducto(prod);
                 
@@ -277,16 +290,24 @@ public class AgregarProducto extends javax.swing.JFrame {
                 break;
                 
             case 2:
-                new Mensaje("El precio debe ser un valor numerico positivo!",jButton2,"ERROR!!").setVisible(true);
-                break;
+                new Mensaje("El precio debe ser un valor numerico positivo y mayor que 0!",jButton2,"ERROR!!").setVisible(true);
+                break;      
                 
-                       
+            case 3:
+                new Mensaje("Debe ingresar una imagen",jButton2,"ERROR!!").setVisible(true);
+                break;   
             
         }
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void setPadre(JFrame padre) {
+        this.padre = padre;
+    }
+
+    
+    
     private int ValidarCampos(String nombre, String precio) {
      
         if (nombre.equals("") || nombre.equalsIgnoreCase("Ingrese nombre")){
@@ -297,13 +318,14 @@ public class AgregarProducto extends javax.swing.JFrame {
             return 2;
         }else {
             if (Double.parseDouble(precio) <= 0 ){
-                return 3;
+                return 2;
             }
         }
         
+        if (imagen == null)
+            return 3;
+        
         return-1;
-        
-        
     }
     
     private void limpiar(){
@@ -324,6 +346,18 @@ public class AgregarProducto extends javax.swing.JFrame {
     private void precioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_precioMousePressed
         precioField.setText("");
     }//GEN-LAST:event_precioMousePressed
+
+    // Accion para agregar una imagen
+    private void BAImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BAImagenActionPerformed
+        // Verificamos que se haya seleccionado una imagen
+        imagen = new JFileChooser();
+        imagen.setMultiSelectionEnabled(false);
+        if (imagen.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+            codigo = ControladorBDProductos.consultarUltimoProducto();
+            String ruta_destino = ("src/Imagenes/Productos/img" + codigo + ".png");
+            rsdragdropfiles.RSDragDropFiles.setCopiar(imagen.getSelectedFile().toString(), ruta_destino);
+        }else imagen = null;
+    }//GEN-LAST:event_BAImagenActionPerformed
 
     private boolean isNumeric(String s, boolean flag){
         
@@ -378,6 +412,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BAImagen;
     private javax.swing.JLabel Logo;
     private javax.swing.JLabel Titulo;
     private javax.swing.JPanel exitBtn;

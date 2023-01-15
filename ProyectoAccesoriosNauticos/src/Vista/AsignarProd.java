@@ -380,15 +380,6 @@ public class AsignarProd extends JFrame {
         //Configuraciones de Visibilidad y Agregacion
             //Agregar al Objeto Actual
         this.add(PAProducto);
-            //Configuraciones
-        /*confPagar();                    
-        confActualizarCrear(); 
-        confPedidos(); // VER PEDIDOS DE LE EMPRESA
-        confDeliverys(); //VER DELIVERIES PARA EL UBER
-        configEnviado();
-        
-        configCancelar(); //CANCELAR DELIVERY
-        configInformacionRutaContactar(); // Informacion del delivery*/
             //Agregar Texto y Etiquetas
         AProducto.add(TextoAProducto);   
             //Agegrar al Panel
@@ -648,6 +639,7 @@ public class AsignarProd extends JFrame {
           lista.add(codigo);
         }
         //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
+        limite = 0;
         Lista = ControladorBDProductos.listaProductosVisiblesNoCodPost(0, Categoria, lista.toString().replace("[", "(").replace("]", ")"));
         
         //Se establece la configuracion del Panel
@@ -698,7 +690,6 @@ public class AsignarProd extends JFrame {
         PArticulos.add(Articulo2);
         
         //Determinamos el Comportamineto de los Botones de Anterior y Posterior
-        limite = 6;
         confPosAnt(1, Posterior);
         confPosAnt(2, Anterior);
         detPosAnt();
@@ -820,7 +811,7 @@ public class AsignarProd extends JFrame {
 
                             Anterior.setEnabled(false);
                             Posterior.setEnabled(true);
-                            limite = 6;
+                            limite = 0;
                             detPosAnt();
                             // Mostrar mensaje de confirmacion
                             JOptionPane.showMessageDialog(null, "¡¡El producto se ha agregado con exito!!", "Confirmacion",
@@ -895,7 +886,9 @@ public class AsignarProd extends JFrame {
     public void accionAProducto(JButton AProducto){
         //Accion del Boton de categorias
         ActionListener Acccion = (ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null, "Esta funcionalidad esta en mantenimiento", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            AccesoriosNauticos.getVAProducto().setPadre(this);
+            AccesoriosNauticos.getVAProducto().setVisible(true);
+            this.setVisible(false);
         };
         AProducto.addActionListener(Acccion);
     }
@@ -999,7 +992,7 @@ public class AsignarProd extends JFrame {
         agregarArticulos();
         deshabilitarBotones();
         Anterior.setEnabled(true);
-        limite += 6;
+        limite += 1;
         detPosAnt();
         limpiarInfo(); 
     }
@@ -1018,7 +1011,7 @@ public class AsignarProd extends JFrame {
         
         Anterior.setEnabled(false);
         Posterior.setEnabled(true);
-        limite = 6;
+        limite -= 1;
         detPosAnt();
         limpiarInfo();
     }
@@ -1043,8 +1036,21 @@ public class AsignarProd extends JFrame {
     }
     //Metodo para determinar si un boton de cambiar pestaña está habilitado o no
     public void detPosAnt(){
-        if (ControladorBDProductos.verificarUltimoProducto(Lista.get(Lista.size()-1).getCod(), Categoria)) Posterior.setEnabled(false);
-        else Posterior.setEnabled(true);
+        try{
+            // Creamos la lista de codigos
+            List<Integer> lista = new ArrayList<>();
+            Iterator it = listaProductos.keySet().iterator();
+            while(it.hasNext()){
+              int codigo = (int)it.next();
+              lista.add(codigo);
+            }
+            if (ControladorBDProductos.verificarUltimoProductoNoId(Lista.get(Lista.size()-1).getCod(), Categoria, lista.toString().replace("[", "(").replace("]", ")"))) Posterior.setEnabled(false);
+            else Posterior.setEnabled(true);
+            if (limite == 0) Anterior.setEnabled(false);
+            else Anterior.setEnabled(true);
+        }catch (Exception e){
+            Posterior.setEnabled(false);
+        }
     }
     //Metodo que Actualiza la Informacion que se Muestra de los Articulos
     public void actualizarInfo(int cod, String nom, String cate, double cos, int dis, double prent, double pvpd, double pvpm, double ganancia) {
@@ -1070,7 +1076,23 @@ public class AsignarProd extends JFrame {
         TPVPDetal.setText("PVP Detallado: ");
         TGanancia.setText("Ganancia: 0.0$");
     }
-    
+    // Actualizar la lista de productos
+    public void actualizarProductos(){
+        // Creamos la lista de codigos
+        List<Integer> lista = new ArrayList<>();
+        Iterator it = listaProductos.keySet().iterator();
+        while(it.hasNext()){
+          int codigo = (int)it.next();
+          lista.add(codigo);
+        }
+        //Se crea una Lista sobre una Categoria con Respecto a un Catalogo
+        Lista = ControladorBDProductos.listaProductosVisiblesNoCodPost(0, Categoria, lista.toString().replace("[", "(").replace("]", ")"));
+        Anterior.setEnabled(false);
+        Posterior.setEnabled(true);
+        agregarArticulos();
+        deshabilitarBotones();
+        detPosAnt();
+    }
     
     //Configuracion que cambia el aspecto general de los botones
     //public void confGeneral(){

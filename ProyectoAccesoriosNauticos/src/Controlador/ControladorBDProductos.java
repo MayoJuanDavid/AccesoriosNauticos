@@ -180,6 +180,51 @@ public class ControladorBDProductos {
         return false;
     }
     
+    // Metodo para verificar si se ha consultado el ultimo producto sin incluir algunos id
+    public static boolean verificarUltimoProductoNoId(int cod, String cat, String codigos) {
+        try {
+            // Hacemos la conexion
+            Statement sql = Conexion.getConexion().createStatement();
+            
+            // Determinamos la consulta
+            String Consulta = "SELECT MAX(cod) as Codigo FROM Productos WHERE categoria = '" + cat + "' and cod not in " + codigos + " and no_visible = 1";
+            ResultSet Resultado = sql.executeQuery(Consulta);
+            
+            Resultado.next();
+            int codigo = Integer.parseInt(Resultado.getString(1));
+            
+            Resultado.close();
+            if (codigo == cod) return true;
+            return false;
+            
+        }catch (SQLException ex){
+            System.out.println("Error al verificar la lista");
+        }
+        return false;
+    }
+    
+    // Metodo para verificar si se ha consultado el ultimo producto sin incluir algunos id
+    public static int consultarUltimoProducto() {
+        try {
+            // Hacemos la conexion
+            Statement sql = Conexion.getConexion().createStatement();
+            
+            // Determinamos la consulta
+            String Consulta = "SELECT MAX(cod) as Codigo FROM Productos";
+            ResultSet Resultado = sql.executeQuery(Consulta);
+            
+            Resultado.next();
+            int codigo = Integer.parseInt(Resultado.getString(1));
+            
+            Resultado.close();
+            return codigo;
+            
+        }catch (SQLException ex){
+            System.out.println("Error al verificar la lista");
+        }
+        return 0;
+    }
+    
     // Metodo para eliminar un producto
     public static boolean eliminarProducto(int cod){
         try {
@@ -204,7 +249,7 @@ public class ControladorBDProductos {
             
             // Determinamos la consulta
             String Consulta = "INSERT INTO [AccesoriosNauticos].[dbo].Productos (nombre, imagen, disponibilidad, precio_compra, p_rentabilidad, pvpdetal, pvp2mayor, ganancia, categoria, no_visible)\n" +
-            "VALUES ('" + producto.getNombre() + "','',0,0,0.0,0,0,0,'" + producto.getCategoria() + "',1)";
+            "VALUES ('" + producto.getNombre() + "','" + producto.getImagen() + "',0," + producto.getPrecio_compra() + ",0.0,0,0,0,'" + producto.getCategoria() + "',1)";
             sql.execute(Consulta);
             
         }catch (SQLException ex){
